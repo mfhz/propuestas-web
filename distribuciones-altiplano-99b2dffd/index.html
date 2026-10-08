@@ -103,11 +103,12 @@ p { max-width: 42rem; }
 .regla-fila { display: grid; grid-template-columns: 15rem minmax(0, 1fr); align-items: center; }
 .regla-pista { display: grid; grid-template-columns: repeat(33, minmax(0.6rem, 1fr)); }
 .escala { border-bottom: 1.5px solid var(--tinta); }
-.escala .regla-pista span {
+.escala .regla-pista > span {
   font-size: 0.8125rem; color: var(--grafito); padding: 0 0 0.4rem 0.4rem;
-  border-left: 1.5px solid var(--tinta); position: relative;
+  border-left: 1.5px solid var(--tinta); position: relative; white-space: nowrap; overflow: hidden;
 }
-.escala .regla-pista span::after {
+.sem-c { display: none; }
+.escala .regla-pista > span::after {
   content: ""; position: absolute; left: 50%; bottom: 0; height: 0.45rem; border-left: 1px solid var(--grafito);
 }
 .regla-fila.fase { border-bottom: 1px dashed var(--trazo); min-height: 3.5rem; }
@@ -137,7 +138,7 @@ p { max-width: 42rem; }
 table { width: 100%; border-collapse: collapse; }
 th, td { text-align: left; padding: 0.7rem 0.75rem 0.7rem 0; border-bottom: 1px solid var(--trazo); vertical-align: top; }
 th { font-size: 0.8125rem; font-weight: 560; color: var(--grafito); border-bottom: 1.5px solid var(--tinta); }
-td.num, th.num { text-align: right; padding-right: 0; white-space: nowrap; }
+td.num, th.num { text-align: right; padding-right: 0; padding-left: 0.75rem; white-space: nowrap; }
 td .desc { display: block; color: var(--grafito); font-size: 0.9375rem; }
 tfoot td { font-weight: 640; border-bottom: 0; }
 
@@ -217,6 +218,27 @@ footer { padding: 1.5rem 0 2.5rem; color: var(--grafito); font-size: 0.875rem; }
   .fase-valor { grid-column: 2; text-align: left; }
   .fase-objetivo, .tabla-scroll { margin-left: 0; }
   .regla-fila { grid-template-columns: 10rem minmax(0, 1fr); }
+  .sem-l { display: none; }
+  .sem-c { display: inline; }
+}
+@media (max-width: 600px) {
+  .contenedor { padding: 0 1rem; }
+  .barra nav { flex-wrap: nowrap; overflow-x: auto; width: 100%; gap: 1rem; padding-bottom: 0.6rem; white-space: nowrap; scrollbar-width: none; }
+  .barra nav::-webkit-scrollbar { display: none; }
+  .portada { padding: 2rem 0 2.5rem; }
+  section { padding: 2.5rem 0; }
+  .cajetin .total dd { font-size: 1.6rem; }
+  /* Cronograma apilado: nombre arriba, barra abajo, sin desplazamiento lateral */
+  .regla { min-width: 0; }
+  .regla-fila { grid-template-columns: minmax(0, 1fr); }
+  .escala > span:first-child { display: none; }
+  .escala .regla-pista > span { padding-left: 0.25rem; font-size: 0.75rem; }
+  .regla-nombre { padding: 0.6rem 0 0.35rem; }
+  .regla-fila.fase .regla-pista { height: auto; padding: 0 0 0.6rem; }
+  .barra-fase { padding: 0.3rem 0.4rem; font-size: 0.8125rem; }
+  .fase-cabeza { grid-template-columns: 2.6rem minmax(0, 1fr); gap: 0.75rem; }
+  .fase-valor { font-size: 1.25rem; }
+  .lista li { flex-direction: column; gap: 0.35rem; }
 }
 @media print {
   body { background: #fff; color: #000; font-size: 11pt; }
@@ -291,29 +313,29 @@ footer { padding: 1.5rem 0 2.5rem; color: var(--grafito); font-size: 0.875rem; }
           <div class="regla-fila escala">
             <span></span>
             <div class="regla-pista">
-              <span style="grid-column: span 5;">Semana 1</span>
-              <span style="grid-column: span 5;">Semana 2</span>
-              <span style="grid-column: span 5;">Semana 3</span>
-              <span style="grid-column: span 5;">Semana 4</span>
-              <span style="grid-column: span 5;">Semana 5</span>
-              <span style="grid-column: span 5;">Semana 6</span>
-              <span style="grid-column: span 3;">Semana 7</span>
+              <span style="grid-column: span 5;"><span class="sem-l">Semana </span><span class="sem-c">S</span>1</span>
+              <span style="grid-column: span 5;"><span class="sem-l">Semana </span><span class="sem-c">S</span>2</span>
+              <span style="grid-column: span 5;"><span class="sem-l">Semana </span><span class="sem-c">S</span>3</span>
+              <span style="grid-column: span 5;"><span class="sem-l">Semana </span><span class="sem-c">S</span>4</span>
+              <span style="grid-column: span 5;"><span class="sem-l">Semana </span><span class="sem-c">S</span>5</span>
+              <span style="grid-column: span 5;"><span class="sem-l">Semana </span><span class="sem-c">S</span>6</span>
+              <span style="grid-column: span 3;"><span class="sem-l">Semana </span><span class="sem-c">S</span>7</span>
             </div>
           </div>
           <div class="regla-fila fase">
-            <div class="regla-nombre">E1 Captura de entregas en ruta<small>15 días hábiles</small></div>
+            <div class="regla-nombre">E1 Captura de entregas en ruta<small>15 días hábiles · 102 h</small></div>
             <div class="regla-pista">
               <div class="barra-fase" style="grid-column: 1 / span 15;">102 h</div>
             </div>
           </div>
           <div class="regla-fila fase">
-            <div class="regla-nombre">E2 Soportes, reportes y tablero<small>8 días hábiles</small></div>
+            <div class="regla-nombre">E2 Soportes, reportes y tablero<small>8 días hábiles · 40 h</small></div>
             <div class="regla-pista">
               <div class="barra-fase" style="grid-column: 16 / span 8;">40 h</div>
             </div>
           </div>
           <div class="regla-fila fase">
-            <div class="regla-nombre">PI Pruebas integrales<small>10 días hábiles</small></div>
+            <div class="regla-nombre">PI Pruebas integrales<small>10 días hábiles · 44 h</small></div>
             <div class="regla-pista">
               <div class="barra-fase" style="grid-column: 24 / span 10;">44 h</div>
             </div>
