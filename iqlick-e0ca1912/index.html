@@ -1,0 +1,750 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Propuesta COT-2026-002 para iQlick</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --papel: #EEF1EF;
+  --superficie: #FBFCFB;
+  --tinta: #16343C;
+  --grafito: #5A6A6E;
+  --trazo: #C5CFCC;
+  --ambar: #D48E27;
+  --ambar-suave: #F4E3C6;
+  --fuente: "Archivo", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --ancho: 70rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --papel: #10252B;
+    --superficie: #16313A;
+    --tinta: #E4EBE8;
+    --grafito: #9DB0B2;
+    --trazo: #2C4A52;
+    --ambar: #E2A243;
+    --ambar-suave: #3A3322;
+  }
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0;
+  background: var(--papel);
+  color: var(--tinta);
+  font-family: var(--fuente);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-underline-offset: 0.2em; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--ambar); outline-offset: 3px; }
+.contenedor { max-width: var(--ancho); margin: 0 auto; padding: 0 1.5rem; }
+
+/* Barra superior */
+.barra { border-bottom: 1px solid var(--trazo); }
+.barra .contenedor { display: flex; justify-content: space-between; align-items: center; gap: 1rem; min-height: 3.75rem; flex-wrap: wrap; }
+.marca { font-weight: 700; font-stretch: 112%; letter-spacing: -0.01em; text-decoration: none; }
+.barra nav { display: flex; gap: 1.25rem; flex-wrap: wrap; font-size: 0.9375rem; color: var(--grafito); }
+.barra nav a { text-decoration: none; }
+.barra nav a:hover { color: var(--tinta); text-decoration: underline; }
+
+/* Portada */
+.portada { padding: 4.5rem 0 3.5rem; }
+.portada .contenedor { display: grid; grid-template-columns: minmax(0, 1fr) 22rem; gap: 3rem; align-items: end; }
+.para { color: var(--grafito); margin: 0 0 1rem; }
+h1 {
+  font-size: clamp(2.1rem, 4.6vw, 3.6rem);
+  line-height: 1.06;
+  font-weight: 680;
+  font-stretch: 116%;
+  letter-spacing: -0.025em;
+  margin: 0 0 1.5rem;
+  max-width: 18ch;
+  text-wrap: balance;
+}
+.portada .resumen { max-width: 40rem; font-size: 1.1875rem; margin: 0; }
+
+/* Cajetín */
+.cajetin {
+  border: 1.5px solid var(--tinta);
+  background: var(--superficie);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.cajetin div { padding: 0.65rem 0.85rem; border-bottom: 1px solid var(--trazo); }
+.cajetin div:nth-child(odd):not(.ancho) { border-right: 1px solid var(--trazo); }
+.cajetin .ancho { grid-column: 1 / -1; }
+.cajetin dt { font-size: 0.8125rem; color: var(--grafito); }
+.cajetin dd { margin: 0.1rem 0 0; font-weight: 560; line-height: 1.3; }
+.cajetin .total { border-bottom: 0; background: var(--tinta); color: var(--papel); }
+.cajetin .total dt { color: inherit; opacity: 0.8; }
+.cajetin .total dd { font-size: 2rem; font-weight: 700; font-stretch: 108%; letter-spacing: -0.02em; }
+
+/* Secciones */
+section { padding: 3.5rem 0; border-top: 1px solid var(--trazo); }
+h2 { font-size: clamp(1.6rem, 2.6vw, 2.1rem); font-weight: 650; font-stretch: 110%; letter-spacing: -0.02em; line-height: 1.15; margin: 0 0 1.75rem; }
+h3 { font-size: 1.3rem; font-weight: 640; font-stretch: 106%; line-height: 1.25; margin: 0; }
+p { max-width: 42rem; }
+.dos-col { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+.dos-col h3 { margin-bottom: 0.5rem; }
+.nota { color: var(--grafito); font-size: 0.9375rem; }
+
+/* Regla de cronograma */
+.regla-scroll { overflow-x: auto; }
+.regla { min-width: 44rem; }
+.regla-fila { display: grid; grid-template-columns: 15rem minmax(0, 1fr); align-items: center; }
+.regla-pista { display: grid; grid-template-columns: repeat(60, minmax(0.6rem, 1fr)); }
+.escala { border-bottom: 1.5px solid var(--tinta); }
+.escala .regla-pista > span {
+  font-size: 0.8125rem; color: var(--grafito); padding: 0 0 0.4rem 0.4rem;
+  border-left: 1.5px solid var(--tinta); position: relative; white-space: nowrap; overflow: hidden;
+}
+.sem-c { display: none; }
+.escala .regla-pista > span::after {
+  content: ""; position: absolute; left: 50%; bottom: 0; height: 0.45rem; border-left: 1px solid var(--grafito);
+}
+.regla-fila.fase { border-bottom: 1px dashed var(--trazo); min-height: 3.5rem; }
+.regla-fila.fase .regla-pista { background-image: linear-gradient(to right, var(--trazo) 1px, transparent 1px); background-size: calc(500% / 60) 100%; height: 100%; padding: 0.6rem 0; }
+.regla-nombre { padding-right: 1rem; font-weight: 560; line-height: 1.25; }
+.regla-nombre small { display: block; color: var(--grafito); font-weight: 400; }
+.barra-fase {
+  background: var(--ambar); color: #1E1A12; border-radius: 2px;
+  padding: 0.35rem 0.6rem; font-size: 0.875rem; font-weight: 620; white-space: nowrap; overflow: hidden;
+  margin: 0 2px;
+}
+.regla-total { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-top: 1.25rem; color: var(--grafito); }
+.regla-total strong { color: var(--tinta); }
+
+/* Fases */
+.fase-detalle { padding: 2rem 0; border-bottom: 1px solid var(--trazo); }
+.fase-detalle:last-child { border-bottom: 0; }
+.fase-cabeza { display: grid; grid-template-columns: 3.25rem minmax(0, 1fr) auto; gap: 1rem; align-items: start; }
+.fase-id {
+  border: 1.5px solid var(--tinta); font-weight: 700; font-stretch: 110%;
+  text-align: center; padding: 0.3rem 0; font-size: 1rem;
+}
+.fase-meta { color: var(--grafito); font-size: 0.9375rem; margin-top: 0.2rem; }
+.fase-valor { text-align: right; font-size: 1.45rem; font-weight: 680; font-stretch: 106%; white-space: nowrap; }
+.fase-objetivo { margin: 1rem 0 1.25rem 4.25rem; }
+.tabla-scroll { overflow-x: auto; margin-left: 4.25rem; }
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: 0.7rem 0.75rem 0.7rem 0; border-bottom: 1px solid var(--trazo); vertical-align: top; }
+th { font-size: 0.8125rem; font-weight: 560; color: var(--grafito); border-bottom: 1.5px solid var(--tinta); }
+td.num, th.num { text-align: right; padding-right: 0; padding-left: 0.75rem; white-space: nowrap; }
+td .desc { display: block; color: var(--grafito); font-size: 0.9375rem; }
+tfoot td { font-weight: 640; border-bottom: 0; }
+
+/* Inversión */
+.inversion { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 3rem; align-items: start; }
+.fila-total td { font-size: 1.25rem; font-weight: 700; border-top: 1.5px solid var(--tinta); border-bottom: 0; }
+.pagos { border: 1.5px solid var(--tinta); background: var(--superficie); padding: 1.25rem 1.25rem 0.5rem; }
+.pagos h3 { margin-bottom: 0.75rem; }
+.pago { display: flex; justify-content: space-between; gap: 1rem; padding: 0.65rem 0; border-bottom: 1px solid var(--trazo); }
+.pago:last-of-type { border-bottom: 0; }
+.pago span { color: var(--grafito); }
+.pago strong { white-space: nowrap; }
+.descuento { background: var(--ambar-suave); margin: 0.75rem -1.25rem -0.5rem; padding: 0.9rem 1.25rem; font-size: 0.9375rem; }
+
+/* Listas */
+.lista { list-style: none; padding: 0; margin: 0; max-width: 46rem; }
+.lista li { padding: 0.7rem 0; border-bottom: 1px solid var(--trazo); display: flex; gap: 1rem; justify-content: space-between; align-items: baseline; }
+.etiqueta { flex-shrink: 0; font-size: 0.8125rem; font-weight: 600; padding: 0.1rem 0.55rem; border: 1px solid var(--ambar); color: var(--tinta); background: var(--ambar-suave); border-radius: 2px; }
+.condiciones { display: grid; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); gap: 0 2.5rem; margin: 0; }
+.condiciones div { padding: 1rem 0; border-bottom: 1px solid var(--trazo); }
+.condiciones dt { font-weight: 640; margin-bottom: 0.25rem; }
+.condiciones dd { margin: 0; color: var(--grafito); }
+
+/* Cierre */
+.cierre { background: var(--tinta); color: var(--papel); border-top: 0; }
+.cierre p { font-size: 1.1875rem; }
+.contacto { display: flex; gap: 2rem; flex-wrap: wrap; margin-top: 1.5rem; font-weight: 560; }
+footer { padding: 1.5rem 0 2.5rem; color: var(--grafito); font-size: 0.875rem; }
+
+
+/* Alcance detallado */
+.sistemas { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 0; border-top: 1.5px solid var(--tinta); }
+.sistemas div { padding: 1rem 1.25rem 1rem 0; border-bottom: 1px solid var(--trazo); }
+.sistemas dt { font-weight: 640; font-stretch: 106%; }
+.sistemas dd { margin: 0.2rem 0 0; color: var(--grafito); }
+.fase-cuerpo { margin-left: 4.25rem; }
+.fase-cuerpo > p { margin: 1rem 0 1.25rem; }
+.fase-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 2.5rem; margin-bottom: 1.75rem; }
+.bloque h4 { font-size: 0.9375rem; font-weight: 640; margin: 0 0 0.6rem; color: var(--grafito); }
+.grupo { margin-bottom: 1rem; }
+.grupo strong { display: block; font-weight: 600; margin-bottom: 0.2rem; }
+.grupo ul, .reglas { margin: 0; padding-left: 1.1rem; }
+.grupo li, .reglas li { margin: 0.15rem 0; }
+.reglas li::marker { color: var(--ambar); }
+.ejemplo { margin-top: 1rem; border-left: 3px solid var(--ambar); background: var(--superficie); padding: 0.75rem 1rem; }
+.ejemplo strong { display: block; font-size: 0.875rem; margin-bottom: 0.35rem; }
+.ejemplo pre { margin: 0; white-space: pre-wrap; font-family: inherit; font-size: 0.9375rem; color: var(--grafito); line-height: 1.55; }
+.fase-cuerpo .tabla-scroll { margin-left: 0; }
+.tres-col { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 2.5rem; }
+.tres-col h3 { margin-bottom: 0.75rem; }
+.lista-simple { margin: 0; padding-left: 1.1rem; }
+.lista-simple li { margin: 0.35rem 0; }
+.subtitulo { margin: 2.75rem 0 1.25rem; }
+.criterios { list-style: none; padding: 0; margin: 0; columns: 2 20rem; column-gap: 2.5rem; }
+.criterios li { break-inside: avoid; padding: 0.55rem 0 0.55rem 2rem; position: relative; border-bottom: 1px solid var(--trazo); }
+.criterios li::before { content: ""; position: absolute; left: 0; top: 0.8rem; width: 1rem; height: 1rem; border: 1.5px solid var(--tinta); border-radius: 2px; }
+.incluye { margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--trazo); font-size: 0.9375rem; }
+.incluye div { display: flex; justify-content: space-between; gap: 1rem; padding: 0.25rem 0; }
+.incluye span { color: var(--grafito); }
+.firmas { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 1rem; }
+.firma { border-top: 1.5px solid var(--tinta); padding-top: 0.5rem; margin-top: 4rem; }
+.firma strong { display: block; }
+.firma span { display: block; color: var(--grafito); font-size: 0.9375rem; }
+@media (max-width: 860px) {
+  .fase-cuerpo { margin-left: 0; }
+  .fase-grid, .firmas { grid-template-columns: 1fr; gap: 1.5rem; }
+}
+@media print {
+  .fase-grid { break-inside: avoid; }
+  #aceptacion { break-before: page; }
+}
+
+@media (max-width: 860px) {
+  .portada { padding-top: 3rem; }
+  .portada .contenedor, .dos-col, .inversion { grid-template-columns: 1fr; gap: 2rem; }
+  .fase-cabeza { grid-template-columns: 3rem minmax(0, 1fr); }
+  .fase-valor { grid-column: 2; text-align: left; }
+  .fase-objetivo, .tabla-scroll { margin-left: 0; }
+  .regla-fila { grid-template-columns: 10rem minmax(0, 1fr); }
+  .sem-l { display: none; }
+  .sem-c { display: inline; }
+}
+@media (max-width: 600px) {
+  .contenedor { padding: 0 1rem; }
+  .barra nav { flex-wrap: nowrap; overflow-x: auto; width: 100%; gap: 1rem; padding-bottom: 0.6rem; white-space: nowrap; scrollbar-width: none; }
+  .barra nav::-webkit-scrollbar { display: none; }
+  .portada { padding: 2rem 0 2.5rem; }
+  section { padding: 2.5rem 0; }
+  .cajetin .total dd { font-size: 1.6rem; }
+  /* Cronograma apilado: nombre arriba, barra abajo, sin desplazamiento lateral */
+  .regla { min-width: 0; }
+  .regla-fila { grid-template-columns: minmax(0, 1fr); }
+  .escala > span:first-child { display: none; }
+  .escala .regla-pista > span { padding-left: 0.25rem; font-size: 0.75rem; }
+  .regla-nombre { padding: 0.6rem 0 0.35rem; }
+  .regla-fila.fase .regla-pista { height: auto; padding: 0 0 0.6rem; }
+  .barra-fase { padding: 0.3rem 0.4rem; font-size: 0.8125rem; }
+  .fase-cabeza { grid-template-columns: 2.6rem minmax(0, 1fr); gap: 0.75rem; }
+  .fase-valor { font-size: 1.25rem; }
+  .lista li { flex-direction: column; gap: 0.35rem; }
+}
+@media print {
+  body { background: #fff; color: #000; font-size: 11pt; }
+  .barra nav { display: none; }
+  section { padding: 1.5rem 0; }
+  .fase-detalle, .pagos, .cajetin, tr { break-inside: avoid; }
+  .cierre { background: none; color: #000; border-top: 1px solid #999; }
+  .regla { min-width: 0; }
+}
+</style>
+</head>
+<body>
+
+<header class="barra">
+  <div class="contenedor">
+    <span class="marca">Martin Felipe Henriquez Fajardo</span>
+    <nav aria-label="Secciones">
+      <a href="#contexto">Contexto</a>
+      <a href="#plan">Plan</a>
+      <a href="#alcance">Alcance</a>
+      <a href="#requisitos">Requisitos</a>
+      <a href="#inversion">Inversión</a>
+      <a href="#condiciones">Condiciones</a>
+      <a href="#aceptacion">Aceptación</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="portada">
+    <div class="contenedor">
+      <div>
+        <p class="para">Propuesta para iQlick</p>
+        <h1>Cada venta de VTEX facturada en el Begranda correcto y lista para despacho, sin digitar nada.</h1>
+        <p class="resumen">Una integración en Python que mantiene el inventario y los precios de VTEX al día desde los dos Begranda, factura cada orden desde las bodegas con stock, actualiza su estado en VTEX y genera la guía en Coordinadora con aviso al equipo de despacho.</p>
+      </div>
+      <dl class="cajetin" aria-label="Ficha de la propuesta">
+        <div><dt>Propuesta</dt><dd>COT-2026-002</dd></div>
+        <div><dt>Emitida</dt><dd>7 de octubre de 2026</dd></div>
+        <div class="ancho"><dt>Cliente</dt><dd>iQlick, Santiago Álvarez, Gerente Comercial</dd></div>
+        <div class="ancho"><dt>Preparada por</dt><dd>Martin Felipe Henriquez Fajardo, Desarrollador de software FullStack</dd></div>
+        <div><dt>Duración</dt><dd>60 días hábiles</dd></div>
+        <div><dt>Válida hasta</dt><dd>6 de noviembre de 2026</dd></div>
+        <div class="ancho total"><dt>Inversión total</dt><dd>$9.000.000</dd></div>
+      </dl>
+    </div>
+  </div>
+
+  <section id="contexto">
+    <div class="contenedor">
+      <div class="dos-col">
+        <div>
+          <h3>Lo que pasa hoy</h3>
+          <p>Las ventas de VTEX se procesan a mano contra dos ERP Begranda. Una misma orden puede salir de bodegas de ambos sistemas, lo que obliga a crear clientes y facturas en cada uno, actualizar VTEX y pedir la guía a Coordinadora por separado.</p>
+        </div>
+        <div>
+          <h3>Lo que proponemos</h3>
+          <p>Una integración automática entre VTEX, Begranda 1, Begranda 2 y Coordinadora, gobernada por un archivo Excel que el cliente mantiene con la prioridad de bodegas y los rangos de seguro. Se entrega en cuatro etapas funcionales y una etapa de pruebas integrales.</p>
+        </div>
+      </div>
+      <h2 class="subtitulo">Sistemas involucrados</h2>
+      <dl class="sistemas">
+<div><dt>VTEX</dt><dd>Tienda en línea, origen de las órdenes y destino de inventario, precios y estados.</dd></div><div><dt>Begranda 1</dt><dd>ERP principal: inventario, clientes, pedidos y factura electrónica.</dd></div><div><dt>Begranda 2</dt><dd>ERP secundario: inventario, clientes, pedidos y factura electrónica.</dd></div><div><dt>Coordinadora</dt><dd>Operador logístico: generación de guías de envío.</dd></div><div><dt>Excel de configuración</dt><dd>Prioridad de bodegas, Begranda de cada bodega y rangos de seguro.</dd></div>      </dl>
+    </div>
+  </section>
+
+  <section id="plan">
+    <div class="contenedor">
+      <h2>Plan de trabajo</h2>
+      <div class="regla-scroll">
+        <div class="regla" role="img" aria-label="Cronograma de 60 días hábiles dividido en 5 etapas">
+          <div class="regla-fila escala">
+            <span></span>
+            <div class="regla-pista">
+              <span style="grid-column: span 5;"><span class="sem-l">Semana </span><span class="sem-c">S</span>1</span>
+              <span style="grid-column: span 5;"><span class="sem-l">Semana </span><span class="sem-c">S</span>2</span>
+              <span style="grid-column: span 5;"><span class="sem-l">Semana </span><span class="sem-c">S</span>3</span>
+              <span style="grid-column: span 5;"><span class="sem-l">Semana </span><span class="sem-c">S</span>4</span>
+              <span style="grid-column: span 5;"><span class="sem-l">Semana </span><span class="sem-c">S</span>5</span>
+              <span style="grid-column: span 5;"><span class="sem-l">Semana </span><span class="sem-c">S</span>6</span>
+              <span style="grid-column: span 5;"><span class="sem-l">Semana </span><span class="sem-c">S</span>7</span>
+              <span style="grid-column: span 5;"><span class="sem-l">Semana </span><span class="sem-c">S</span>8</span>
+              <span style="grid-column: span 5;"><span class="sem-l">Semana </span><span class="sem-c">S</span>9</span>
+              <span style="grid-column: span 5;"><span class="sem-l">Semana </span><span class="sem-c">S</span>10</span>
+              <span style="grid-column: span 5;"><span class="sem-l">Semana </span><span class="sem-c">S</span>11</span>
+              <span style="grid-column: span 5;"><span class="sem-l">Semana </span><span class="sem-c">S</span>12</span>
+            </div>
+          </div>
+          <div class="regla-fila fase">
+            <div class="regla-nombre">E1 Sincronización de inventario y precios<small>10 días hábiles · 79 h</small></div>
+            <div class="regla-pista">
+              <div class="barra-fase" style="grid-column: 1 / span 10;">79 h</div>
+            </div>
+          </div>
+          <div class="regla-fila fase">
+            <div class="regla-nombre">E2 Procesamiento y facturación de órdenes<small>18 días hábiles · 109 h</small></div>
+            <div class="regla-pista">
+              <div class="barra-fase" style="grid-column: 11 / span 18;">109 h</div>
+            </div>
+          </div>
+          <div class="regla-fila fase">
+            <div class="regla-nombre">E3 Actualización de estado en VTEX<small>7 días hábiles · 21 h</small></div>
+            <div class="regla-pista">
+              <div class="barra-fase" style="grid-column: 29 / span 7;">21 h</div>
+            </div>
+          </div>
+          <div class="regla-fila fase">
+            <div class="regla-nombre">E4 Guías de envío y aviso de despacho<small>10 días hábiles · 51 h</small></div>
+            <div class="regla-pista">
+              <div class="barra-fase" style="grid-column: 36 / span 10;">51 h</div>
+            </div>
+          </div>
+          <div class="regla-fila fase">
+            <div class="regla-nombre">PI Pruebas integrales<small>15 días hábiles · 76 h</small></div>
+            <div class="regla-pista">
+              <div class="barra-fase" style="grid-column: 46 / span 15;">76 h</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="regla-total">
+        <span><strong>336 horas</strong> de trabajo en 60 días hábiles, unas 12 semanas</span>
+        <span>Seguimiento con reuniones semanales de avance.</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="alcance">
+    <div class="contenedor">
+      <h2>Alcance por etapa</h2>
+      <article class="fase-detalle">
+        <div class="fase-cabeza">
+          <div class="fase-id">E1</div>
+          <div>
+            <h3>Sincronización de inventario y precios</h3>
+            <div class="fase-meta">10 días hábiles, 79 horas</div>
+          </div>
+          <div class="fase-valor">$2.100.000</div>
+        </div>
+        <div class="fase-cuerpo">
+<p>VTEX muestra el inventario consolidado y el precio vigente de las bodegas autorizadas de ambos Begranda, sin cargas manuales.</p>          <div class="fase-grid">
+            <div class="bloque">
+              <h4>Funcionalidades</h4>
+              <div class="grupo">
+                <strong>Consulta en Begranda</strong>
+                <ul><li>Inventario y precio por producto en Begranda 1 y Begranda 2</li><li>Solo bodegas autorizadas en el Excel</li></ul>
+              </div>
+              <div class="grupo">
+                <strong>Actualización en VTEX</strong>
+                <ul><li>Actualización masiva de inventario y precio</li><li>Ejecución programada</li></ul>
+              </div>
+              <div class="grupo">
+                <strong>Configuración</strong>
+                <ul><li>Lectura del Excel con IDs de bodegas y su Begranda asociado</li></ul>
+              </div>
+            </div>
+            <div class="bloque">
+              <h4>Reglas de negocio</h4>
+              <ul class="reglas"><li>Solo se toman productos de las bodegas listadas en el Excel de configuración.</li><li>El inventario publicado en VTEX es la suma de las bodegas autorizadas de ambos Begranda.</li><li>Si un Begranda no responde, no se publica inventario en cero: se conserva el último valor y se registra el error.</li></ul>
+            </div>
+          </div>
+          <div class="tabla-scroll">
+            <table>
+              <thead><tr><th>Entregable</th><th class="num">Horas</th></tr></thead>
+              <tbody>
+                <tr><td>Base del proyecto y despliegue<span class="desc">Repositorio, ambientes y ejecución programada.</span></td><td class="num">10</td></tr>
+                <tr><td>Consulta de productos en Begranda 1 y 2<span class="desc">Inventario y precio por bodega desde ambos ERP.</span></td><td class="num">24</td></tr>
+                <tr><td>Lector del Excel de bodegas<span class="desc">Bodegas autorizadas y Begranda de cada una.</span></td><td class="num">6</td></tr>
+                <tr><td>Actualización masiva en VTEX<span class="desc">Inventario consolidado y precio publicados en VTEX.</span></td><td class="num">16</td></tr>
+                <tr><td>Logs de sincronización<span class="desc">Registro de cada ejecución y sus errores.</span></td><td class="num">6</td></tr>
+                <tr><td>Pruebas y calidad<span class="desc">Pruebas de la sincronización con datos reales.</span></td><td class="num">9</td></tr>
+                <tr><td>Gestión del proyecto<span class="desc">Seguimiento semanal y coordinación de accesos.</span></td><td class="num">8</td></tr>
+              </tbody>
+              <tfoot><tr><td>Total de la etapa</td><td class="num">79</td></tr></tfoot>
+            </table>
+          </div>
+        </div>
+      </article>
+      <article class="fase-detalle">
+        <div class="fase-cabeza">
+          <div class="fase-id">E2</div>
+          <div>
+            <h3>Procesamiento y facturación de órdenes</h3>
+            <div class="fase-meta">18 días hábiles, 109 horas</div>
+          </div>
+          <div class="fase-valor">$2.900.000</div>
+        </div>
+        <div class="fase-cuerpo">
+<p>Cada orden de VTEX queda con cliente, pedido y factura electrónica en el Begranda de cada bodega que la surte.</p>          <div class="fase-grid">
+            <div class="bloque">
+              <h4>Funcionalidades</h4>
+              <div class="grupo">
+                <strong>Obtención de órdenes</strong>
+                <ul><li>Consulta de órdenes pendientes de facturar en VTEX</li><li>Extracción de la información completa de la orden</li></ul>
+              </div>
+              <div class="grupo">
+                <strong>Validación del cliente</strong>
+                <ul><li>Campos obligatorios: nombres, documento, teléfono, correo, dirección y ciudad</li><li>Orden retenida y reportada si falta un dato</li></ul>
+              </div>
+              <div class="grupo">
+                <strong>Cliente en Begranda</strong>
+                <ul><li>Creación automática con los datos validados</li><li>Verificación de clientes existentes para evitar duplicados</li></ul>
+              </div>
+              <div class="grupo">
+                <strong>Distribución de inventario</strong>
+                <ul><li>Consulta de disponibilidad por bodega</li><li>Asignación por prioridad de bodegas según el Excel</li></ul>
+              </div>
+              <div class="grupo">
+                <strong>Pedido y factura</strong>
+                <ul><li>Pedido con la distribución de bodegas</li><li>Factura electrónica automática</li><li>Vínculo de la factura con la orden de VTEX</li></ul>
+              </div>
+            </div>
+            <div class="bloque">
+              <h4>Reglas de negocio</h4>
+              <ul class="reglas"><li>El Excel define la prioridad de bodegas (fila 1 es la primera) y el Begranda de cada una.</li><li>Por cada producto se revisa la bodega de mayor prioridad: si alcanza, se asigna completo; si alcanza en parte, se asigna lo disponible y se sigue con la siguiente; si no hay, se pasa a la siguiente.</li><li>Si una orden usa bodegas de ambos Begranda, se crea el cliente y una factura en cada sistema, y las dos facturas se vinculan a la misma orden de VTEX.</li><li>Una orden que no se pueda completar con las bodegas disponibles no se factura y queda reportada para revisión.</li></ul>
+              <div class="ejemplo"><strong>Ejemplo de distribución</strong><pre>Orden: 3 unidades del producto X
+Excel: Bodega 1, Bodega 2, Bodega 3
+Bodega 1: 0 unidades → se omite
+Bodega 2: 1 unidad → se asigna 1
+Bodega 3: 5 unidades → se asignan 2
+Resultado: pedido dividido entre Bodega 2 (1) y Bodega 3 (2)</pre></div>
+            </div>
+          </div>
+          <div class="tabla-scroll">
+            <table>
+              <thead><tr><th>Entregable</th><th class="num">Horas</th></tr></thead>
+              <tbody>
+                <tr><td>Obtención de órdenes VTEX<span class="desc">Órdenes pendientes de facturar con todos sus datos.</span></td><td class="num">10</td></tr>
+                <tr><td>Validador de datos del cliente<span class="desc">Revisión de los seis campos obligatorios.</span></td><td class="num">6</td></tr>
+                <tr><td>Creación de clientes en Begranda<span class="desc">Alta en uno o ambos ERP sin duplicados.</span></td><td class="num">14</td></tr>
+                <tr><td>Motor de distribución multi-bodega<span class="desc">Asignación por prioridad entre bodegas de ambos Begranda.</span></td><td class="num">20</td></tr>
+                <tr><td>Pedidos y facturas en Begranda<span class="desc">Pedido y factura electrónica en cada sistema usado.</span></td><td class="num">28</td></tr>
+                <tr><td>Logs, errores y reproceso<span class="desc">Órdenes fallidas guardadas para reprocesar.</span></td><td class="num">8</td></tr>
+                <tr><td>Pruebas y calidad<span class="desc">Casos de un solo Begranda, de ambos y sin stock.</span></td><td class="num">13</td></tr>
+                <tr><td>Gestión del proyecto<span class="desc">Seguimiento semanal y validación de reglas con el cliente.</span></td><td class="num">10</td></tr>
+              </tbody>
+              <tfoot><tr><td>Total de la etapa</td><td class="num">109</td></tr></tfoot>
+            </table>
+          </div>
+        </div>
+      </article>
+      <article class="fase-detalle">
+        <div class="fase-cabeza">
+          <div class="fase-id">E3</div>
+          <div>
+            <h3>Actualización de estado en VTEX</h3>
+            <div class="fase-meta">7 días hábiles, 21 horas</div>
+          </div>
+          <div class="fase-valor">$600.000</div>
+        </div>
+        <div class="fase-cuerpo">
+<p>Cada orden facturada aparece en VTEX como Facturada, con el número de factura y el Begranda que la emitió.</p>          <div class="fase-grid">
+            <div class="bloque">
+              <h4>Funcionalidades</h4>
+              <div class="grupo">
+                <strong>Estados</strong>
+                <ul><li>Cambio de estado a Facturado</li><li>Registro del número de factura de Begranda</li><li>Identificación del sistema que emitió cada factura</li></ul>
+              </div>
+            </div>
+            <div class="bloque">
+              <h4>Reglas de negocio</h4>
+              <ul class="reglas"><li>El estado solo cambia si la factura se creó con éxito en Begranda.</li><li>Si la orden tiene dos facturas, ambas quedan registradas en VTEX.</li><li>Cada cambio de estado queda registrado con fecha y hora.</li></ul>
+            </div>
+          </div>
+          <div class="tabla-scroll">
+            <table>
+              <thead><tr><th>Entregable</th><th class="num">Horas</th></tr></thead>
+              <tbody>
+                <tr><td>Actualización de estados en VTEX<span class="desc">Estado Facturado y números de factura en la orden.</span></td><td class="num">12</td></tr>
+                <tr><td>Log de cambios de estado<span class="desc">Trazabilidad de cada cambio.</span></td><td class="num">4</td></tr>
+                <tr><td>Pruebas y calidad<span class="desc">Órdenes con una y con dos facturas.</span></td><td class="num">3</td></tr>
+                <tr><td>Gestión del proyecto<span class="desc">Seguimiento semanal.</span></td><td class="num">2</td></tr>
+              </tbody>
+              <tfoot><tr><td>Total de la etapa</td><td class="num">21</td></tr></tfoot>
+            </table>
+          </div>
+        </div>
+      </article>
+      <article class="fase-detalle">
+        <div class="fase-cabeza">
+          <div class="fase-id">E4</div>
+          <div>
+            <h3>Guías de envío y aviso de despacho</h3>
+            <div class="fase-meta">10 días hábiles, 51 horas</div>
+          </div>
+          <div class="fase-valor">$1.400.000</div>
+        </div>
+        <div class="fase-cuerpo">
+<p>Cada orden facturada tiene su guía de Coordinadora con el seguro correcto, y el equipo de despacho recibe un correo con lo que debe alistar.</p>          <div class="fase-grid">
+            <div class="bloque">
+              <h4>Funcionalidades</h4>
+              <div class="grupo">
+                <strong>Valor del seguro</strong>
+                <ul><li>Lectura de los rangos de seguro desde el Excel</li><li>Cálculo del valor total de la orden</li><li>Asignación automática del seguro según el rango</li></ul>
+              </div>
+              <div class="grupo">
+                <strong>Guía Coordinadora</strong>
+                <ul><li>Creación de la guía con datos del destinatario y seguro</li><li>Registro del número de guía</li></ul>
+              </div>
+              <div class="grupo">
+                <strong>Correo a despacho</strong>
+                <ul><li>Número de guía, productos y cantidades, bodegas de origen</li><li>Cliente destino, orden, factura, valor total y seguro</li></ul>
+              </div>
+            </div>
+            <div class="bloque">
+              <h4>Reglas de negocio</h4>
+              <ul class="reglas"><li>La guía solo se genera después de una facturación exitosa.</li><li>El correo se envía inmediatamente después de generar la guía.</li><li>Si Coordinadora rechaza la guía, la orden queda reportada y se reintenta.</li></ul>
+            </div>
+          </div>
+          <div class="tabla-scroll">
+            <table>
+              <thead><tr><th>Entregable</th><th class="num">Horas</th></tr></thead>
+              <tbody>
+                <tr><td>Integración con la API de Coordinadora<span class="desc">Creación de guías y número de seguimiento.</span></td><td class="num">20</td></tr>
+                <tr><td>Calculadora de seguro por rangos<span class="desc">Seguro según los rangos del Excel.</span></td><td class="num">6</td></tr>
+                <tr><td>Correo de despacho y plantilla<span class="desc">Aviso automático con todo lo necesario para alistar.</span></td><td class="num">10</td></tr>
+                <tr><td>Logs de guías generadas<span class="desc">Registro de guías, rechazos y reintentos.</span></td><td class="num">4</td></tr>
+                <tr><td>Pruebas y calidad<span class="desc">Guías en ambiente de pruebas de Coordinadora.</span></td><td class="num">6</td></tr>
+                <tr><td>Gestión del proyecto<span class="desc">Seguimiento semanal.</span></td><td class="num">5</td></tr>
+              </tbody>
+              <tfoot><tr><td>Total de la etapa</td><td class="num">51</td></tr></tfoot>
+            </table>
+          </div>
+        </div>
+      </article>
+      <article class="fase-detalle">
+        <div class="fase-cabeza">
+          <div class="fase-id">PI</div>
+          <div>
+            <h3>Pruebas integrales</h3>
+            <div class="fase-meta">15 días hábiles, 76 horas</div>
+          </div>
+          <div class="fase-valor">$2.000.000</div>
+        </div>
+        <div class="fase-cuerpo">
+<p>El flujo completo, de la orden en VTEX a la guía en Coordinadora, probado de punta a punta y puesto en producción.</p>          <div class="fase-grid">
+            <div class="bloque">
+              <h4>Funcionalidades</h4>
+              <div class="grupo">
+                <strong>Pruebas</strong>
+                <ul><li>Plan de pruebas con casos por funcionalidad</li><li>Pruebas de punta a punta con órdenes de un solo Begranda y de ambos</li><li>Ajustes según los hallazgos</li></ul>
+              </div>
+              <div class="grupo">
+                <strong>Entrega</strong>
+                <ul><li>Despliegue en la infraestructura del cliente</li><li>Manuales de configuración y de operación</li><li>Capacitación de 2 horas al equipo operativo</li></ul>
+              </div>
+            </div>
+            <div class="bloque">
+              <h4>Reglas de negocio</h4>
+              <ul class="reglas"><li>La salida a producción requiere que todos los criterios de aceptación estén cumplidos.</li></ul>
+            </div>
+          </div>
+          <div class="tabla-scroll">
+            <table>
+              <thead><tr><th>Entregable</th><th class="num">Horas</th></tr></thead>
+              <tbody>
+                <tr><td>Plan y casos de prueba<span class="desc">Casos por funcionalidad con resultado esperado.</span></td><td class="num">16</td></tr>
+                <tr><td>Pruebas de punta a punta<span class="desc">Órdenes reales en ambiente de pruebas, de VTEX a la guía.</span></td><td class="num">24</td></tr>
+                <tr><td>Ajustes posteriores a las pruebas<span class="desc">Correcciones de bajo impacto.</span></td><td class="num">16</td></tr>
+                <tr><td>Despliegue en producción<span class="desc">Instalación en la infraestructura del cliente.</span></td><td class="num">8</td></tr>
+                <tr><td>Manuales de configuración y operación<span class="desc">Excel de bodegas, operación y soporte.</span></td><td class="num">10</td></tr>
+                <tr><td>Capacitación<span class="desc">2 horas para el equipo operativo.</span></td><td class="num">2</td></tr>
+              </tbody>
+              <tfoot><tr><td>Total de la etapa</td><td class="num">76</td></tr></tfoot>
+            </table>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="requisitos">
+    <div class="contenedor">
+      <h2>Requisitos técnicos</h2>
+      <div class="dos-col">
+        <div><h3>Lo que necesitamos del cliente</h3><ul class="lista-simple"><li>Credenciales y documentación de las APIs de VTEX, Begranda 1, Begranda 2 y Coordinadora.</li><li>Ambientes de pruebas en los cuatro sistemas.</li><li>Excel de configuración con prioridad de bodegas y rangos de seguro, mantenido por el cliente.</li><li>Lista de correos del equipo de despacho.</li></ul></div>
+        <div><h3>Infraestructura</h3><ul class="lista-simple"><li>Servidor o servicio en la nube para ejecutar las integraciones, a cargo del cliente.</li><li>Base de datos para logs y control de procesamiento.</li><li>Programador de tareas para la ejecución automática.</li><li>Servicio de correo SMTP.</li></ul></div>
+      </div>
+      <h2 class="subtitulo">Cómo se cuida la operación</h2>
+      <div class="tres-col">
+        <div><h3>Manejo de errores</h3><ul class="lista-simple"><li>Validación estricta de datos obligatorios en cada etapa</li><li>Reintentos ante errores transitorios</li><li>Aviso por correo de errores críticos</li><li>Órdenes fallidas guardadas para reproceso manual</li></ul></div>
+        <div><h3>Seguridad</h3><ul class="lista-simple"><li>Credenciales de APIs cifradas</li><li>Validación de datos de entrada</li><li>Logs de auditoría de todas las operaciones</li></ul></div>
+        <div><h3>Monitoreo</h3><ul class="lista-simple"><li>Logs de ejecución por etapa</li><li>Base de datos con las órdenes procesadas y su estado</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="inversion">
+    <div class="contenedor">
+      <h2>Inversión</h2>
+      <div class="inversion">
+        <div class="tabla-scroll" style="margin-left:0">
+          <table>
+            <thead><tr><th>Etapa</th><th class="num">Horas</th><th class="num">Valor</th></tr></thead>
+            <tbody>
+              <tr><td>E1 Sincronización de inventario y precios</td><td class="num">79</td><td class="num">$2.100.000</td></tr>
+              <tr><td>E2 Procesamiento y facturación de órdenes</td><td class="num">109</td><td class="num">$2.900.000</td></tr>
+              <tr><td>E3 Actualización de estado en VTEX</td><td class="num">21</td><td class="num">$600.000</td></tr>
+              <tr><td>E4 Guías de envío y aviso de despacho</td><td class="num">51</td><td class="num">$1.400.000</td></tr>
+              <tr><td>PI Pruebas integrales</td><td class="num">76</td><td class="num">$2.000.000</td></tr>
+            </tbody>
+            <tfoot><tr class="fila-total"><td>Total</td><td class="num">336</td><td class="num">$9.000.000</td></tr></tfoot>
+          </table>
+          <p class="nota">Valores en pesos colombianos. Las funcionalidades adicionales se cotizan por separado.</p>
+        </div>
+        <div class="pagos">
+          <h3>Forma de pago</h3>
+          <div class="pago"><span>Anticipo para iniciar el desarrollo, 50&nbsp;%</span><strong>$4.500.000</strong></div>
+          <div class="pago"><span>Al entregar desarrollo, pruebas y capacitación, 50&nbsp;%</span><strong>$4.500.000</strong></div>
+          <div class="incluye">
+            <div><span>Capacitación</span><strong>2 horas</strong></div>
+            <div><span>Garantía</span><strong>30 días calendario</strong></div>
+            <div><span>Seguimiento</span><strong>Semanal</strong></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="supuestos">
+    <div class="contenedor">
+      <div class="tres-col">
+        <div>
+          <h2>Supuestos</h2>
+          <ul class="lista">
+            <li><span>Se cuenta con acceso completo a las APIs de VTEX, Begranda 1, Begranda 2 y Coordinadora.</span></li>
+            <li><span>Las APIs tienen la documentación necesaria.</span></li>
+            <li><span>El cliente mantiene actualizado el Excel de configuración.</span></li>
+            <li><span>Existen ambientes de desarrollo o pruebas en los cuatro sistemas.</span></li>
+            <li><span>Begranda 1 y Begranda 2 exponen la misma API, de modo que un solo conector sirve para ambos.</span><span class="etiqueta">Por confirmar</span></li>
+            <li><span>La facturación electrónica ya está habilitada ante la DIAN en ambos Begranda.</span><span class="etiqueta">Por confirmar</span></li>
+            <li><span>El volumen diario de órdenes cabe dentro de los límites de consumo de las APIs.</span><span class="etiqueta">Por confirmar</span></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Restricciones</h2>
+          <ul class="lista"><li><span>Límites de consumo (rate limiting) de las APIs.</span></li><li><span>Disponibilidad de los servicios externos.</span></li><li><span>El formato y la estructura del Excel de configuración deben respetarse.</span></li></ul>
+        </div>
+        <div>
+          <h2>No incluye</h2>
+          <ul class="lista"><li><span>Habilitación de facturación electrónica ante la DIAN.</span></li><li><span>Configuración del catálogo, productos o promociones en VTEX.</span></li><li><span>Licencias de Begranda, VTEX o del servidor.</span></li><li><span>Desarrollo de servicios que no existan en las APIs de Begranda.</span></li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="entrega">
+    <div class="contenedor">
+      <h2>Criterios de aceptación</h2>
+      <ul class="criterios"><li>VTEX muestra el inventario consolidado de las bodegas autorizadas de ambos Begranda.</li><li>VTEX muestra el precio vigente en Begranda.</li><li>Una orden con un dato obligatorio faltante no se factura y queda reportada.</li><li>Un cliente existente en Begranda no se crea de nuevo.</li><li>La distribución entre bodegas sigue la prioridad del Excel en el caso del ejemplo.</li><li>Una orden con productos de ambos Begranda genera una factura en cada sistema, vinculadas a la misma orden.</li><li>Las órdenes facturadas quedan en estado Facturado en VTEX con sus números de factura.</li><li>Cada orden facturada tiene guía en Coordinadora con el seguro del rango correcto.</li><li>El correo de despacho llega con guía, productos, bodegas, cliente, factura, valor y seguro.</li><li>Una orden fallida queda guardada y se puede reprocesar.</li><li>Todas las operaciones quedan registradas en los logs.</li></ul>
+      <h2 class="subtitulo">Entregables finales</h2>
+      <ul class="lista-simple"><li>Código fuente documentado de todos los módulos</li><li>Manual de configuración del Excel de bodegas y seguros</li><li>Manual de operación y soporte</li><li>Scripts de base de datos</li><li>Plan de pruebas ejecutado</li><li>Capacitación de 2 horas al equipo operativo</li></ul>
+    </div>
+  </section>
+
+
+  <section id="condiciones">
+    <div class="contenedor">
+      <h2>Condiciones</h2>
+      <dl class="condiciones">
+        <div><dt>Inicio y duración</dt><dd>El desarrollo inicia una vez aprobada la propuesta y recibido el anticipo. La duración se cuenta en días hábiles desde ese momento.</dd></div>
+        <div><dt>Seguimiento</dt><dd>Reuniones semanales para presentar avances, resolver dudas y gestionar solicitudes de cambio.</dd></div>
+        <div><dt>Implementación</dt><dd>La solución se entrega funcionando, implementada en la infraestructura que brinde el cliente, sea On-Premise o Cloud. Los costos de infraestructura corren por cuenta del cliente.</dd></div>
+        <div><dt>Capacitación</dt><dd>Incluye las horas de capacitación indicadas en esta propuesta para el personal que defina el cliente, de forma presencial o virtual, según su disponibilidad.</dd></div>
+        <div><dt>Garantía</dt><dd>Garantía de corrección de errores y ajustes de bajo impacto durante los días calendario indicados, contados desde la entrega final. No aplica a requerimientos nuevos o funcionalidades adicionales.</dd></div>
+        <div><dt>Cambios de alcance</dt><dd>Cualquier funcionalidad no descrita en esta propuesta se cotiza por separado, previa aprobación escrita del cliente.</dd></div>
+        <div><dt>Confidencialidad</dt><dd>El código fuente, la documentación y la información del cliente se manejan y entregan de forma confidencial.</dd></div>
+        <div><dt>Datos personales</dt><dd>Tratamiento conforme a la Ley 1581 de 2012 y sus decretos reglamentarios.</dd></div>
+        <div><dt>Vigencia</dt><dd>Esta propuesta es válida hasta el 6 de noviembre de 2026.</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section id="aceptacion">
+    <div class="contenedor">
+      <h2>Aceptación</h2>
+      <p>Las partes manifiestan su conformidad con los términos, el alcance, el cronograma y las condiciones de esta propuesta.</p>
+      <div class="firmas">
+        <div class="firma">
+          <strong>Martin Felipe Henriquez Fajardo</strong>
+          <span>Desarrollador de software FullStack</span>
+          <span>Fecha:</span>
+        </div>
+        <div class="firma">
+          <strong>Santiago Álvarez</strong>
+          <span>Gerente Comercial, iQlick</span>
+          <span>Fecha:</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cierre">
+    <div class="contenedor">
+      <h2>Siguiente paso</h2>
+      <p>Confirmar los supuestos marcados, firmar la aceptación y programar la reunión de inicio.</p>
+      <div class="contacto">
+<a href="tel:+573104616938">+57 310 461 6938</a>      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="contenedor">
+    Documento confidencial preparado para iQlick por Martin Felipe Henriquez Fajardo, Medellín. Emitido el 7 de octubre de 2026, válido hasta el 6 de noviembre de 2026.
+  </div>
+</footer>
+</body>
+</html>
