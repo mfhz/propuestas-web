@@ -1,0 +1,806 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Propuesta COT-2026-003 para ROTRASVEHI S.A.S.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --papel: #EEF1EF;
+  --superficie: #FBFCFB;
+  --tinta: #16343C;
+  --grafito: #5A6A6E;
+  --trazo: #C5CFCC;
+  --ambar: #D48E27;
+  --ambar-suave: #F4E3C6;
+  --fuente: "Archivo", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --ancho: 70rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --papel: #10252B;
+    --superficie: #16313A;
+    --tinta: #E4EBE8;
+    --grafito: #9DB0B2;
+    --trazo: #2C4A52;
+    --ambar: #E2A243;
+    --ambar-suave: #3A3322;
+  }
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0;
+  background: var(--papel);
+  color: var(--tinta);
+  font-family: var(--fuente);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-underline-offset: 0.2em; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--ambar); outline-offset: 3px; }
+.contenedor { max-width: var(--ancho); margin: 0 auto; padding: 0 1.5rem; }
+
+/* Barra superior */
+.barra { border-bottom: 1px solid var(--trazo); }
+.barra .contenedor { display: flex; justify-content: space-between; align-items: center; gap: 1rem; min-height: 3.75rem; flex-wrap: wrap; }
+.marca { font-weight: 700; font-stretch: 112%; letter-spacing: -0.01em; text-decoration: none; }
+.barra nav { display: flex; gap: 1.25rem; flex-wrap: wrap; font-size: 0.9375rem; color: var(--grafito); }
+.barra nav a { text-decoration: none; }
+.barra nav a:hover { color: var(--tinta); text-decoration: underline; }
+
+/* Portada */
+.portada { padding: 4.5rem 0 3.5rem; }
+.portada .contenedor { display: grid; grid-template-columns: minmax(0, 1fr) 22rem; gap: 3rem; align-items: end; }
+.para { color: var(--grafito); margin: 0 0 1rem; }
+h1 {
+  font-size: clamp(2.1rem, 4.6vw, 3.6rem);
+  line-height: 1.06;
+  font-weight: 680;
+  font-stretch: 116%;
+  letter-spacing: -0.025em;
+  margin: 0 0 1.5rem;
+  max-width: 18ch;
+  text-wrap: balance;
+}
+.portada .resumen { max-width: 40rem; font-size: 1.1875rem; margin: 0; }
+
+/* Cajetín */
+.cajetin {
+  border: 1.5px solid var(--tinta);
+  background: var(--superficie);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.cajetin div { padding: 0.65rem 0.85rem; border-bottom: 1px solid var(--trazo); }
+.cajetin div:nth-child(odd):not(.ancho) { border-right: 1px solid var(--trazo); }
+.cajetin .ancho { grid-column: 1 / -1; }
+.cajetin dt { font-size: 0.8125rem; color: var(--grafito); }
+.cajetin dd { margin: 0.1rem 0 0; font-weight: 560; line-height: 1.3; }
+.cajetin .total { border-bottom: 0; background: var(--tinta); color: var(--papel); }
+.cajetin .total dt { color: inherit; opacity: 0.8; }
+.cajetin .total dd { font-size: 2rem; font-weight: 700; font-stretch: 108%; letter-spacing: -0.02em; }
+
+/* Secciones */
+section { padding: 3.5rem 0; border-top: 1px solid var(--trazo); }
+h2 { font-size: clamp(1.6rem, 2.6vw, 2.1rem); font-weight: 650; font-stretch: 110%; letter-spacing: -0.02em; line-height: 1.15; margin: 0 0 1.75rem; }
+h3 { font-size: 1.3rem; font-weight: 640; font-stretch: 106%; line-height: 1.25; margin: 0; }
+p { max-width: 42rem; }
+.dos-col { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+.dos-col h3 { margin-bottom: 0.5rem; }
+.nota { color: var(--grafito); font-size: 0.9375rem; }
+
+/* Regla de cronograma */
+.regla-scroll { overflow-x: auto; }
+.regla { min-width: 44rem; }
+.regla-fila { display: grid; grid-template-columns: 15rem minmax(0, 1fr); align-items: center; }
+.regla-pista { display: grid; grid-template-columns: repeat(57, minmax(0.6rem, 1fr)); }
+.escala { border-bottom: 1.5px solid var(--tinta); }
+.escala .regla-pista > span {
+  font-size: 0.8125rem; color: var(--grafito); padding: 0 0 0.4rem 0.4rem;
+  border-left: 1.5px solid var(--tinta); position: relative; white-space: nowrap; overflow: hidden;
+}
+.sem-c { display: none; }
+.compacta .sem-l { display: none; }
+.compacta .sem-c { display: inline; }
+.escala .regla-pista > span::after {
+  content: ""; position: absolute; left: 50%; bottom: 0; height: 0.45rem; border-left: 1px solid var(--grafito);
+}
+.regla-fila.fase { border-bottom: 1px dashed var(--trazo); min-height: 3.5rem; }
+.regla-fila.fase .regla-pista { background-image: linear-gradient(to right, var(--trazo) 1px, transparent 1px); background-size: calc(500% / 57) 100%; height: 100%; padding: 0.6rem 0; }
+.regla-nombre { padding-right: 1rem; font-weight: 560; line-height: 1.25; }
+.regla-nombre small { display: block; color: var(--grafito); font-weight: 400; }
+.barra-fase {
+  background: var(--ambar); color: #1E1A12; border-radius: 2px;
+  padding: 0.35rem 0.6rem; font-size: 0.875rem; font-weight: 620; white-space: nowrap; overflow: hidden;
+  margin: 0 2px;
+}
+.regla-total { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-top: 1.25rem; color: var(--grafito); }
+.regla-total strong { color: var(--tinta); }
+
+/* Fases */
+.fase-detalle { padding: 2rem 0; border-bottom: 1px solid var(--trazo); }
+.fase-detalle:last-child { border-bottom: 0; }
+.fase-cabeza { display: grid; grid-template-columns: 3.25rem minmax(0, 1fr) auto; gap: 1rem; align-items: start; }
+.fase-id {
+  border: 1.5px solid var(--tinta); font-weight: 700; font-stretch: 110%;
+  text-align: center; padding: 0.3rem 0; font-size: 1rem;
+}
+.fase-meta { color: var(--grafito); font-size: 0.9375rem; margin-top: 0.2rem; }
+.fase-valor { text-align: right; font-size: 1.45rem; font-weight: 680; font-stretch: 106%; white-space: nowrap; }
+.fase-objetivo { margin: 1rem 0 1.25rem 4.25rem; }
+.tabla-scroll { overflow-x: auto; margin-left: 4.25rem; }
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: 0.7rem 0.75rem 0.7rem 0; border-bottom: 1px solid var(--trazo); vertical-align: top; }
+th { font-size: 0.8125rem; font-weight: 560; color: var(--grafito); border-bottom: 1.5px solid var(--tinta); }
+td.num, th.num { text-align: right; padding-right: 0; padding-left: 0.75rem; white-space: nowrap; }
+td .desc { display: block; color: var(--grafito); font-size: 0.9375rem; }
+tfoot td { font-weight: 640; border-bottom: 0; }
+
+/* Inversión */
+.inversion { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 3rem; align-items: start; }
+.fila-total td { font-size: 1.25rem; font-weight: 700; border-top: 1.5px solid var(--tinta); border-bottom: 0; }
+.pagos { border: 1.5px solid var(--tinta); background: var(--superficie); padding: 1.25rem 1.25rem 0.5rem; }
+.pagos h3 { margin-bottom: 0.75rem; }
+.pago { display: flex; justify-content: space-between; gap: 1rem; padding: 0.65rem 0; border-bottom: 1px solid var(--trazo); }
+.pago:last-of-type { border-bottom: 0; }
+.pago span { color: var(--grafito); }
+.pago strong { white-space: nowrap; }
+.descuento { background: var(--ambar-suave); margin: 0.75rem -1.25rem -0.5rem; padding: 0.9rem 1.25rem; font-size: 0.9375rem; }
+
+/* Listas */
+.lista { list-style: none; padding: 0; margin: 0; max-width: 46rem; }
+.lista li { padding: 0.7rem 0; border-bottom: 1px solid var(--trazo); display: flex; gap: 1rem; justify-content: space-between; align-items: baseline; }
+.etiqueta { flex-shrink: 0; font-size: 0.8125rem; font-weight: 600; padding: 0.1rem 0.55rem; border: 1px solid var(--ambar); color: var(--tinta); background: var(--ambar-suave); border-radius: 2px; }
+.condiciones { display: grid; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); gap: 0 2.5rem; margin: 0; }
+.condiciones div { padding: 1rem 0; border-bottom: 1px solid var(--trazo); }
+.condiciones dt { font-weight: 640; margin-bottom: 0.25rem; }
+.condiciones dd { margin: 0; color: var(--grafito); }
+
+/* Cierre */
+.cierre { background: var(--tinta); color: var(--papel); border-top: 0; }
+.cierre p { font-size: 1.1875rem; }
+.contacto { display: flex; gap: 2rem; flex-wrap: wrap; margin-top: 1.5rem; font-weight: 560; }
+footer { padding: 1.5rem 0 2.5rem; color: var(--grafito); font-size: 0.875rem; }
+
+
+/* Alcance detallado */
+.sistemas { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 0; border-top: 1.5px solid var(--tinta); }
+.sistemas div { padding: 1rem 1.25rem 1rem 0; border-bottom: 1px solid var(--trazo); }
+.sistemas dt { font-weight: 640; font-stretch: 106%; }
+.sistemas dd { margin: 0.2rem 0 0; color: var(--grafito); }
+.fase-cuerpo { margin-left: 4.25rem; }
+.fase-cuerpo > p { margin: 1rem 0 1.25rem; }
+.fase-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 2.5rem; margin-bottom: 1.75rem; }
+.bloque h4 { font-size: 0.9375rem; font-weight: 640; margin: 0 0 0.6rem; color: var(--grafito); }
+.grupo { margin-bottom: 1rem; }
+.grupo strong { display: block; font-weight: 600; margin-bottom: 0.2rem; }
+.grupo ul, .reglas { margin: 0; padding-left: 1.1rem; }
+.grupo li, .reglas li { margin: 0.15rem 0; }
+.reglas li::marker { color: var(--ambar); }
+.ejemplo { margin-top: 1rem; border-left: 3px solid var(--ambar); background: var(--superficie); padding: 0.75rem 1rem; }
+.ejemplo strong { display: block; font-size: 0.875rem; margin-bottom: 0.35rem; }
+.ejemplo pre { margin: 0; white-space: pre-wrap; font-family: inherit; font-size: 0.9375rem; color: var(--grafito); line-height: 1.55; }
+.fase-cuerpo .tabla-scroll { margin-left: 0; }
+.tres-col { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 2.5rem; }
+.tres-col h3 { margin-bottom: 0.75rem; }
+.lista-simple { margin: 0; padding-left: 1.1rem; }
+.lista-simple li { margin: 0.35rem 0; }
+.subtitulo { margin: 2.75rem 0 1.25rem; }
+.criterios { list-style: none; padding: 0; margin: 0; columns: 2 20rem; column-gap: 2.5rem; }
+.criterios li { break-inside: avoid; padding: 0.55rem 0 0.55rem 2rem; position: relative; border-bottom: 1px solid var(--trazo); }
+.criterios li::before { content: ""; position: absolute; left: 0; top: 0.8rem; width: 1rem; height: 1rem; border: 1.5px solid var(--tinta); border-radius: 2px; }
+.incluye { margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--trazo); font-size: 0.9375rem; }
+.incluye div { display: flex; justify-content: space-between; gap: 1rem; padding: 0.25rem 0; }
+.incluye span { color: var(--grafito); }
+.firmas { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 1rem; }
+.firma { border-top: 1.5px solid var(--tinta); padding-top: 0.5rem; margin-top: 4rem; }
+.firma strong { display: block; }
+.firma span { display: block; color: var(--grafito); font-size: 0.9375rem; }
+@media (max-width: 860px) {
+  .fase-cuerpo { margin-left: 0; }
+  .fase-grid, .firmas { grid-template-columns: 1fr; gap: 1.5rem; }
+}
+@media print {
+  .fase-grid { break-inside: avoid; }
+  #aceptacion { break-before: page; }
+}
+
+@media (max-width: 860px) {
+  .portada { padding-top: 3rem; }
+  .portada .contenedor, .dos-col, .inversion { grid-template-columns: 1fr; gap: 2rem; }
+  .fase-cabeza { grid-template-columns: 3rem minmax(0, 1fr); }
+  .fase-valor { grid-column: 2; text-align: left; }
+  .fase-objetivo, .tabla-scroll { margin-left: 0; }
+  .regla-fila { grid-template-columns: 10rem minmax(0, 1fr); }
+  .sem-l { display: none; }
+  .sem-c { display: inline; }
+}
+@media (max-width: 600px) {
+  .contenedor { padding: 0 1rem; }
+  .barra nav { flex-wrap: nowrap; overflow-x: auto; width: 100%; gap: 1rem; padding-bottom: 0.6rem; white-space: nowrap; scrollbar-width: none; }
+  .barra nav::-webkit-scrollbar { display: none; }
+  .portada { padding: 2rem 0 2.5rem; }
+  section { padding: 2.5rem 0; }
+  .cajetin .total dd { font-size: 1.6rem; }
+  /* Cronograma apilado: nombre arriba, barra abajo, sin desplazamiento lateral */
+  .regla { min-width: 0; }
+  .regla-fila { grid-template-columns: minmax(0, 1fr); }
+  .escala > span:first-child { display: none; }
+  .escala .regla-pista > span { padding-left: 0.25rem; font-size: 0.75rem; }
+  .regla-nombre { padding: 0.6rem 0 0.35rem; }
+  .regla-fila.fase .regla-pista { height: auto; padding: 0 0 0.6rem; }
+  .barra-fase { padding: 0.3rem 0.4rem; font-size: 0.8125rem; }
+  .fase-cabeza { grid-template-columns: 2.6rem minmax(0, 1fr); gap: 0.75rem; }
+  .fase-valor { font-size: 1.25rem; }
+  .lista li { flex-direction: column; gap: 0.35rem; }
+}
+@media print {
+  body { background: #fff; color: #000; font-size: 11pt; }
+  .barra nav { display: none; }
+  section { padding: 1.5rem 0; }
+  .fase-detalle, .pagos, .cajetin, tr { break-inside: avoid; }
+  .cierre { background: none; color: #000; border-top: 1px solid #999; }
+  .regla { min-width: 0; }
+}
+</style>
+</head>
+<body>
+
+<header class="barra">
+  <div class="contenedor">
+    <span class="marca">Martin Felipe Henriquez Fajardo</span>
+    <nav aria-label="Secciones">
+      <a href="#contexto">Contexto</a>
+      <a href="#plan">Plan</a>
+      <a href="#alcance">Alcance</a>
+      <a href="#requisitos">Requisitos</a>
+      <a href="#inversion">Inversión</a>
+      <a href="#condiciones">Condiciones</a>
+      <a href="#aceptacion">Aceptación</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="portada">
+    <div class="contenedor">
+      <div>
+        <p class="para">Propuesta para ROTRASVEHI S.A.S.</p>
+        <h1>Cartas de Porte Internacional emitidas en minutos, con número único y el formato oficial, sin diligenciar Excel a mano.</h1>
+        <p class="resumen">Una aplicación web, construida desde cero, para emitir la Carta de Porte Internacional por Carretera (CPIC) con el formato oficial: gestión de terceros, formulario de 23 casillas, numeración única por país, catálogo de ciudades de Colombia, Ecuador, Perú y Bolivia, exportación a Excel y PDF, historial, edición y anulación con auditoría, usuarios con roles y copias de seguridad.</p>
+      </div>
+      <dl class="cajetin" aria-label="Ficha de la propuesta">
+        <div><dt>Propuesta</dt><dd>COT-2026-003</dd></div>
+        <div><dt>Emitida</dt><dd>8 de octubre de 2026</dd></div>
+        <div class="ancho"><dt>Cliente</dt><dd>ROTRASVEHI S.A.S.</dd></div>
+        <div class="ancho"><dt>Preparada por</dt><dd>Martin Felipe Henriquez Fajardo, Desarrollador de software FullStack</dd></div>
+        <div><dt>Duración</dt><dd>57 días hábiles</dd></div>
+        <div><dt>Válida hasta</dt><dd>7 de noviembre de 2026</dd></div>
+        <div class="ancho total"><dt>Inversión total</dt><dd>$9.500.000</dd></div>
+      </dl>
+    </div>
+  </div>
+
+  <section id="contexto">
+    <div class="contenedor">
+      <div class="dos-col">
+        <div>
+          <h3>Lo que pasa hoy</h3>
+          <p>Hoy la CPIC, obligatoria para el transporte entre Colombia, Ecuador, Perú y Bolivia (Decisión 837 de la CAN, Resolución 2101 de 2019), se diligencia a mano en una plantilla de Excel. No hay numeración controlada, ni historial consultable, ni catálogo de ciudades, y cada documento depende de que alguien copie bien los datos.</p>
+        </div>
+        <div>
+          <h3>Lo que proponemos</h3>
+          <p>Una aplicación web en Node.js, TypeScript y PostgreSQL con interfaz en Vue 3, construida desde cero e instalada en el servidor del cliente. Se entrega en cinco etapas funcionales, cada una revisable por el cliente, y una etapa de pruebas de aceptación con CPIC reales.</p>
+        </div>
+      </div>
+      <h2 class="subtitulo">Sistemas involucrados</h2>
+      <dl class="sistemas">
+<div><dt>Aplicación CPIC</dt><dd>Nueva aplicación web: Node.js, TypeScript, Express 5, Prisma, zod, ExcelJS y Vue 3.</dd></div><div><dt>PostgreSQL</dt><dd>Base de datos de terceros, CPIC, consecutivos, ciudades y auditoría.</dd></div><div><dt>Servidor de producción</dt><dd>Infraestructura del cliente, con dominio y certificado SSL.</dd></div><div><dt>Fuentes oficiales de ciudades</dt><dd>DIVIPOLA-DANE, INEC, INEI e INE, para el catálogo de los 4 países.</dd></div>      </dl>
+    </div>
+  </section>
+
+  <section id="plan">
+    <div class="contenedor">
+      <h2>Plan de trabajo</h2>
+      <div class="regla-scroll">
+        <div class="regla compacta" role="img" aria-label="Cronograma de 57 días hábiles dividido en 6 etapas">
+          <div class="regla-fila escala">
+            <span></span>
+            <div class="regla-pista">
+              <span style="grid-column: span 5;"><span class="sem-l">Semana </span><span class="sem-c">S</span>1</span>
+              <span style="grid-column: span 5;"><span class="sem-l">Semana </span><span class="sem-c">S</span>2</span>
+              <span style="grid-column: span 5;"><span class="sem-l">Semana </span><span class="sem-c">S</span>3</span>
+              <span style="grid-column: span 5;"><span class="sem-l">Semana </span><span class="sem-c">S</span>4</span>
+              <span style="grid-column: span 5;"><span class="sem-l">Semana </span><span class="sem-c">S</span>5</span>
+              <span style="grid-column: span 5;"><span class="sem-l">Semana </span><span class="sem-c">S</span>6</span>
+              <span style="grid-column: span 5;"><span class="sem-l">Semana </span><span class="sem-c">S</span>7</span>
+              <span style="grid-column: span 5;"><span class="sem-l">Semana </span><span class="sem-c">S</span>8</span>
+              <span style="grid-column: span 5;"><span class="sem-l">Semana </span><span class="sem-c">S</span>9</span>
+              <span style="grid-column: span 5;"><span class="sem-l">Semana </span><span class="sem-c">S</span>10</span>
+              <span style="grid-column: span 5;"><span class="sem-l">Semana </span><span class="sem-c">S</span>11</span>
+              <span style="grid-column: span 2;"><span class="sem-l">Semana </span><span class="sem-c">S</span>12</span>
+            </div>
+          </div>
+          <div class="regla-fila fase">
+            <div class="regla-nombre">E1 Base del sistema, acceso y terceros<small>12 días hábiles · 96 h</small></div>
+            <div class="regla-pista">
+              <div class="barra-fase" style="grid-column: 1 / span 12;">96 h</div>
+            </div>
+          </div>
+          <div class="regla-fila fase">
+            <div class="regla-nombre">E2 Formulario de la CPIC y numeración<small>16 días hábiles · 124 h</small></div>
+            <div class="regla-pista">
+              <div class="barra-fase" style="grid-column: 13 / span 16;">124 h</div>
+            </div>
+          </div>
+          <div class="regla-fila fase">
+            <div class="regla-nombre">E3 Documento oficial, exportaciones e historial<small>12 días hábiles · 91 h</small></div>
+            <div class="regla-pista">
+              <div class="barra-fase" style="grid-column: 29 / span 12;">91 h</div>
+            </div>
+          </div>
+          <div class="regla-fila fase">
+            <div class="regla-nombre">E4 Edición, anulación y auditoría<small>5 días hábiles · 39 h</small></div>
+            <div class="regla-pista">
+              <div class="barra-fase" style="grid-column: 41 / span 5;">39 h</div>
+            </div>
+          </div>
+          <div class="regla-fila fase">
+            <div class="regla-nombre">E5 Producción y copias de seguridad<small>4 días hábiles · 25 h</small></div>
+            <div class="regla-pista">
+              <div class="barra-fase" style="grid-column: 46 / span 4;">25 h</div>
+            </div>
+          </div>
+          <div class="regla-fila fase">
+            <div class="regla-nombre">PI Pruebas de aceptación y capacitación<small>8 días hábiles · 50 h</small></div>
+            <div class="regla-pista">
+              <div class="barra-fase" style="grid-column: 50 / span 8;">50 h</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="regla-total">
+        <span><strong>425 horas</strong> de trabajo en 57 días hábiles, unas 12 semanas</span>
+        <span>Seguimiento con reuniones semanales de avance.</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="alcance">
+    <div class="contenedor">
+      <h2>Alcance por etapa</h2>
+      <article class="fase-detalle">
+        <div class="fase-cabeza">
+          <div class="fase-id">E1</div>
+          <div>
+            <h3>Base del sistema, acceso y terceros</h3>
+            <div class="fase-meta">12 días hábiles, 96 horas</div>
+          </div>
+        </div>
+        <div class="fase-cuerpo">
+<p>La aplicación funciona con inicio de sesión, roles y el registro de remitentes, destinatarios y consignatarios.</p>          <div class="fase-grid">
+            <div class="bloque">
+              <h4>Funcionalidades</h4>
+              <div class="grupo">
+                <strong>Acceso</strong>
+                <ul><li>Inicio de sesión con usuario y contraseña</li><li>Roles de administrador y operador</li><li>Administración de usuarios</li></ul>
+              </div>
+              <div class="grupo">
+                <strong>Terceros</strong>
+                <ul><li>Crear, editar y buscar remitentes, destinatarios y consignatarios</li><li>Nombre, tipo y número de identificación, dirección, ciudad, teléfono y correo</li></ul>
+              </div>
+              <div class="grupo">
+                <strong>Configuración</strong>
+                <ul><li>Casillas fijas editables: transportista, Permiso Originario, texto legal y firmas</li></ul>
+              </div>
+            </div>
+            <div class="bloque">
+              <h4>Reglas de negocio</h4>
+              <ul class="reglas"><li>Solo el administrador cambia las casillas fijas y crea usuarios.</li><li>El operador crea terceros y emite CPIC, pero no cambia la configuración.</li><li>No se pueden registrar dos terceros con el mismo tipo y número de identificación.</li></ul>
+            </div>
+          </div>
+          <div class="tabla-scroll">
+            <table>
+              <thead><tr><th>Entregable</th><th class="num">Horas</th></tr></thead>
+              <tbody>
+                <tr><td>Base del proyecto y ambientes<span class="desc">Repositorio, base de datos y ambiente de pruebas.</span></td><td class="num">12</td></tr>
+                <tr><td>Modelo de datos y API base<span class="desc">Estructura de datos, API y validaciones del servidor.</span></td><td class="num">24</td></tr>
+                <tr><td>Inicio de sesión, usuarios y roles<span class="desc">Acceso con usuario y contraseña, administrador y operador.</span></td><td class="num">20</td></tr>
+                <tr><td>Gestión de terceros<span class="desc">Crear, editar y buscar remitentes, destinatarios y consignatarios.</span></td><td class="num">12</td></tr>
+                <tr><td>Configuración de casillas fijas<span class="desc">Datos del transportista, permiso, texto legal y firmas.</span></td><td class="num">8</td></tr>
+                <tr><td>Pruebas y calidad<span class="desc">Pruebas de acceso, roles y terceros.</span></td><td class="num">11</td></tr>
+                <tr><td>Gestión del proyecto<span class="desc">Seguimiento semanal y validación con el cliente.</span></td><td class="num">9</td></tr>
+              </tbody>
+              <tfoot><tr><td>Total de la etapa</td><td class="num">96</td></tr></tfoot>
+            </table>
+          </div>
+        </div>
+      </article>
+      <article class="fase-detalle">
+        <div class="fase-cabeza">
+          <div class="fase-id">E2</div>
+          <div>
+            <h3>Formulario de la CPIC y numeración</h3>
+            <div class="fase-meta">16 días hábiles, 124 horas</div>
+          </div>
+        </div>
+        <div class="fase-cuerpo">
+<p>El operador diligencia las 23 casillas del formato oficial y recibe un número único por país.</p>          <div class="fase-grid">
+            <div class="bloque">
+              <h4>Funcionalidades</h4>
+              <div class="grupo">
+                <strong>Lugar, país y fecha (casillas 6, 7, 8 y 19)</strong>
+                <ul><li>Selección de país y luego ciudad del catálogo</li><li>Fecha obligatoria, sin ventanas que bloqueen</li></ul>
+              </div>
+              <div class="grupo">
+                <strong>Mercancía</strong>
+                <ul><li>Hasta 6 líneas: bultos, marcas, descripción, peligrosa, peso neto y bruto, volumen y otras unidades</li><li>Totales automáticos</li></ul>
+              </div>
+              <div class="grupo">
+                <strong>Gastos y precio</strong>
+                <ul><li>Flete, seguro y otros por remitente y destinatario</li><li>Monedas COP, USD, PEN y BOB con totales automáticos</li><li>Precio de la mercancía con Incoterm, valor y moneda</li></ul>
+              </div>
+              <div class="grupo">
+                <strong>Instrucciones al transportista</strong>
+                <ul><li>Lista predefinida</li><li>Opción Otro con texto libre</li></ul>
+              </div>
+              <div class="grupo">
+                <strong>Catálogo de ciudades</strong>
+                <ul><li>Ciudades de Colombia (DIVIPOLA-DANE), Ecuador (INEC), Perú (INEI) y Bolivia (INE)</li><li>Script de carga y actualización sin duplicados</li></ul>
+              </div>
+              <div class="grupo">
+                <strong>Numeración</strong>
+                <ul><li>Sigla del país más 8 dígitos consecutivos (CO00000001)</li><li>Segura con varios usuarios emitiendo a la vez</li></ul>
+              </div>
+            </div>
+            <div class="bloque">
+              <h4>Reglas de negocio</h4>
+              <ul class="reglas"><li>Un número de CPIC nunca se repite ni se salta, aunque dos usuarios emitan al mismo tiempo.</li><li>El consecutivo es independiente por país.</li><li>Una ciudad solo se puede elegir después de elegir su país.</li><li>Las validaciones se aplican en pantalla y en el servidor.</li></ul>
+              <div class="ejemplo"><strong>Ejemplo de numeración</strong><pre>Dos operadores emiten al mismo tiempo una CPIC con origen Colombia.
+Última emitida: CO00000041
+Operador A recibe CO00000042
+Operador B recibe CO00000043
+La primera CPIC con origen Ecuador recibe EC00000001.</pre></div>
+            </div>
+          </div>
+          <div class="tabla-scroll">
+            <table>
+              <thead><tr><th>Entregable</th><th class="num">Horas</th></tr></thead>
+              <tbody>
+                <tr><td>Formulario de 23 casillas<span class="desc">Captura completa con país, ciudad y fecha.</span></td><td class="num">32</td></tr>
+                <tr><td>Líneas de mercancía con totales<span class="desc">Hasta 6 líneas con pesos, volumen y totales.</span></td><td class="num">12</td></tr>
+                <tr><td>Gastos, monedas, Incoterm e instrucciones<span class="desc">Gastos por parte, 4 monedas, 11 Incoterms e instrucciones.</span></td><td class="num">12</td></tr>
+                <tr><td>Validaciones en pantalla y servidor<span class="desc">Reglas del formato aplicadas en ambos lados.</span></td><td class="num">12</td></tr>
+                <tr><td>Numeración segura por país<span class="desc">Consecutivo único verificado con emisiones simultáneas.</span></td><td class="num">8</td></tr>
+                <tr><td>Catálogo de ciudades de 4 países<span class="desc">Fuentes oficiales normalizadas y script de carga.</span></td><td class="num">22</td></tr>
+                <tr><td>Pruebas y calidad<span class="desc">Casos por casilla, totales y numeración simultánea.</span></td><td class="num">15</td></tr>
+                <tr><td>Gestión del proyecto<span class="desc">Seguimiento semanal y revisión del formulario con el cliente.</span></td><td class="num">11</td></tr>
+              </tbody>
+              <tfoot><tr><td>Total de la etapa</td><td class="num">124</td></tr></tfoot>
+            </table>
+          </div>
+        </div>
+      </article>
+      <article class="fase-detalle">
+        <div class="fase-cabeza">
+          <div class="fase-id">E3</div>
+          <div>
+            <h3>Documento oficial, exportaciones e historial</h3>
+            <div class="fase-meta">12 días hábiles, 91 horas</div>
+          </div>
+        </div>
+        <div class="fase-cuerpo">
+<p>Cada CPIC se ve en pantalla como el formato oficial, se imprime en A4 horizontal, se descarga en Excel o PDF y se consulta en el historial.</p>          <div class="fase-grid">
+            <div class="bloque">
+              <h4>Funcionalidades</h4>
+              <div class="grupo">
+                <strong>Documento</strong>
+                <ul><li>Vista en pantalla con el diseño del formato oficial</li><li>Impresión en una hoja A4 horizontal</li></ul>
+              </div>
+              <div class="grupo">
+                <strong>Exportaciones</strong>
+                <ul><li>Excel generado desde código: celdas combinadas, bordes, logo y totales con fórmulas</li><li>PDF con el mismo diseño</li></ul>
+              </div>
+              <div class="grupo">
+                <strong>Historial</strong>
+                <ul><li>Búsqueda por número</li><li>Paginación</li><li>Descarga en Excel o PDF</li></ul>
+              </div>
+            </div>
+            <div class="bloque">
+              <h4>Reglas de negocio</h4>
+              <ul class="reglas"><li>El Excel y el PDF reproducen el formato oficial del Apéndice VII.</li><li>Los totales del Excel son fórmulas, no valores fijos.</li></ul>
+            </div>
+          </div>
+          <div class="tabla-scroll">
+            <table>
+              <thead><tr><th>Entregable</th><th class="num">Horas</th></tr></thead>
+              <tbody>
+                <tr><td>Vista del documento e impresión A4<span class="desc">CPIC en pantalla con el diseño oficial.</span></td><td class="num">24</td></tr>
+                <tr><td>Exportación a Excel<span class="desc">Archivo idéntico al formato oficial, con fórmulas.</span></td><td class="num">24</td></tr>
+                <tr><td>Exportación a PDF<span class="desc">PDF con el diseño del formato oficial.</span></td><td class="num">14</td></tr>
+                <tr><td>Historial de CPIC<span class="desc">Búsqueda por número, paginación y descarga.</span></td><td class="num">10</td></tr>
+                <tr><td>Pruebas y calidad<span class="desc">Comparación contra el formato oficial impreso.</span></td><td class="num">11</td></tr>
+                <tr><td>Gestión del proyecto<span class="desc">Seguimiento semanal.</span></td><td class="num">8</td></tr>
+              </tbody>
+              <tfoot><tr><td>Total de la etapa</td><td class="num">91</td></tr></tfoot>
+            </table>
+          </div>
+        </div>
+      </article>
+      <article class="fase-detalle">
+        <div class="fase-cabeza">
+          <div class="fase-id">E4</div>
+          <div>
+            <h3>Edición, anulación y auditoría</h3>
+            <div class="fase-meta">5 días hábiles, 39 horas</div>
+          </div>
+        </div>
+        <div class="fase-cuerpo">
+<p>Una CPIC emitida se puede corregir o anular con motivo, y queda registro de quién hizo qué y cuándo.</p>          <div class="fase-grid">
+            <div class="bloque">
+              <h4>Funcionalidades</h4>
+              <div class="grupo">
+                <strong>Edición y anulación</strong>
+                <ul><li>Corrección de una CPIC emitida con motivo</li><li>Anulación con motivo, sin liberar el número</li></ul>
+              </div>
+              <div class="grupo">
+                <strong>Auditoría</strong>
+                <ul><li>Registro de creación, modificación y anulación por usuario, fecha y hora</li><li>Consulta del registro por el administrador</li></ul>
+              </div>
+            </div>
+            <div class="bloque">
+              <h4>Reglas de negocio</h4>
+              <ul class="reglas"><li>Una CPIC anulada conserva su número y queda marcada como anulada.</li><li>Toda edición o anulación exige un motivo.</li><li>El registro de auditoría no se puede modificar desde la aplicación.</li></ul>
+            </div>
+          </div>
+          <div class="tabla-scroll">
+            <table>
+              <thead><tr><th>Entregable</th><th class="num">Horas</th></tr></thead>
+              <tbody>
+                <tr><td>Edición y anulación con trazabilidad<span class="desc">Cambios y anulaciones con motivo e historial.</span></td><td class="num">20</td></tr>
+                <tr><td>Auditoría de operaciones<span class="desc">Quién creó, modificó o anuló qué y cuándo.</span></td><td class="num">10</td></tr>
+                <tr><td>Pruebas y calidad<span class="desc">Pruebas de edición, anulación y registro.</span></td><td class="num">5</td></tr>
+                <tr><td>Gestión del proyecto<span class="desc">Seguimiento semanal.</span></td><td class="num">4</td></tr>
+              </tbody>
+              <tfoot><tr><td>Total de la etapa</td><td class="num">39</td></tr></tfoot>
+            </table>
+          </div>
+        </div>
+      </article>
+      <article class="fase-detalle">
+        <div class="fase-cabeza">
+          <div class="fase-id">E5</div>
+          <div>
+            <h3>Producción y copias de seguridad</h3>
+            <div class="fase-meta">4 días hábiles, 25 horas</div>
+          </div>
+        </div>
+        <div class="fase-cuerpo">
+<p>La aplicación queda publicada en el servidor del cliente, con dominio, certificado SSL y copias de seguridad diarias.</p>          <div class="fase-grid">
+            <div class="bloque">
+              <h4>Funcionalidades</h4>
+              <div class="grupo">
+                <strong>Despliegue</strong>
+                <ul><li>Instalación en el servidor del cliente</li><li>Dominio y certificado SSL</li><li>Credenciales fuera del código fuente</li></ul>
+              </div>
+              <div class="grupo">
+                <strong>Respaldo</strong>
+                <ul><li>Copia de seguridad automática diaria de la base de datos</li><li>Prueba de restauración documentada</li></ul>
+              </div>
+              <div class="grupo">
+                <strong>Monitoreo</strong>
+                <ul><li>Registro de errores de la aplicación</li><li>Aviso si la copia de seguridad falla</li></ul>
+              </div>
+            </div>
+            <div class="bloque">
+              <h4>Reglas de negocio</h4>
+              <ul class="reglas"><li>Las copias de seguridad se guardan fuera del servidor de la aplicación.</li><li>La salida a producción requiere una restauración de prueba exitosa.</li></ul>
+            </div>
+          </div>
+          <div class="tabla-scroll">
+            <table>
+              <thead><tr><th>Entregable</th><th class="num">Horas</th></tr></thead>
+              <tbody>
+                <tr><td>Despliegue con dominio y SSL<span class="desc">Aplicación publicada en el servidor del cliente.</span></td><td class="num">10</td></tr>
+                <tr><td>Copias de seguridad automáticas<span class="desc">Respaldo diario y restauración probada.</span></td><td class="num">6</td></tr>
+                <tr><td>Monitoreo básico<span class="desc">Registro de errores y aviso de fallas de respaldo.</span></td><td class="num">4</td></tr>
+                <tr><td>Pruebas y calidad<span class="desc">Verificación del ambiente de producción.</span></td><td class="num">3</td></tr>
+                <tr><td>Gestión del proyecto<span class="desc">Coordinación de accesos al servidor y al dominio.</span></td><td class="num">2</td></tr>
+              </tbody>
+              <tfoot><tr><td>Total de la etapa</td><td class="num">25</td></tr></tfoot>
+            </table>
+          </div>
+        </div>
+      </article>
+      <article class="fase-detalle">
+        <div class="fase-cabeza">
+          <div class="fase-id">PI</div>
+          <div>
+            <h3>Pruebas de aceptación y capacitación</h3>
+            <div class="fase-meta">8 días hábiles, 50 horas</div>
+          </div>
+        </div>
+        <div class="fase-cuerpo">
+<p>El equipo de ROTRASVEHI emite CPIC reales en la aplicación, se ajusta lo necesario y queda capacitado para operarla.</p>          <div class="fase-grid">
+            <div class="bloque">
+              <h4>Funcionalidades</h4>
+              <div class="grupo">
+                <strong>Pruebas</strong>
+                <ul><li>Plan de pruebas con casos por funcionalidad</li><li>Pruebas de aceptación con CPIC reales de los 4 países</li><li>Comparación del Excel, el PDF y la impresión contra el formato oficial</li></ul>
+              </div>
+              <div class="grupo">
+                <strong>Entrega</strong>
+                <ul><li>Manual de uso</li><li>Capacitación de 2 horas</li></ul>
+              </div>
+            </div>
+            <div class="bloque">
+              <h4>Reglas de negocio</h4>
+              <ul class="reglas"><li>La salida a producción requiere que todos los criterios de aceptación estén cumplidos.</li></ul>
+            </div>
+          </div>
+          <div class="tabla-scroll">
+            <table>
+              <thead><tr><th>Entregable</th><th class="num">Horas</th></tr></thead>
+              <tbody>
+                <tr><td>Plan y casos de prueba<span class="desc">Casos por funcionalidad con resultado esperado.</span></td><td class="num">8</td></tr>
+                <tr><td>Pruebas de aceptación con el cliente<span class="desc">CPIC reales emitidas por el equipo de ROTRASVEHI.</span></td><td class="num">16</td></tr>
+                <tr><td>Ajustes posteriores a las pruebas<span class="desc">Correcciones de bajo impacto.</span></td><td class="num">16</td></tr>
+                <tr><td>Manual de uso<span class="desc">Emisión, terceros, historial, anulación y usuarios.</span></td><td class="num">8</td></tr>
+                <tr><td>Capacitación<span class="desc">2 horas, virtual, para administradores y operadores.</span></td><td class="num">2</td></tr>
+              </tbody>
+              <tfoot><tr><td>Total de la etapa</td><td class="num">50</td></tr></tfoot>
+            </table>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="requisitos">
+    <div class="contenedor">
+      <h2>Requisitos técnicos</h2>
+      <div class="dos-col">
+        <div><h3>Lo que necesitamos del cliente</h3><ul class="lista-simple"><li>Servidor de producción o cuenta en la nube a nombre del cliente, y acceso al dominio.</li><li>Formato oficial vigente de la CPIC y logo de ROTRASVEHI en buena resolución.</li><li>Datos de las casillas fijas: transportista, Permiso Originario, texto legal y firmas.</li><li>Lista de instrucciones al transportista que usa hoy la empresa.</li><li>Un responsable del cliente para revisar cada etapa y para las pruebas de aceptación, con CPIC reales de ejemplo.</li></ul></div>
+        <div><h3>Infraestructura</h3><ul class="lista-simple"><li>Servidor Linux o servicio en la nube para la aplicación y PostgreSQL, a cargo del cliente.</li><li>Dominio a nombre del cliente.</li><li>Almacenamiento externo para las copias de seguridad.</li></ul></div>
+      </div>
+      <h2 class="subtitulo">Cómo se cuida la operación</h2>
+      <div class="tres-col">
+        <div><h3>Manejo de errores</h3><ul class="lista-simple"><li>Validaciones en pantalla y en el servidor</li><li>Mensajes claros sin ventanas que bloqueen</li><li>Registro de errores de la aplicación</li></ul></div>
+        <div><h3>Seguridad</h3><ul class="lista-simple"><li>Contraseñas cifradas</li><li>Acceso por roles</li><li>Conexión cifrada con SSL</li><li>Credenciales fuera del código fuente</li></ul></div>
+        <div><h3>Monitoreo</h3><ul class="lista-simple"><li>Auditoría de operaciones por usuario</li><li>Aviso si falla la copia de seguridad</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="inversion">
+    <div class="contenedor">
+      <h2>Inversión</h2>
+      <div class="inversion">
+        <div class="tabla-scroll" style="margin-left:0">
+          <table>
+            <thead><tr><th>Etapa</th><th class="num">Días hábiles</th><th class="num">Horas</th></tr></thead>
+            <tbody>
+              <tr><td>E1 Base del sistema, acceso y terceros</td><td class="num">12</td><td class="num">96</td></tr>
+              <tr><td>E2 Formulario de la CPIC y numeración</td><td class="num">16</td><td class="num">124</td></tr>
+              <tr><td>E3 Documento oficial, exportaciones e historial</td><td class="num">12</td><td class="num">91</td></tr>
+              <tr><td>E4 Edición, anulación y auditoría</td><td class="num">5</td><td class="num">39</td></tr>
+              <tr><td>E5 Producción y copias de seguridad</td><td class="num">4</td><td class="num">25</td></tr>
+              <tr><td>PI Pruebas de aceptación y capacitación</td><td class="num">8</td><td class="num">50</td></tr>
+              <tr><td><strong>Total</strong></td><td class="num"><strong>57</strong></td><td class="num"><strong>425</strong></td></tr>
+            </tbody>
+            <tfoot><tr class="fila-total"><td colspan="2">Valor total</td><td class="num">$9.500.000</td></tr></tfoot>
+          </table>
+          <p class="nota">Valores en pesos colombianos. Las funcionalidades adicionales se cotizan por separado.</p>
+        </div>
+        <div class="pagos">
+          <h3>Forma de pago</h3>
+          <div class="pago"><span>Anticipo para iniciar el desarrollo, 50&nbsp;%</span><strong>$4.750.000</strong></div>
+          <div class="pago"><span>Al entregar desarrollo, pruebas y capacitación, 50&nbsp;%</span><strong>$4.750.000</strong></div>
+          <div class="incluye">
+            <div><span>Capacitación</span><strong>2 horas</strong></div>
+            <div><span>Garantía</span><strong>30 días calendario</strong></div>
+            <div><span>Seguimiento</span><strong>Semanal</strong></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="supuestos">
+    <div class="contenedor">
+      <div class="tres-col">
+        <div>
+          <h2>Supuestos</h2>
+          <ul class="lista">
+            <li><span>La tecnología es la definida por el cliente: Node.js, TypeScript, Express 5, Prisma, PostgreSQL, zod, ExcelJS y Vue 3.</span></li>
+            <li><span>Hasta 10 usuarios, entre administradores y operadores.</span><span class="etiqueta">Por confirmar</span></li>
+            <li><span>Volumen de hasta 500 CPIC al mes.</span><span class="etiqueta">Por confirmar</span></li>
+            <li><span>El cliente provee el servidor o la cuenta en la nube y el dominio.</span><span class="etiqueta">Por confirmar</span></li>
+            <li><span>Las fuentes oficiales de ciudades de los 4 países están disponibles para descarga pública.</span><span class="etiqueta">Por confirmar</span></li>
+            <li><span>El cliente revisa cada etapa en un máximo de 3 días hábiles.</span><span class="etiqueta">Por confirmar</span></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Restricciones</h2>
+          <ul class="lista"><li><span>El formato de la CPIC se mantiene según el Apéndice VII de la Resolución 2101 de 2019; un cambio normativo es un nuevo alcance.</span></li><li><span>La calidad del catálogo depende de las fuentes oficiales de cada país.</span></li><li><span>La impresión A4 horizontal depende de la configuración de la impresora del usuario.</span></li></ul>
+        </div>
+        <div>
+          <h2>No incluye</h2>
+          <ul class="lista"><li><span>Transmisión electrónica a aduanas, DIAN o MIC/DTA.</span></li><li><span>Firma electrónica o digital de la CPIC.</span></li><li><span>Migración de CPIC históricas desde el Excel.</span></li><li><span>Aplicación móvil nativa.</span></li><li><span>Costos de servidor, dominio y almacenamiento.</span></li><li><span>Soporte mensual después de la garantía.</span></li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="entrega">
+    <div class="contenedor">
+      <h2>Criterios de aceptación</h2>
+      <ul class="criterios"><li>La aplicación funciona en el servidor de producción con dominio y SSL.</li><li>Un usuario sin sesión no puede ver ni emitir CPIC.</li><li>Un operador no puede cambiar las casillas fijas ni crear usuarios.</li><li>Un tercero se puede crear, editar y encontrar por nombre o identificación.</li><li>Diez emisiones simultáneas de un mismo país generan diez números consecutivos sin repetidos.</li><li>Al elegir un país, el formulario solo ofrece ciudades de ese país.</li><li>No se puede emitir una CPIC sin fecha en las casillas obligatorias.</li><li>Los totales de mercancía y de gastos se calculan solos.</li><li>El Excel generado coincide con el formato oficial, con celdas combinadas, bordes, logo y fórmulas.</li><li>El PDF y la impresión A4 horizontal coinciden con el formato oficial.</li><li>El historial encuentra una CPIC por su número y permite descargarla.</li><li>Una CPIC anulada conserva su número y muestra el motivo.</li><li>La auditoría muestra quién creó, modificó o anuló cada CPIC y cuándo.</li><li>Una restauración de la copia de seguridad recupera los datos del día anterior.</li></ul>
+      <h2 class="subtitulo">Entregables finales</h2>
+      <ul class="lista-simple"><li>Aplicación en producción con dominio y SSL</li><li>Código fuente documentado</li><li>Scripts de base de datos y de carga del catálogo de ciudades</li><li>Copias de seguridad automáticas y procedimiento de restauración</li><li>Plan de pruebas ejecutado</li><li>Manual de uso</li><li>Capacitación de 2 horas</li></ul>
+    </div>
+  </section>
+
+
+  <section id="condiciones">
+    <div class="contenedor">
+      <h2>Condiciones</h2>
+      <dl class="condiciones">
+        <div><dt>Inicio y duración</dt><dd>El desarrollo inicia una vez aprobada la propuesta y recibido el anticipo. La duración se cuenta en días hábiles desde ese momento.</dd></div>
+        <div><dt>Seguimiento</dt><dd>Reuniones semanales para presentar avances, resolver dudas y gestionar solicitudes de cambio.</dd></div>
+        <div><dt>Implementación</dt><dd>La solución se entrega funcionando, implementada en la infraestructura que brinde el cliente, sea On-Premise o Cloud. Los costos de infraestructura corren por cuenta del cliente.</dd></div>
+        <div><dt>Capacitación</dt><dd>Incluye las horas de capacitación indicadas en esta propuesta para el personal que defina el cliente, de forma presencial o virtual, según su disponibilidad.</dd></div>
+        <div><dt>Garantía</dt><dd>Garantía de corrección de errores y ajustes de bajo impacto durante los días calendario indicados, contados desde la entrega final. No aplica a requerimientos nuevos o funcionalidades adicionales.</dd></div>
+        <div><dt>Cambios de alcance</dt><dd>Cualquier funcionalidad no descrita en esta propuesta se cotiza por separado, previa aprobación escrita del cliente.</dd></div>
+        <div><dt>Confidencialidad</dt><dd>El código fuente, la documentación y la información del cliente se manejan y entregan de forma confidencial.</dd></div>
+        <div><dt>Datos personales</dt><dd>Tratamiento conforme a la Ley 1581 de 2012 y sus decretos reglamentarios.</dd></div>
+        <div><dt>Costos recurrentes</dt><dd>El servidor, la base de datos, el dominio y el almacenamiento de copias de seguridad los contrata y paga el cliente directamente con el proveedor que elija. El soporte mensual después de la garantía se cotiza por separado.</dd></div>
+        <div><dt>Vigencia</dt><dd>Esta propuesta es válida hasta el 7 de noviembre de 2026.</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section id="aceptacion">
+    <div class="contenedor">
+      <h2>Aceptación</h2>
+      <p>Las partes manifiestan su conformidad con los términos, el alcance, el cronograma y las condiciones de esta propuesta.</p>
+      <div class="firmas">
+        <div class="firma">
+          <strong>Martin Felipe Henriquez Fajardo</strong>
+          <span>Desarrollador de software FullStack</span>
+          <span>Fecha:</span>
+        </div>
+        <div class="firma">
+          <strong></strong>
+          <span>Representante legal, ROTRASVEHI S.A.S., ROTRASVEHI S.A.S.</span>
+          <span>Fecha:</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cierre">
+    <div class="contenedor">
+      <h2>Siguiente paso</h2>
+      <p>Confirmar los supuestos marcados, definir el servidor de producción, firmar la aceptación y programar la reunión de inicio.</p>
+      <div class="contacto">
+<a href="tel:+573104616938">+57 310 461 6938</a>      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="contenedor">
+    Documento confidencial preparado para ROTRASVEHI S.A.S. por Martin Felipe Henriquez Fajardo, Medellín. Emitido el 8 de octubre de 2026, válido hasta el 7 de noviembre de 2026.
+  </div>
+</footer>
+</body>
+</html>
