@@ -101,7 +101,7 @@ p { max-width: 42rem; }
 .regla-scroll { overflow-x: auto; }
 .regla { min-width: 44rem; }
 .regla-fila { display: grid; grid-template-columns: 15rem minmax(0, 1fr); align-items: center; }
-.regla-pista { display: grid; grid-template-columns: repeat(21, minmax(0.6rem, 1fr)); }
+.regla-pista { display: grid; grid-template-columns: repeat(22, minmax(0.6rem, 1fr)); }
 .escala { border-bottom: 1.5px solid var(--tinta); }
 .escala .regla-pista > span {
   font-size: 0.8125rem; color: var(--grafito); padding: 0 0 0.4rem 0.4rem;
@@ -114,7 +114,7 @@ p { max-width: 42rem; }
   content: ""; position: absolute; left: 50%; bottom: 0; height: 0.45rem; border-left: 1px solid var(--grafito);
 }
 .regla-fila.fase { border-bottom: 1px dashed var(--trazo); min-height: 3.5rem; }
-.regla-fila.fase .regla-pista { background-image: linear-gradient(to right, var(--trazo) 1px, transparent 1px); background-size: calc(500% / 21) 100%; height: 100%; padding: 0.6rem 0; }
+.regla-fila.fase .regla-pista { background-image: linear-gradient(to right, var(--trazo) 1px, transparent 1px); background-size: calc(500% / 22) 100%; height: 100%; padding: 0.6rem 0; }
 .regla-nombre { padding-right: 1rem; font-weight: 560; line-height: 1.25; }
 .regla-nombre small { display: block; color: var(--grafito); font-weight: 400; }
 .barra-fase {
@@ -274,15 +274,15 @@ footer { padding: 1.5rem 0 2.5rem; color: var(--grafito); font-size: 0.875rem; }
     <div class="contenedor">
       <div>
         <p class="para">Propuesta para Techsaurus</p>
-        <h1>Inventario y precios de Alegra al día en todos los canales de Multivende, y cada venta facturada sin digitarla.</h1>
-        <p class="resumen">Una integración en Python entre Alegra y Multivende: publica el inventario de las bodegas activas y los precios de cada canal, convierte cada orden en una factura electrónica de Alegra con su cliente, y devuelve a Multivende el número de factura y el nuevo estado de la orden.</p>
+        <h1>Inventario y precios de Alegra al día en todos los canales de Multivende, y cada venta facturada y con guía de Coordinadora sin digitarla.</h1>
+        <p class="resumen">Una integración en Python entre Alegra, Multivende y Coordinadora: publica el inventario de las bodegas activas y los precios de cada canal, convierte cada orden en una factura electrónica de Alegra con su cliente, devuelve a Multivende el número de factura y el nuevo estado, y genera la guía de Coordinadora con aviso al equipo de despacho.</p>
       </div>
       <dl class="cajetin" aria-label="Ficha de la propuesta">
         <div><dt>Propuesta</dt><dd>COT-2026-005</dd></div>
         <div><dt>Emitida</dt><dd>20 de octubre de 2026</dd></div>
         <div class="ancho"><dt>Cliente</dt><dd>Techsaurus, Juan Peñalosa</dd></div>
         <div class="ancho"><dt>Preparada por</dt><dd>Martin Felipe Henriquez Fajardo, Desarrollador de software FullStack</dd></div>
-        <div><dt>Duración</dt><dd>21 días hábiles</dd></div>
+        <div><dt>Duración</dt><dd>22 días hábiles</dd></div>
         <div><dt>Válida hasta</dt><dd>19 de noviembre de 2026</dd></div>
         <div class="ancho total"><dt>Inversión total</dt><dd>$6.500.000</dd></div>
       </dl>
@@ -298,12 +298,12 @@ footer { padding: 1.5rem 0 2.5rem; color: var(--grafito); font-size: 0.875rem; }
         </div>
         <div>
           <h3>Lo que proponemos</h3>
-          <p>Una integración automática entre Alegra y Multivende, gobernada por un archivo Excel que Techsaurus mantiene con las bodegas activas y la lista de precios de cada canal. Se entrega en cuatro etapas funcionales y una etapa de pruebas integrales, con la misma estructura de la integración VTEX–Begranda.</p>
+          <p>Una integración automática entre Alegra, Multivende y Coordinadora, gobernada por un archivo Excel que Techsaurus mantiene con las bodegas activas, la lista de precios de cada canal y los rangos de seguro. Se entrega en cinco etapas funcionales y una etapa de pruebas integrales, con la misma estructura de la integración VTEX–Begranda–Coordinadora.</p>
         </div>
       </div>
       <h2 class="subtitulo">Sistemas involucrados</h2>
       <dl class="sistemas">
-<div><dt>Alegra</dt><dd>Software contable: productos, inventario por bodega, listas de precios, clientes y factura electrónica.</dd></div><div><dt>Multivende</dt><dd>Plataforma que publica los productos en los canales de venta y concentra sus órdenes.</dd></div><div><dt>Excel de configuración</dt><dd>Bodegas encendidas o apagadas y lista de precios de Alegra para cada canal.</dd></div>      </dl>
+<div><dt>Alegra</dt><dd>Software contable: productos, inventario por bodega, listas de precios, clientes y factura electrónica.</dd></div><div><dt>Multivende</dt><dd>Plataforma que publica los productos en los canales de venta y concentra sus órdenes.</dd></div><div><dt>Coordinadora</dt><dd>Operador logístico: generación de guías de envío.</dd></div><div><dt>Excel de configuración</dt><dd>Bodegas encendidas o apagadas, lista de precios de Alegra para cada canal y rangos del valor del seguro.</dd></div>      </dl>
     </div>
   </section>
 
@@ -311,7 +311,7 @@ footer { padding: 1.5rem 0 2.5rem; color: var(--grafito); font-size: 0.875rem; }
     <div class="contenedor">
       <h2>Plan de trabajo</h2>
       <div class="regla-scroll">
-        <div class="regla" role="img" aria-label="Cronograma de 21 días hábiles dividido en 5 etapas">
+        <div class="regla" role="img" aria-label="Cronograma de 22 días hábiles dividido en 6 etapas">
           <div class="regla-fila escala">
             <span></span>
             <div class="regla-pista">
@@ -319,7 +319,7 @@ footer { padding: 1.5rem 0 2.5rem; color: var(--grafito); font-size: 0.875rem; }
               <span style="grid-column: span 5;"><span class="sem-l">Semana </span><span class="sem-c">S</span>2</span>
               <span style="grid-column: span 5;"><span class="sem-l">Semana </span><span class="sem-c">S</span>3</span>
               <span style="grid-column: span 5;"><span class="sem-l">Semana </span><span class="sem-c">S</span>4</span>
-              <span style="grid-column: span 1;"><span class="sem-l">Semana </span><span class="sem-c">S</span>5</span>
+              <span style="grid-column: span 2;"><span class="sem-l">Semana </span><span class="sem-c">S</span>5</span>
             </div>
           </div>
           <div class="regla-fila fase">
@@ -329,33 +329,39 @@ footer { padding: 1.5rem 0 2.5rem; color: var(--grafito); font-size: 0.875rem; }
             </div>
           </div>
           <div class="regla-fila fase">
-            <div class="regla-nombre">E2 Precios por canal<small>4 días hábiles</small></div>
+            <div class="regla-nombre">E2 Precios por canal<small>2 días hábiles</small></div>
             <div class="regla-pista">
-              <div class="barra-fase" style="grid-column: 6 / span 4;">4 días</div>
+              <div class="barra-fase" style="grid-column: 6 / span 2;">2 días</div>
             </div>
           </div>
           <div class="regla-fila fase">
             <div class="regla-nombre">E3 Órdenes y facturación en Alegra<small>5 días hábiles</small></div>
             <div class="regla-pista">
-              <div class="barra-fase" style="grid-column: 10 / span 5;">5 días</div>
+              <div class="barra-fase" style="grid-column: 8 / span 5;">5 días</div>
             </div>
           </div>
           <div class="regla-fila fase">
-            <div class="regla-nombre">E4 Estado de la orden en Multivende<small>3 días hábiles</small></div>
+            <div class="regla-nombre">E4 Estado de la orden en Multivende<small>2 días hábiles</small></div>
             <div class="regla-pista">
-              <div class="barra-fase" style="grid-column: 15 / span 3;">3 días</div>
+              <div class="barra-fase" style="grid-column: 13 / span 2;">2 días</div>
+            </div>
+          </div>
+          <div class="regla-fila fase">
+            <div class="regla-nombre">E5 Guías de Coordinadora y aviso de despacho<small>4 días hábiles</small></div>
+            <div class="regla-pista">
+              <div class="barra-fase" style="grid-column: 15 / span 4;">4 días</div>
             </div>
           </div>
           <div class="regla-fila fase">
             <div class="regla-nombre">PI Pruebas integrales<small>4 días hábiles</small></div>
             <div class="regla-pista">
-              <div class="barra-fase" style="grid-column: 18 / span 4;">4 días</div>
+              <div class="barra-fase" style="grid-column: 19 / span 4;">4 días</div>
             </div>
           </div>
         </div>
       </div>
       <div class="regla-total">
-        <span><strong>21 días hábiles</strong> de trabajo, unas 5 semanas</span>
+        <span><strong>22 días hábiles</strong> de trabajo, unas 5 semanas</span>
         <span>Seguimiento con reuniones semanales de avance.</span>
       </div>
     </div>
@@ -421,7 +427,7 @@ Inventario publicado en Multivende: 12 unidades</pre></div>
           <div class="fase-id">E2</div>
           <div>
             <h3>Precios por canal</h3>
-            <div class="fase-meta">4 días hábiles</div>
+            <div class="fase-meta">2 días hábiles</div>
           </div>
         </div>
         <div class="fase-cuerpo">
@@ -504,7 +510,7 @@ Inventario publicado en Multivende: 12 unidades</pre></div>
           <div class="fase-id">E4</div>
           <div>
             <h3>Estado de la orden en Multivende</h3>
-            <div class="fase-meta">3 días hábiles</div>
+            <div class="fase-meta">2 días hábiles</div>
           </div>
         </div>
         <div class="fase-cuerpo">
@@ -536,6 +542,51 @@ Inventario publicado en Multivende: 12 unidades</pre></div>
       </article>
       <article class="fase-detalle">
         <div class="fase-cabeza">
+          <div class="fase-id">E5</div>
+          <div>
+            <h3>Guías de Coordinadora y aviso de despacho</h3>
+            <div class="fase-meta">4 días hábiles</div>
+          </div>
+        </div>
+        <div class="fase-cuerpo">
+<p>Cada orden facturada tiene su guía de Coordinadora con el seguro correcto, y el equipo de despacho recibe un correo con lo que debe alistar.</p>          <div class="fase-grid">
+            <div class="bloque">
+              <h4>Funcionalidades</h4>
+              <div class="grupo">
+                <strong>Valor del seguro</strong>
+                <ul><li>Lectura de los rangos de seguro desde el Excel</li><li>Cálculo del valor total de la orden</li><li>Asignación automática del seguro según el rango</li></ul>
+              </div>
+              <div class="grupo">
+                <strong>Guía Coordinadora</strong>
+                <ul><li>Creación de la guía con datos del destinatario y seguro</li><li>Registro del número de guía</li></ul>
+              </div>
+              <div class="grupo">
+                <strong>Correo a despacho</strong>
+                <ul><li>Número de guía, productos y cantidades, bodega de origen</li><li>Cliente destino, orden, factura, valor total y seguro</li></ul>
+              </div>
+            </div>
+            <div class="bloque">
+              <h4>Reglas de negocio</h4>
+              <ul class="reglas"><li>La guía solo se genera después de una facturación exitosa en Alegra.</li><li>El correo se envía inmediatamente después de generar la guía.</li><li>Si Coordinadora rechaza la guía, la orden queda reportada y se reintenta.</li></ul>
+            </div>
+          </div>
+          <div class="tabla-scroll">
+            <table>
+              <thead><tr><th>Entregable</th></tr></thead>
+              <tbody>
+                <tr><td>Integración con la API de Coordinadora<span class="desc">Creación de guías y número de seguimiento.</span></td></tr>
+                <tr><td>Calculadora de seguro por rangos<span class="desc">Seguro según los rangos del Excel.</span></td></tr>
+                <tr><td>Correo de despacho y plantilla<span class="desc">Aviso automático con todo lo necesario para alistar.</span></td></tr>
+                <tr><td>Logs de guías generadas<span class="desc">Registro de guías, rechazos y reintentos.</span></td></tr>
+                <tr><td>Pruebas y calidad<span class="desc">Guías en ambiente de pruebas de Coordinadora.</span></td></tr>
+                <tr><td>Gestión del proyecto<span class="desc">Seguimiento semanal.</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </article>
+      <article class="fase-detalle">
+        <div class="fase-cabeza">
           <div class="fase-id">PI</div>
           <div>
             <h3>Pruebas integrales</h3>
@@ -543,12 +594,12 @@ Inventario publicado en Multivende: 12 unidades</pre></div>
           </div>
         </div>
         <div class="fase-cuerpo">
-<p>El flujo completo, del inventario en Alegra a la orden facturada en Multivende, probado de punta a punta y puesto en producción.</p>          <div class="fase-grid">
+<p>El flujo completo, del inventario en Alegra a la guía de Coordinadora, probado de punta a punta y puesto en producción.</p>          <div class="fase-grid">
             <div class="bloque">
               <h4>Funcionalidades</h4>
               <div class="grupo">
                 <strong>Pruebas</strong>
-                <ul><li>Plan de pruebas con casos por funcionalidad</li><li>Pruebas de punta a punta con órdenes de prueba en varios canales</li><li>Ajustes según los hallazgos</li></ul>
+                <ul><li>Plan de pruebas con casos por funcionalidad</li><li>Pruebas de punta a punta con órdenes de prueba en varios canales, hasta la guía</li><li>Ajustes según los hallazgos</li></ul>
               </div>
               <div class="grupo">
                 <strong>Entrega</strong>
@@ -565,10 +616,10 @@ Inventario publicado en Multivende: 12 unidades</pre></div>
               <thead><tr><th>Entregable</th></tr></thead>
               <tbody>
                 <tr><td>Plan y casos de prueba<span class="desc">Casos por funcionalidad con resultado esperado.</span></td></tr>
-                <tr><td>Pruebas de punta a punta<span class="desc">Órdenes de prueba en varios canales, hasta la factura.</span></td></tr>
+                <tr><td>Pruebas de punta a punta<span class="desc">Órdenes de prueba en varios canales, hasta la factura y la guía.</span></td></tr>
                 <tr><td>Ajustes posteriores a las pruebas<span class="desc">Correcciones de bajo impacto.</span></td></tr>
                 <tr><td>Despliegue en producción<span class="desc">Instalación en la infraestructura del cliente.</span></td></tr>
-                <tr><td>Manuales de configuración y operación<span class="desc">Excel de bodegas y precios, operación y soporte.</span></td></tr>
+                <tr><td>Manuales de configuración y operación<span class="desc">Excel de bodegas, precios y seguros, operación y soporte.</span></td></tr>
                 <tr><td>Capacitación<span class="desc">2 horas para el equipo operativo.</span></td></tr>
               </tbody>
             </table>
@@ -582,7 +633,7 @@ Inventario publicado en Multivende: 12 unidades</pre></div>
     <div class="contenedor">
       <h2>Requisitos técnicos</h2>
       <div class="dos-col">
-        <div><h3>Lo que necesitamos del cliente</h3><ul class="lista-simple"><li>Usuario y token de la API de Alegra.</li><li>Credenciales de la API de Multivende, con un plan que permita su uso.</li><li>Excel de configuración con las bodegas y la lista de precios de cada canal, mantenido por Techsaurus.</li><li>Ambiente o datos de prueba en Alegra y Multivende para facturar sin afectar la operación.</li></ul></div>
+        <div><h3>Lo que necesitamos del cliente</h3><ul class="lista-simple"><li>Usuario y token de la API de Alegra.</li><li>Credenciales de la API de Multivende, con un plan que permita su uso.</li><li>Excel de configuración con las bodegas, la lista de precios de cada canal y los rangos de seguro, mantenido por Techsaurus.</li><li>Ambiente o datos de prueba en Alegra y Multivende para facturar sin afectar la operación.</li><li>Credenciales de la API de Coordinadora y acceso a su ambiente de pruebas.</li><li>Lista de correos del equipo de despacho.</li></ul></div>
         <div><h3>Infraestructura</h3><ul class="lista-simple"><li>Servidor o servicio en la nube para ejecutar la integración, a cargo del cliente.</li><li>Base de datos para logs y control de órdenes procesadas.</li><li>Programador de tareas para la ejecución automática.</li></ul></div>
       </div>
       <h2 class="subtitulo">Cómo se cuida la operación</h2>
@@ -603,11 +654,12 @@ Inventario publicado en Multivende: 12 unidades</pre></div>
             <thead><tr><th>Etapa</th><th class="num">Días hábiles</th></tr></thead>
             <tbody>
               <tr><td>E1 Sincronización de inventario</td><td class="num">5</td></tr>
-              <tr><td>E2 Precios por canal</td><td class="num">4</td></tr>
+              <tr><td>E2 Precios por canal</td><td class="num">2</td></tr>
               <tr><td>E3 Órdenes y facturación en Alegra</td><td class="num">5</td></tr>
-              <tr><td>E4 Estado de la orden en Multivende</td><td class="num">3</td></tr>
+              <tr><td>E4 Estado de la orden en Multivende</td><td class="num">2</td></tr>
+              <tr><td>E5 Guías de Coordinadora y aviso de despacho</td><td class="num">4</td></tr>
               <tr><td>PI Pruebas integrales</td><td class="num">4</td></tr>
-              <tr><td><strong>Total</strong></td><td class="num"><strong>21</strong></td></tr>
+              <tr><td><strong>Total</strong></td><td class="num"><strong>22</strong></td></tr>
             </tbody>
             <tfoot><tr class="fila-total"><td colspan="1">Valor total</td><td class="num">$6.500.000</td></tr></tfoot>
           </table>
@@ -636,6 +688,7 @@ Inventario publicado en Multivende: 12 unidades</pre></div>
             <li><span>Se integra una sola cuenta de Alegra.</span></li>
             <li><span>Las bodegas que suman al inventario se encienden o apagan en un Excel.</span></li>
             <li><span>Cada orden de Multivende se convierte en una factura de Alegra.</span></li>
+            <li><span>Las guías de envío se generan en Coordinadora, como en la integración de iQlick.</span></li>
             <li><span>Cada canal de Multivende usa una lista de precios distinta de Alegra.</span><span class="etiqueta">Por confirmar</span></li>
             <li><span>La facturación electrónica ya está habilitada ante la DIAN en Alegra.</span><span class="etiqueta">Por confirmar</span></li>
             <li><span>Los productos tienen el mismo SKU en Alegra y en Multivende.</span><span class="etiqueta">Por confirmar</span></li>
@@ -650,7 +703,7 @@ Inventario publicado en Multivende: 12 unidades</pre></div>
         </div>
         <div>
           <h2>No incluye</h2>
-          <ul class="lista"><li><span>Asignación de cupos de crédito a clientes.</span></li><li><span>Notas crédito, devoluciones y cancelaciones de órdenes.</span></li><li><span>Habilitación de facturación electrónica ante la DIAN.</span></li><li><span>Configuración de canales, publicaciones o fichas de producto en Multivende.</span></li><li><span>Guías de envío y transportadoras.</span></li><li><span>Licencias de Alegra y Multivende, y costos del servidor.</span></li></ul>
+          <ul class="lista"><li><span>Asignación de cupos de crédito a clientes.</span></li><li><span>Notas crédito, devoluciones y cancelaciones de órdenes.</span></li><li><span>Habilitación de facturación electrónica ante la DIAN.</span></li><li><span>Configuración de canales, publicaciones o fichas de producto en Multivende.</span></li><li><span>Transportadoras distintas de Coordinadora y costos de los envíos.</span></li><li><span>Licencias de Alegra y Multivende, y costos del servidor.</span></li></ul>
         </div>
       </div>
     </div>
@@ -659,9 +712,9 @@ Inventario publicado en Multivende: 12 unidades</pre></div>
   <section id="entrega">
     <div class="contenedor">
       <h2>Criterios de aceptación</h2>
-      <ul class="criterios"><li>Multivende muestra la suma del inventario de las bodegas encendidas en el Excel.</li><li>Apagar una bodega en el Excel la excluye del inventario en la siguiente ejecución.</li><li>Cada canal muestra el precio de la lista de Alegra asignada en el Excel.</li><li>Una orden de Multivende genera una factura electrónica en Alegra con sus productos.</li><li>Un comprador que ya existe en Alegra no se crea de nuevo.</li><li>Una orden con datos incompletos no se factura y queda reportada.</li><li>Una misma orden nunca genera dos facturas.</li><li>La orden facturada muestra en Multivende el número de factura y su nuevo estado.</li><li>Todas las operaciones quedan registradas en los logs.</li></ul>
+      <ul class="criterios"><li>Multivende muestra la suma del inventario de las bodegas encendidas en el Excel.</li><li>Apagar una bodega en el Excel la excluye del inventario en la siguiente ejecución.</li><li>Cada canal muestra el precio de la lista de Alegra asignada en el Excel.</li><li>Una orden de Multivende genera una factura electrónica en Alegra con sus productos.</li><li>Un comprador que ya existe en Alegra no se crea de nuevo.</li><li>Una orden con datos incompletos no se factura y queda reportada.</li><li>Una misma orden nunca genera dos facturas.</li><li>La orden facturada muestra en Multivende el número de factura y su nuevo estado.</li><li>Cada orden facturada tiene guía en Coordinadora con el seguro del rango correcto.</li><li>El correo de despacho llega con guía, productos, bodega, cliente, factura, valor y seguro.</li><li>Todas las operaciones quedan registradas en los logs.</li></ul>
       <h2 class="subtitulo">Entregables finales</h2>
-      <ul class="lista-simple"><li>Código fuente documentado</li><li>Manual de configuración del Excel de bodegas y precios</li><li>Manual de operación y soporte</li><li>Scripts de base de datos</li><li>Plan de pruebas ejecutado</li><li>Capacitación de 2 horas</li></ul>
+      <ul class="lista-simple"><li>Código fuente documentado</li><li>Manual de configuración del Excel de bodegas, precios y seguros</li><li>Manual de operación y soporte</li><li>Scripts de base de datos</li><li>Plan de pruebas ejecutado</li><li>Capacitación de 2 horas</li></ul>
     </div>
   </section>
 
