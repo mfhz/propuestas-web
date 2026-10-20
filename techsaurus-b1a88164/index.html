@@ -1,0 +1,721 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Propuesta COT-2026-005 para Techsaurus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --papel: #EEF1EF;
+  --superficie: #FBFCFB;
+  --tinta: #16343C;
+  --grafito: #5A6A6E;
+  --trazo: #C5CFCC;
+  --ambar: #D48E27;
+  --ambar-suave: #F4E3C6;
+  --fuente: "Archivo", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --ancho: 70rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --papel: #10252B;
+    --superficie: #16313A;
+    --tinta: #E4EBE8;
+    --grafito: #9DB0B2;
+    --trazo: #2C4A52;
+    --ambar: #E2A243;
+    --ambar-suave: #3A3322;
+  }
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0;
+  background: var(--papel);
+  color: var(--tinta);
+  font-family: var(--fuente);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-underline-offset: 0.2em; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--ambar); outline-offset: 3px; }
+.contenedor { max-width: var(--ancho); margin: 0 auto; padding: 0 1.5rem; }
+
+/* Barra superior */
+.barra { border-bottom: 1px solid var(--trazo); }
+.barra .contenedor { display: flex; justify-content: space-between; align-items: center; gap: 1rem; min-height: 3.75rem; flex-wrap: wrap; }
+.marca { font-weight: 700; font-stretch: 112%; letter-spacing: -0.01em; text-decoration: none; }
+.barra nav { display: flex; gap: 1.25rem; flex-wrap: wrap; font-size: 0.9375rem; color: var(--grafito); }
+.barra nav a { text-decoration: none; }
+.barra nav a:hover { color: var(--tinta); text-decoration: underline; }
+
+/* Portada */
+.portada { padding: 4.5rem 0 3.5rem; }
+.portada .contenedor { display: grid; grid-template-columns: minmax(0, 1fr) 22rem; gap: 3rem; align-items: end; }
+.para { color: var(--grafito); margin: 0 0 1rem; }
+h1 {
+  font-size: clamp(2.1rem, 4.6vw, 3.6rem);
+  line-height: 1.06;
+  font-weight: 680;
+  font-stretch: 116%;
+  letter-spacing: -0.025em;
+  margin: 0 0 1.5rem;
+  max-width: 18ch;
+  text-wrap: balance;
+}
+.portada .resumen { max-width: 40rem; font-size: 1.1875rem; margin: 0; }
+
+/* Cajetín */
+.cajetin {
+  border: 1.5px solid var(--tinta);
+  background: var(--superficie);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.cajetin div { padding: 0.65rem 0.85rem; border-bottom: 1px solid var(--trazo); }
+.cajetin div:nth-child(odd):not(.ancho) { border-right: 1px solid var(--trazo); }
+.cajetin .ancho { grid-column: 1 / -1; }
+.cajetin dt { font-size: 0.8125rem; color: var(--grafito); }
+.cajetin dd { margin: 0.1rem 0 0; font-weight: 560; line-height: 1.3; }
+.cajetin .total { border-bottom: 0; background: var(--tinta); color: var(--papel); }
+.cajetin .total dt { color: inherit; opacity: 0.8; }
+.cajetin .total dd { font-size: 2rem; font-weight: 700; font-stretch: 108%; letter-spacing: -0.02em; }
+
+/* Secciones */
+section { padding: 3.5rem 0; border-top: 1px solid var(--trazo); }
+h2 { font-size: clamp(1.6rem, 2.6vw, 2.1rem); font-weight: 650; font-stretch: 110%; letter-spacing: -0.02em; line-height: 1.15; margin: 0 0 1.75rem; }
+h3 { font-size: 1.3rem; font-weight: 640; font-stretch: 106%; line-height: 1.25; margin: 0; }
+p { max-width: 42rem; }
+.dos-col { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+.dos-col h3 { margin-bottom: 0.5rem; }
+.nota { color: var(--grafito); font-size: 0.9375rem; }
+
+/* Regla de cronograma */
+.regla-scroll { overflow-x: auto; }
+.regla { min-width: 44rem; }
+.regla-fila { display: grid; grid-template-columns: 15rem minmax(0, 1fr); align-items: center; }
+.regla-pista { display: grid; grid-template-columns: repeat(21, minmax(0.6rem, 1fr)); }
+.escala { border-bottom: 1.5px solid var(--tinta); }
+.escala .regla-pista > span {
+  font-size: 0.8125rem; color: var(--grafito); padding: 0 0 0.4rem 0.4rem;
+  border-left: 1.5px solid var(--tinta); position: relative; white-space: nowrap; overflow: hidden;
+}
+.sem-c { display: none; }
+.compacta .sem-l { display: none; }
+.compacta .sem-c { display: inline; }
+.escala .regla-pista > span::after {
+  content: ""; position: absolute; left: 50%; bottom: 0; height: 0.45rem; border-left: 1px solid var(--grafito);
+}
+.regla-fila.fase { border-bottom: 1px dashed var(--trazo); min-height: 3.5rem; }
+.regla-fila.fase .regla-pista { background-image: linear-gradient(to right, var(--trazo) 1px, transparent 1px); background-size: calc(500% / 21) 100%; height: 100%; padding: 0.6rem 0; }
+.regla-nombre { padding-right: 1rem; font-weight: 560; line-height: 1.25; }
+.regla-nombre small { display: block; color: var(--grafito); font-weight: 400; }
+.barra-fase {
+  background: var(--ambar); color: #1E1A12; border-radius: 2px;
+  padding: 0.35rem 0.6rem; font-size: 0.875rem; font-weight: 620; white-space: nowrap; overflow: hidden;
+  margin: 0 2px;
+}
+.regla-total { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-top: 1.25rem; color: var(--grafito); }
+.regla-total strong { color: var(--tinta); }
+
+/* Fases */
+.fase-detalle { padding: 2rem 0; border-bottom: 1px solid var(--trazo); }
+.fase-detalle:last-child { border-bottom: 0; }
+.fase-cabeza { display: grid; grid-template-columns: 3.25rem minmax(0, 1fr) auto; gap: 1rem; align-items: start; }
+.fase-id {
+  border: 1.5px solid var(--tinta); font-weight: 700; font-stretch: 110%;
+  text-align: center; padding: 0.3rem 0; font-size: 1rem;
+}
+.fase-meta { color: var(--grafito); font-size: 0.9375rem; margin-top: 0.2rem; }
+.fase-valor { text-align: right; font-size: 1.45rem; font-weight: 680; font-stretch: 106%; white-space: nowrap; }
+.fase-objetivo { margin: 1rem 0 1.25rem 4.25rem; }
+.tabla-scroll { overflow-x: auto; margin-left: 4.25rem; }
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: 0.7rem 0.75rem 0.7rem 0; border-bottom: 1px solid var(--trazo); vertical-align: top; }
+th { font-size: 0.8125rem; font-weight: 560; color: var(--grafito); border-bottom: 1.5px solid var(--tinta); }
+td.num, th.num { text-align: right; padding-right: 0; padding-left: 0.75rem; white-space: nowrap; }
+td .desc { display: block; color: var(--grafito); font-size: 0.9375rem; }
+tfoot td { font-weight: 640; border-bottom: 0; }
+
+/* Inversión */
+.inversion { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 3rem; align-items: start; }
+.fila-total td { font-size: 1.25rem; font-weight: 700; border-top: 1.5px solid var(--tinta); border-bottom: 0; }
+.pagos { border: 1.5px solid var(--tinta); background: var(--superficie); padding: 1.25rem 1.25rem 0.5rem; }
+.pagos h3 { margin-bottom: 0.75rem; }
+.pago { display: flex; justify-content: space-between; gap: 1rem; padding: 0.65rem 0; border-bottom: 1px solid var(--trazo); }
+.pago:last-of-type { border-bottom: 0; }
+.pago span { color: var(--grafito); }
+.pago strong { white-space: nowrap; }
+.descuento { background: var(--ambar-suave); margin: 0.75rem -1.25rem -0.5rem; padding: 0.9rem 1.25rem; font-size: 0.9375rem; }
+
+/* Listas */
+.lista { list-style: none; padding: 0; margin: 0; max-width: 46rem; }
+.lista li { padding: 0.7rem 0; border-bottom: 1px solid var(--trazo); display: flex; gap: 1rem; justify-content: space-between; align-items: baseline; }
+.etiqueta { flex-shrink: 0; font-size: 0.8125rem; font-weight: 600; padding: 0.1rem 0.55rem; border: 1px solid var(--ambar); color: var(--tinta); background: var(--ambar-suave); border-radius: 2px; }
+.condiciones { display: grid; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); gap: 0 2.5rem; margin: 0; }
+.condiciones div { padding: 1rem 0; border-bottom: 1px solid var(--trazo); }
+.condiciones dt { font-weight: 640; margin-bottom: 0.25rem; }
+.condiciones dd { margin: 0; color: var(--grafito); }
+
+/* Cierre */
+.cierre { background: var(--tinta); color: var(--papel); border-top: 0; }
+.cierre p { font-size: 1.1875rem; }
+.contacto { display: flex; gap: 2rem; flex-wrap: wrap; margin-top: 1.5rem; font-weight: 560; }
+footer { padding: 1.5rem 0 2.5rem; color: var(--grafito); font-size: 0.875rem; }
+
+
+/* Alcance detallado */
+.sistemas { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 0; border-top: 1.5px solid var(--tinta); }
+.sistemas div { padding: 1rem 1.25rem 1rem 0; border-bottom: 1px solid var(--trazo); }
+.sistemas dt { font-weight: 640; font-stretch: 106%; }
+.sistemas dd { margin: 0.2rem 0 0; color: var(--grafito); }
+.fase-cuerpo { margin-left: 4.25rem; }
+.fase-cuerpo > p { margin: 1rem 0 1.25rem; }
+.fase-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 2.5rem; margin-bottom: 1.75rem; }
+.bloque h4 { font-size: 0.9375rem; font-weight: 640; margin: 0 0 0.6rem; color: var(--grafito); }
+.grupo { margin-bottom: 1rem; }
+.grupo strong { display: block; font-weight: 600; margin-bottom: 0.2rem; }
+.grupo ul, .reglas { margin: 0; padding-left: 1.1rem; }
+.grupo li, .reglas li { margin: 0.15rem 0; }
+.reglas li::marker { color: var(--ambar); }
+.ejemplo { margin-top: 1rem; border-left: 3px solid var(--ambar); background: var(--superficie); padding: 0.75rem 1rem; }
+.ejemplo strong { display: block; font-size: 0.875rem; margin-bottom: 0.35rem; }
+.ejemplo pre { margin: 0; white-space: pre-wrap; font-family: inherit; font-size: 0.9375rem; color: var(--grafito); line-height: 1.55; }
+.fase-cuerpo .tabla-scroll { margin-left: 0; }
+.tres-col { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 2.5rem; }
+.tres-col h3 { margin-bottom: 0.75rem; }
+.lista-simple { margin: 0; padding-left: 1.1rem; }
+.lista-simple li { margin: 0.35rem 0; }
+.subtitulo { margin: 2.75rem 0 1.25rem; }
+.criterios { list-style: none; padding: 0; margin: 0; columns: 2 20rem; column-gap: 2.5rem; }
+.criterios li { break-inside: avoid; padding: 0.55rem 0 0.55rem 2rem; position: relative; border-bottom: 1px solid var(--trazo); }
+.criterios li::before { content: ""; position: absolute; left: 0; top: 0.8rem; width: 1rem; height: 1rem; border: 1.5px solid var(--tinta); border-radius: 2px; }
+.incluye { margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--trazo); font-size: 0.9375rem; }
+.incluye div { display: flex; justify-content: space-between; gap: 1rem; padding: 0.25rem 0; }
+.incluye span { color: var(--grafito); }
+.firmas { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 1rem; }
+.firma { border-top: 1.5px solid var(--tinta); padding-top: 0.5rem; margin-top: 4rem; }
+.firma strong { display: block; }
+.firma span { display: block; color: var(--grafito); font-size: 0.9375rem; }
+@media (max-width: 860px) {
+  .fase-cuerpo { margin-left: 0; }
+  .fase-grid, .firmas { grid-template-columns: 1fr; gap: 1.5rem; }
+}
+@media print {
+  .fase-grid { break-inside: avoid; }
+  #aceptacion { break-before: page; }
+}
+
+@media (max-width: 860px) {
+  .portada { padding-top: 3rem; }
+  .portada .contenedor, .dos-col, .inversion { grid-template-columns: 1fr; gap: 2rem; }
+  .fase-cabeza { grid-template-columns: 3rem minmax(0, 1fr); }
+  .fase-valor { grid-column: 2; text-align: left; }
+  .fase-objetivo, .tabla-scroll { margin-left: 0; }
+  .regla-fila { grid-template-columns: 10rem minmax(0, 1fr); }
+  .sem-l { display: none; }
+  .sem-c { display: inline; }
+}
+@media (max-width: 600px) {
+  .contenedor { padding: 0 1rem; }
+  .barra nav { flex-wrap: nowrap; overflow-x: auto; width: 100%; gap: 1rem; padding-bottom: 0.6rem; white-space: nowrap; scrollbar-width: none; }
+  .barra nav::-webkit-scrollbar { display: none; }
+  .portada { padding: 2rem 0 2.5rem; }
+  section { padding: 2.5rem 0; }
+  .cajetin .total dd { font-size: 1.6rem; }
+  /* Cronograma apilado: nombre arriba, barra abajo, sin desplazamiento lateral */
+  .regla { min-width: 0; }
+  .regla-fila { grid-template-columns: minmax(0, 1fr); }
+  .escala > span:first-child { display: none; }
+  .escala .regla-pista > span { padding-left: 0.25rem; font-size: 0.75rem; }
+  .regla-nombre { padding: 0.6rem 0 0.35rem; }
+  .regla-fila.fase .regla-pista { height: auto; padding: 0 0 0.6rem; }
+  .barra-fase { padding: 0.3rem 0.4rem; font-size: 0.8125rem; }
+  .fase-cabeza { grid-template-columns: 2.6rem minmax(0, 1fr); gap: 0.75rem; }
+  .fase-valor { font-size: 1.25rem; }
+  .lista li { flex-direction: column; gap: 0.35rem; }
+}
+@media print {
+  body { background: #fff; color: #000; font-size: 11pt; }
+  .barra nav { display: none; }
+  section { padding: 1.5rem 0; }
+  .fase-detalle, .pagos, .cajetin, tr { break-inside: avoid; }
+  .cierre { background: none; color: #000; border-top: 1px solid #999; }
+  .regla { min-width: 0; }
+}
+</style>
+</head>
+<body>
+
+<header class="barra">
+  <div class="contenedor">
+    <span class="marca">Martin Felipe Henriquez Fajardo</span>
+    <nav aria-label="Secciones">
+      <a href="#contexto">Contexto</a>
+      <a href="#plan">Plan</a>
+      <a href="#alcance">Alcance</a>
+      <a href="#requisitos">Requisitos</a>
+      <a href="#inversion">Inversión</a>
+      <a href="#condiciones">Condiciones</a>
+      <a href="#aceptacion">Aceptación</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="portada">
+    <div class="contenedor">
+      <div>
+        <p class="para">Propuesta para Techsaurus</p>
+        <h1>Inventario y precios de Alegra al día en todos los canales de Multivende, y cada venta facturada sin digitarla.</h1>
+        <p class="resumen">Una integración en Python entre Alegra y Multivende: publica el inventario de las bodegas activas y los precios de cada canal, convierte cada orden en una factura electrónica de Alegra con su cliente, y devuelve a Multivende el número de factura y el nuevo estado de la orden.</p>
+      </div>
+      <dl class="cajetin" aria-label="Ficha de la propuesta">
+        <div><dt>Propuesta</dt><dd>COT-2026-005</dd></div>
+        <div><dt>Emitida</dt><dd>20 de octubre de 2026</dd></div>
+        <div class="ancho"><dt>Cliente</dt><dd>Techsaurus, Juan Peñalosa</dd></div>
+        <div class="ancho"><dt>Preparada por</dt><dd>Martin Felipe Henriquez Fajardo, Desarrollador de software FullStack</dd></div>
+        <div><dt>Duración</dt><dd>21 días hábiles</dd></div>
+        <div><dt>Válida hasta</dt><dd>19 de noviembre de 2026</dd></div>
+        <div class="ancho total"><dt>Inversión total</dt><dd>$6.500.000</dd></div>
+      </dl>
+    </div>
+  </div>
+
+  <section id="contexto">
+    <div class="contenedor">
+      <div class="dos-col">
+        <div>
+          <h3>Lo que pasa hoy</h3>
+          <p>Techsaurus vende por varios canales a través de Multivende y lleva su contabilidad en Alegra. Mantener el inventario y los precios sincronizados entre ambos, y pasar cada orden a una factura, se hace a mano: es lento y se presta para vender sin stock o con el precio equivocado.</p>
+        </div>
+        <div>
+          <h3>Lo que proponemos</h3>
+          <p>Una integración automática entre Alegra y Multivende, gobernada por un archivo Excel que Techsaurus mantiene con las bodegas activas y la lista de precios de cada canal. Se entrega en cuatro etapas funcionales y una etapa de pruebas integrales, con la misma estructura de la integración VTEX–Begranda.</p>
+        </div>
+      </div>
+      <h2 class="subtitulo">Sistemas involucrados</h2>
+      <dl class="sistemas">
+<div><dt>Alegra</dt><dd>Software contable: productos, inventario por bodega, listas de precios, clientes y factura electrónica.</dd></div><div><dt>Multivende</dt><dd>Plataforma que publica los productos en los canales de venta y concentra sus órdenes.</dd></div><div><dt>Excel de configuración</dt><dd>Bodegas encendidas o apagadas y lista de precios de Alegra para cada canal.</dd></div>      </dl>
+    </div>
+  </section>
+
+  <section id="plan">
+    <div class="contenedor">
+      <h2>Plan de trabajo</h2>
+      <div class="regla-scroll">
+        <div class="regla" role="img" aria-label="Cronograma de 21 días hábiles dividido en 5 etapas">
+          <div class="regla-fila escala">
+            <span></span>
+            <div class="regla-pista">
+              <span style="grid-column: span 5;"><span class="sem-l">Semana </span><span class="sem-c">S</span>1</span>
+              <span style="grid-column: span 5;"><span class="sem-l">Semana </span><span class="sem-c">S</span>2</span>
+              <span style="grid-column: span 5;"><span class="sem-l">Semana </span><span class="sem-c">S</span>3</span>
+              <span style="grid-column: span 5;"><span class="sem-l">Semana </span><span class="sem-c">S</span>4</span>
+              <span style="grid-column: span 1;"><span class="sem-l">Semana </span><span class="sem-c">S</span>5</span>
+            </div>
+          </div>
+          <div class="regla-fila fase">
+            <div class="regla-nombre">E1 Sincronización de inventario<small>5 días hábiles</small></div>
+            <div class="regla-pista">
+              <div class="barra-fase" style="grid-column: 1 / span 5;">5 días</div>
+            </div>
+          </div>
+          <div class="regla-fila fase">
+            <div class="regla-nombre">E2 Precios por canal<small>4 días hábiles</small></div>
+            <div class="regla-pista">
+              <div class="barra-fase" style="grid-column: 6 / span 4;">4 días</div>
+            </div>
+          </div>
+          <div class="regla-fila fase">
+            <div class="regla-nombre">E3 Órdenes y facturación en Alegra<small>5 días hábiles</small></div>
+            <div class="regla-pista">
+              <div class="barra-fase" style="grid-column: 10 / span 5;">5 días</div>
+            </div>
+          </div>
+          <div class="regla-fila fase">
+            <div class="regla-nombre">E4 Estado de la orden en Multivende<small>3 días hábiles</small></div>
+            <div class="regla-pista">
+              <div class="barra-fase" style="grid-column: 15 / span 3;">3 días</div>
+            </div>
+          </div>
+          <div class="regla-fila fase">
+            <div class="regla-nombre">PI Pruebas integrales<small>4 días hábiles</small></div>
+            <div class="regla-pista">
+              <div class="barra-fase" style="grid-column: 18 / span 4;">4 días</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="regla-total">
+        <span><strong>21 días hábiles</strong> de trabajo, unas 5 semanas</span>
+        <span>Seguimiento con reuniones semanales de avance.</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="alcance">
+    <div class="contenedor">
+      <h2>Alcance por etapa</h2>
+      <article class="fase-detalle">
+        <div class="fase-cabeza">
+          <div class="fase-id">E1</div>
+          <div>
+            <h3>Sincronización de inventario</h3>
+            <div class="fase-meta">5 días hábiles</div>
+          </div>
+        </div>
+        <div class="fase-cuerpo">
+<p>Multivende muestra para cada producto la suma del inventario de las bodegas de Alegra que estén encendidas en el Excel.</p>          <div class="fase-grid">
+            <div class="bloque">
+              <h4>Funcionalidades</h4>
+              <div class="grupo">
+                <strong>Consulta en Alegra</strong>
+                <ul><li>Productos e inventario por bodega</li><li>Solo bodegas encendidas en el Excel</li></ul>
+              </div>
+              <div class="grupo">
+                <strong>Actualización en Multivende</strong>
+                <ul><li>Inventario consolidado por producto</li><li>Ejecución programada</li></ul>
+              </div>
+              <div class="grupo">
+                <strong>Configuración</strong>
+                <ul><li>Excel para encender o apagar bodegas sin tocar el código</li></ul>
+              </div>
+            </div>
+            <div class="bloque">
+              <h4>Reglas de negocio</h4>
+              <ul class="reglas"><li>El inventario publicado es la suma de las bodegas encendidas en el Excel.</li><li>Apagar una bodega en el Excel la saca del cálculo en la siguiente ejecución.</li><li>Los productos se emparejan por SKU entre Alegra y Multivende; un SKU sin pareja se reporta y no se actualiza.</li><li>Si Alegra no responde, no se publica inventario en cero: se conserva el último valor y se registra el error.</li></ul>
+              <div class="ejemplo"><strong>Ejemplo de inventario</strong><pre>Producto SKU-123
+Bodega Principal (encendida): 8 unidades
+Bodega Medellín (encendida): 4 unidades
+Bodega Averías (apagada): 10 unidades
+Inventario publicado en Multivende: 12 unidades</pre></div>
+            </div>
+          </div>
+          <div class="tabla-scroll">
+            <table>
+              <thead><tr><th>Entregable</th></tr></thead>
+              <tbody>
+                <tr><td>Base del proyecto y despliegue<span class="desc">Repositorio, ambientes y ejecución programada.</span></td></tr>
+                <tr><td>Conector con Alegra<span class="desc">Autenticación y consulta de productos e inventario por bodega.</span></td></tr>
+                <tr><td>Conector con Multivende<span class="desc">Autenticación y actualización de productos e inventario.</span></td></tr>
+                <tr><td>Lector del Excel de bodegas<span class="desc">Bodegas encendidas o apagadas.</span></td></tr>
+                <tr><td>Sincronización de inventario por SKU<span class="desc">Suma por producto y publicación en Multivende.</span></td></tr>
+                <tr><td>Logs de sincronización<span class="desc">Registro de cada ejecución y de los SKU sin pareja.</span></td></tr>
+                <tr><td>Pruebas y calidad<span class="desc">Pruebas con bodegas encendidas y apagadas.</span></td></tr>
+                <tr><td>Gestión del proyecto<span class="desc">Seguimiento semanal y coordinación de accesos.</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </article>
+      <article class="fase-detalle">
+        <div class="fase-cabeza">
+          <div class="fase-id">E2</div>
+          <div>
+            <h3>Precios por canal</h3>
+            <div class="fase-meta">4 días hábiles</div>
+          </div>
+        </div>
+        <div class="fase-cuerpo">
+<p>Cada canal de Multivende muestra el precio de la lista de Alegra que le corresponde.</p>          <div class="fase-grid">
+            <div class="bloque">
+              <h4>Funcionalidades</h4>
+              <div class="grupo">
+                <strong>Precios</strong>
+                <ul><li>Lectura de las listas de precios de Alegra</li><li>Lista de precios asignada a cada canal en el Excel</li><li>Actualización del precio por canal en Multivende</li></ul>
+              </div>
+            </div>
+            <div class="bloque">
+              <h4>Reglas de negocio</h4>
+              <ul class="reglas"><li>Cada canal toma el precio de la lista de Alegra que indique el Excel.</li><li>Un canal sin lista asignada usa la lista general de Alegra.</li><li>Un producto sin precio en la lista del canal no se actualiza y se reporta.</li></ul>
+            </div>
+          </div>
+          <div class="tabla-scroll">
+            <table>
+              <thead><tr><th>Entregable</th></tr></thead>
+              <tbody>
+                <tr><td>Lectura de listas de precios de Alegra<span class="desc">Precios por producto y por lista.</span></td></tr>
+                <tr><td>Asignación de lista por canal<span class="desc">Canal y lista de precios definidos en el Excel.</span></td></tr>
+                <tr><td>Actualización de precios por canal<span class="desc">Precio específico de cada canal en Multivende.</span></td></tr>
+                <tr><td>Logs de precios<span class="desc">Registro de cambios y productos sin precio.</span></td></tr>
+                <tr><td>Pruebas y calidad<span class="desc">Precios distintos en al menos dos canales.</span></td></tr>
+                <tr><td>Gestión del proyecto<span class="desc">Seguimiento semanal.</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </article>
+      <article class="fase-detalle">
+        <div class="fase-cabeza">
+          <div class="fase-id">E3</div>
+          <div>
+            <h3>Órdenes y facturación en Alegra</h3>
+            <div class="fase-meta">5 días hábiles</div>
+          </div>
+        </div>
+        <div class="fase-cuerpo">
+<p>Cada orden de Multivende queda facturada en Alegra, con su cliente creado y el inventario descontado.</p>          <div class="fase-grid">
+            <div class="bloque">
+              <h4>Funcionalidades</h4>
+              <div class="grupo">
+                <strong>Obtención de órdenes</strong>
+                <ul><li>Consulta de órdenes pendientes de facturar en Multivende</li><li>Información completa de la orden y del comprador</li></ul>
+              </div>
+              <div class="grupo">
+                <strong>Cliente en Alegra</strong>
+                <ul><li>Búsqueda por documento para evitar duplicados</li><li>Creación del cliente si no existe</li></ul>
+              </div>
+              <div class="grupo">
+                <strong>Factura</strong>
+                <ul><li>Factura electrónica en Alegra con los productos de la orden</li><li>Descuento del inventario en la bodega definida en el Excel</li></ul>
+              </div>
+            </div>
+            <div class="bloque">
+              <h4>Reglas de negocio</h4>
+              <ul class="reglas"><li>Una orden se factura una sola vez, aunque se consulte varias veces.</li><li>Si el comprador ya existe en Alegra con el mismo documento, se usa ese cliente.</li><li>Una orden con datos del comprador incompletos no se factura y queda reportada para revisión.</li><li>La factura descuenta el inventario de la bodega de facturación definida en el Excel.</li></ul>
+            </div>
+          </div>
+          <div class="tabla-scroll">
+            <table>
+              <thead><tr><th>Entregable</th></tr></thead>
+              <tbody>
+                <tr><td>Obtención de órdenes de Multivende<span class="desc">Órdenes pendientes con todos sus datos.</span></td></tr>
+                <tr><td>Clientes en Alegra<span class="desc">Búsqueda y creación sin duplicados.</span></td></tr>
+                <tr><td>Factura electrónica en Alegra<span class="desc">Factura de cada orden con descuento de inventario.</span></td></tr>
+                <tr><td>Control de órdenes procesadas<span class="desc">Sin facturas duplicadas y con reproceso de fallidas.</span></td></tr>
+                <tr><td>Logs de órdenes y errores<span class="desc">Registro de cada orden y su resultado.</span></td></tr>
+                <tr><td>Pruebas y calidad<span class="desc">Clientes nuevos, existentes y datos incompletos.</span></td></tr>
+                <tr><td>Gestión del proyecto<span class="desc">Seguimiento semanal y validación de reglas.</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </article>
+      <article class="fase-detalle">
+        <div class="fase-cabeza">
+          <div class="fase-id">E4</div>
+          <div>
+            <h3>Estado de la orden en Multivende</h3>
+            <div class="fase-meta">3 días hábiles</div>
+          </div>
+        </div>
+        <div class="fase-cuerpo">
+<p>Cada orden facturada aparece en Multivende con su número de factura y el nuevo estado.</p>          <div class="fase-grid">
+            <div class="bloque">
+              <h4>Funcionalidades</h4>
+              <div class="grupo">
+                <strong>Estados</strong>
+                <ul><li>Registro del número de factura de Alegra en la orden</li><li>Cambio de estado de la orden en Multivende</li></ul>
+              </div>
+            </div>
+            <div class="bloque">
+              <h4>Reglas de negocio</h4>
+              <ul class="reglas"><li>El estado solo cambia si la factura se creó con éxito en Alegra.</li><li>Cada cambio de estado queda registrado con fecha y hora.</li></ul>
+            </div>
+          </div>
+          <div class="tabla-scroll">
+            <table>
+              <thead><tr><th>Entregable</th></tr></thead>
+              <tbody>
+                <tr><td>Número de factura y estado en Multivende<span class="desc">Orden actualizada con su factura de Alegra.</span></td></tr>
+                <tr><td>Log de cambios de estado<span class="desc">Trazabilidad de cada cambio.</span></td></tr>
+                <tr><td>Pruebas y calidad<span class="desc">Órdenes facturadas y fallidas.</span></td></tr>
+                <tr><td>Gestión del proyecto<span class="desc">Seguimiento semanal.</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </article>
+      <article class="fase-detalle">
+        <div class="fase-cabeza">
+          <div class="fase-id">PI</div>
+          <div>
+            <h3>Pruebas integrales</h3>
+            <div class="fase-meta">4 días hábiles</div>
+          </div>
+        </div>
+        <div class="fase-cuerpo">
+<p>El flujo completo, del inventario en Alegra a la orden facturada en Multivende, probado de punta a punta y puesto en producción.</p>          <div class="fase-grid">
+            <div class="bloque">
+              <h4>Funcionalidades</h4>
+              <div class="grupo">
+                <strong>Pruebas</strong>
+                <ul><li>Plan de pruebas con casos por funcionalidad</li><li>Pruebas de punta a punta con órdenes de prueba en varios canales</li><li>Ajustes según los hallazgos</li></ul>
+              </div>
+              <div class="grupo">
+                <strong>Entrega</strong>
+                <ul><li>Despliegue en la infraestructura del cliente</li><li>Manuales de configuración y de operación</li><li>Capacitación de 2 horas</li></ul>
+              </div>
+            </div>
+            <div class="bloque">
+              <h4>Reglas de negocio</h4>
+              <ul class="reglas"><li>La salida a producción requiere que todos los criterios de aceptación estén cumplidos.</li></ul>
+            </div>
+          </div>
+          <div class="tabla-scroll">
+            <table>
+              <thead><tr><th>Entregable</th></tr></thead>
+              <tbody>
+                <tr><td>Plan y casos de prueba<span class="desc">Casos por funcionalidad con resultado esperado.</span></td></tr>
+                <tr><td>Pruebas de punta a punta<span class="desc">Órdenes de prueba en varios canales, hasta la factura.</span></td></tr>
+                <tr><td>Ajustes posteriores a las pruebas<span class="desc">Correcciones de bajo impacto.</span></td></tr>
+                <tr><td>Despliegue en producción<span class="desc">Instalación en la infraestructura del cliente.</span></td></tr>
+                <tr><td>Manuales de configuración y operación<span class="desc">Excel de bodegas y precios, operación y soporte.</span></td></tr>
+                <tr><td>Capacitación<span class="desc">2 horas para el equipo operativo.</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="requisitos">
+    <div class="contenedor">
+      <h2>Requisitos técnicos</h2>
+      <div class="dos-col">
+        <div><h3>Lo que necesitamos del cliente</h3><ul class="lista-simple"><li>Usuario y token de la API de Alegra.</li><li>Credenciales de la API de Multivende, con un plan que permita su uso.</li><li>Excel de configuración con las bodegas y la lista de precios de cada canal, mantenido por Techsaurus.</li><li>Ambiente o datos de prueba en Alegra y Multivende para facturar sin afectar la operación.</li></ul></div>
+        <div><h3>Infraestructura</h3><ul class="lista-simple"><li>Servidor o servicio en la nube para ejecutar la integración, a cargo del cliente.</li><li>Base de datos para logs y control de órdenes procesadas.</li><li>Programador de tareas para la ejecución automática.</li></ul></div>
+      </div>
+      <h2 class="subtitulo">Cómo se cuida la operación</h2>
+      <div class="tres-col">
+        <div><h3>Manejo de errores</h3><ul class="lista-simple"><li>Validación de datos obligatorios del comprador</li><li>Reintentos ante errores transitorios</li><li>Órdenes fallidas guardadas para reproceso</li></ul></div>
+        <div><h3>Seguridad</h3><ul class="lista-simple"><li>Credenciales de las APIs cifradas</li><li>Validación de datos de entrada</li><li>Logs de auditoría</li></ul></div>
+        <div><h3>Monitoreo</h3><ul class="lista-simple"><li>Logs por etapa</li><li>Registro de órdenes procesadas y su factura</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="inversion">
+    <div class="contenedor">
+      <h2>Inversión</h2>
+      <div class="inversion">
+        <div class="tabla-scroll" style="margin-left:0">
+          <table>
+            <thead><tr><th>Etapa</th><th class="num">Días hábiles</th></tr></thead>
+            <tbody>
+              <tr><td>E1 Sincronización de inventario</td><td class="num">5</td></tr>
+              <tr><td>E2 Precios por canal</td><td class="num">4</td></tr>
+              <tr><td>E3 Órdenes y facturación en Alegra</td><td class="num">5</td></tr>
+              <tr><td>E4 Estado de la orden en Multivende</td><td class="num">3</td></tr>
+              <tr><td>PI Pruebas integrales</td><td class="num">4</td></tr>
+              <tr><td><strong>Total</strong></td><td class="num"><strong>21</strong></td></tr>
+            </tbody>
+            <tfoot><tr class="fila-total"><td colspan="1">Valor total</td><td class="num">$6.500.000</td></tr></tfoot>
+          </table>
+          <p class="nota">Valores en pesos colombianos. Las funcionalidades adicionales se cotizan por separado.</p>
+        </div>
+        <div class="pagos">
+          <h3>Forma de pago</h3>
+          <div class="pago"><span>Anticipo para iniciar el desarrollo, 50&nbsp;%</span><strong>$3.250.000</strong></div>
+          <div class="pago"><span>Al entregar desarrollo, pruebas y capacitación, 50&nbsp;%</span><strong>$3.250.000</strong></div>
+          <div class="incluye">
+            <div><span>Capacitación</span><strong>2 horas</strong></div>
+            <div><span>Garantía</span><strong>30 días calendario</strong></div>
+            <div><span>Seguimiento</span><strong>Semanal</strong></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="supuestos">
+    <div class="contenedor">
+      <div class="tres-col">
+        <div>
+          <h2>Supuestos</h2>
+          <ul class="lista">
+            <li><span>Se integra una sola cuenta de Alegra.</span></li>
+            <li><span>Las bodegas que suman al inventario se encienden o apagan en un Excel.</span></li>
+            <li><span>Cada orden de Multivende se convierte en una factura de Alegra.</span></li>
+            <li><span>Cada canal de Multivende usa una lista de precios distinta de Alegra.</span><span class="etiqueta">Por confirmar</span></li>
+            <li><span>La facturación electrónica ya está habilitada ante la DIAN en Alegra.</span><span class="etiqueta">Por confirmar</span></li>
+            <li><span>Los productos tienen el mismo SKU en Alegra y en Multivende.</span><span class="etiqueta">Por confirmar</span></li>
+            <li><span>Las órdenes se facturan desde una bodega definida en el Excel.</span><span class="etiqueta">Por confirmar</span></li>
+            <li><span>El volumen diario de órdenes cabe dentro de los límites de las APIs.</span><span class="etiqueta">Por confirmar</span></li>
+            <li><span>Techsaurus entrega los accesos antes del inicio y revisa cada etapa en máximo 1 día hábil, para cumplir el plazo de un mes.</span><span class="etiqueta">Por confirmar</span></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Restricciones</h2>
+          <ul class="lista"><li><span>Límites de consumo (rate limiting) de las APIs de Alegra y Multivende.</span></li><li><span>Disponibilidad de los servicios externos.</span></li><li><span>El formato y la estructura del Excel de configuración deben respetarse.</span></li><li><span>El plazo de un mes depende de que los accesos y las revisiones del cliente lleguen a tiempo; cada día de demora corre el cronograma.</span></li></ul>
+        </div>
+        <div>
+          <h2>No incluye</h2>
+          <ul class="lista"><li><span>Asignación de cupos de crédito a clientes.</span></li><li><span>Notas crédito, devoluciones y cancelaciones de órdenes.</span></li><li><span>Habilitación de facturación electrónica ante la DIAN.</span></li><li><span>Configuración de canales, publicaciones o fichas de producto en Multivende.</span></li><li><span>Guías de envío y transportadoras.</span></li><li><span>Licencias de Alegra y Multivende, y costos del servidor.</span></li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="entrega">
+    <div class="contenedor">
+      <h2>Criterios de aceptación</h2>
+      <ul class="criterios"><li>Multivende muestra la suma del inventario de las bodegas encendidas en el Excel.</li><li>Apagar una bodega en el Excel la excluye del inventario en la siguiente ejecución.</li><li>Cada canal muestra el precio de la lista de Alegra asignada en el Excel.</li><li>Una orden de Multivende genera una factura electrónica en Alegra con sus productos.</li><li>Un comprador que ya existe en Alegra no se crea de nuevo.</li><li>Una orden con datos incompletos no se factura y queda reportada.</li><li>Una misma orden nunca genera dos facturas.</li><li>La orden facturada muestra en Multivende el número de factura y su nuevo estado.</li><li>Todas las operaciones quedan registradas en los logs.</li></ul>
+      <h2 class="subtitulo">Entregables finales</h2>
+      <ul class="lista-simple"><li>Código fuente documentado</li><li>Manual de configuración del Excel de bodegas y precios</li><li>Manual de operación y soporte</li><li>Scripts de base de datos</li><li>Plan de pruebas ejecutado</li><li>Capacitación de 2 horas</li></ul>
+    </div>
+  </section>
+
+
+  <section id="condiciones">
+    <div class="contenedor">
+      <h2>Condiciones</h2>
+      <dl class="condiciones">
+        <div><dt>Inicio y duración</dt><dd>El desarrollo inicia una vez aprobada la propuesta y recibido el anticipo. La duración se cuenta en días hábiles desde ese momento.</dd></div>
+        <div><dt>Seguimiento</dt><dd>Reuniones semanales para presentar avances, resolver dudas y gestionar solicitudes de cambio.</dd></div>
+        <div><dt>Implementación</dt><dd>La solución se entrega funcionando, implementada en la infraestructura que brinde el cliente, sea On-Premise o Cloud. Los costos de infraestructura corren por cuenta del cliente.</dd></div>
+        <div><dt>Capacitación</dt><dd>Incluye las horas de capacitación indicadas en esta propuesta para el personal que defina el cliente, de forma presencial o virtual, según su disponibilidad.</dd></div>
+        <div><dt>Garantía</dt><dd>Garantía de corrección de errores y ajustes de bajo impacto durante los días calendario indicados, contados desde la entrega final. No aplica a requerimientos nuevos o funcionalidades adicionales.</dd></div>
+        <div><dt>Cambios de alcance</dt><dd>Cualquier funcionalidad no descrita en esta propuesta se cotiza por separado, previa aprobación escrita del cliente.</dd></div>
+        <div><dt>Confidencialidad</dt><dd>El código fuente, la documentación y la información del cliente se manejan y entregan de forma confidencial.</dd></div>
+        <div><dt>Datos personales</dt><dd>Tratamiento conforme a la Ley 1581 de 2012 y sus decretos reglamentarios.</dd></div>
+        <div><dt>Vigencia</dt><dd>Esta propuesta es válida hasta el 19 de noviembre de 2026.</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section id="aceptacion">
+    <div class="contenedor">
+      <h2>Aceptación</h2>
+      <p>Las partes manifiestan su conformidad con los términos, el alcance, el cronograma y las condiciones de esta propuesta.</p>
+      <div class="firmas">
+        <div class="firma">
+          <strong>Martin Felipe Henriquez Fajardo</strong>
+          <span>Desarrollador de software FullStack</span>
+          <span>Fecha:</span>
+        </div>
+        <div class="firma">
+          <strong>Juan Peñalosa</strong>
+          <span>Techsaurus</span>
+          <span>Fecha:</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cierre">
+    <div class="contenedor">
+      <h2>Siguiente paso</h2>
+      <p>Confirmar los supuestos marcados, entregar los accesos de Alegra y Multivende, firmar la aceptación y programar la reunión de inicio.</p>
+      <div class="contacto">
+<a href="tel:+573104616938">+57 310 461 6938</a>      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="contenedor">
+    Documento confidencial preparado para Techsaurus por Martin Felipe Henriquez Fajardo, Medellín. Emitido el 20 de octubre de 2026, válido hasta el 19 de noviembre de 2026.
+  </div>
+</footer>
+</body>
+</html>
