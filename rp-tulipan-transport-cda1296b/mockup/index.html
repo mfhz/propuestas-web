@@ -26,6 +26,10 @@
   --fuente: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
 }
 * { box-sizing: border-box; }
+html { background: var(--fondo); }
+/* El pie queda siempre abajo, aunque el contenido sea más corto que la pantalla */
+body { min-height: 100vh; display: flex; flex-direction: column; }
+.contenido { flex: 1 0 auto; }
 body { margin: 0; background: var(--fondo); color: var(--texto); font-family: var(--fuente); font-size: 15px; line-height: 1.45; }
 button { font: inherit; cursor: pointer; }
 a { color: inherit; }
@@ -151,7 +155,7 @@ a { color: inherit; }
 }
 
 /* Autoría */
-.autor { background: var(--carbon); color: #E5E7EB; margin-top: 1rem; }
+.autor { background: var(--carbon); color: #E5E7EB; flex: none; }
 .autor .cont { max-width: 1180px; margin: 0 auto; padding: 1.5rem 1rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
 .autor .quien small { display: block; color: #9CA3AF; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; }
 .autor .quien b { color: var(--blanco); font-size: 1.1rem; }
@@ -214,6 +218,7 @@ tr:last-child td { border-bottom: 0; }
   </div>
 </header>
 
+<main class="contenido">
 <div class="intro">
   <h1>Así se vería la plataforma de transporte de contenedores</h1>
   <p>Toca los pasos o los botones dentro de cada pantalla para recorrer el flujo. Los datos son de ejemplo. El diseño final se ajusta con Rp Tulipan Transport en la primera etapa del proyecto.</p>
@@ -678,6 +683,7 @@ tr:last-child td { border-bottom: 0; }
     </article>
   </div>
 </section>
+</main>
 
 <footer class="autor">
   <div class="cont">
