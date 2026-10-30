@@ -100,13 +100,15 @@ h3 { font-size: 1.3rem; font-weight: 640; font-stretch: 106%; line-height: 1.25;
 p { max-width: 42rem; }
 .dos-col { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; }
 .dos-col h3 { margin-bottom: 0.5rem; }
+.opciones > div { border: 1px solid var(--trazo); border-radius: 6px; padding: 1.25rem 1.5rem; }
+.opciones h4 { font-size: 0.9375rem; font-weight: 640; margin: 1rem 0 0.25rem; color: var(--grafito); }
 .nota { color: var(--grafito); font-size: 0.9375rem; }
 
 /* Regla de cronograma */
 .regla-scroll { overflow-x: auto; }
 .regla { min-width: 44rem; }
 .regla-fila { display: grid; grid-template-columns: 15rem minmax(0, 1fr); align-items: center; }
-.regla-pista { display: grid; grid-template-columns: repeat(10, minmax(0.6rem, 1fr)); }
+.regla-pista { display: grid; grid-template-columns: repeat(32, minmax(0.6rem, 1fr)); }
 .escala { border-bottom: 1.5px solid var(--tinta); }
 .escala .regla-pista > span {
   font-size: 0.8125rem; color: var(--grafito); padding: 0 0 0.4rem 0.4rem;
@@ -119,7 +121,7 @@ p { max-width: 42rem; }
   content: ""; position: absolute; left: 50%; bottom: 0; height: 0.45rem; border-left: 1px solid var(--grafito);
 }
 .regla-fila.fase { border-bottom: 1px dashed var(--trazo); min-height: 3.5rem; }
-.regla-fila.fase .regla-pista { background-image: linear-gradient(to right, var(--trazo) 1px, transparent 1px); background-size: calc(500% / 10) 100%; height: 100%; padding: 0.6rem 0; }
+.regla-fila.fase .regla-pista { background-image: linear-gradient(to right, var(--trazo) 1px, transparent 1px); background-size: calc(500% / 32) 100%; height: 100%; padding: 0.6rem 0; }
 .regla-nombre { padding-right: 1rem; font-weight: 560; line-height: 1.25; }
 .regla-nombre small { display: block; color: var(--grafito); font-weight: 400; }
 .barra-fase {
@@ -281,17 +283,17 @@ footer { padding: 1.5rem 0 2.5rem; color: var(--grafito); font-size: 0.875rem; }
     <div class="contenedor">
       <div>
         <p class="para">Propuesta para Techsaurus</p>
-        <h1>Las ventas de Mercado Libre, Falabella, eBay y Walmart facturadas en Alegra, y el inventario y los precios de Alegra en cada canal, con la misma lógica que hoy funciona con Begranda.</h1>
-        <p class="resumen">Migración de la integración actual de Techsaurus de Begranda a Alegra: se reemplaza el conector del software contable y se conserva la lógica de inventario, precios, órdenes, facturación y estados con los cuatro marketplaces.</p>
+        <h1>Un cambio en Alegra llega solo a todos los marketplaces de Techsaurus, y cada pedido vuelve a Alegra con su guía de ShipStation.</h1>
+        <p class="resumen">Una implementación nueva en Python: Alegra envía precios, inventario, pedidos y clientes a un centro de ventas (Multivende o Shopify, a elección de Techsaurus); el centro los lleva a los marketplaces que tienen plugin, y una integración propia cubre los que no lo tienen. Los pedidos regresan a Alegra con su cliente, y ShipStation calcula el peso y el precio del envío y genera la guía.</p>
       </div>
       <dl class="cajetin" aria-label="Ficha de la propuesta">
         <div><dt>Propuesta</dt><dd>COT-2026-007</dd></div>
-        <div><dt>Emitida</dt><dd>28 de octubre de 2026</dd></div>
+        <div><dt>Emitida</dt><dd>30 de octubre de 2026</dd></div>
         <div class="ancho"><dt>Cliente</dt><dd>Techsaurus, Jorge Lara</dd></div>
         <div class="ancho"><dt>Preparada por</dt><dd>Martin Felipe Henriquez Fajardo, Desarrollador de software FullStack</dd></div>
-        <div><dt>Duración</dt><dd>10 días hábiles</dd></div>
-        <div><dt>Válida hasta</dt><dd>27 de noviembre de 2026</dd></div>
-        <div class="ancho total"><dt>Inversión total</dt><dd>$3.500.000</dd></div>
+        <div><dt>Duración</dt><dd>1 mes y medio (45 días calendario) · 32 días hábiles</dd></div>
+        <div><dt>Válida hasta</dt><dd>29 de noviembre de 2026</dd></div>
+        <div class="ancho total"><dt>Inversión total</dt><dd>$10.800.000</dd></div>
       </dl>
     </div>
   </div>
@@ -301,16 +303,35 @@ footer { padding: 1.5rem 0 2.5rem; color: var(--grafito); font-size: 0.875rem; }
       <div class="dos-col">
         <div>
           <h3>Lo que pasa hoy</h3>
-          <p>Techsaurus cambió su software contable de Begranda a Alegra. La integración con Mercado Libre, Falabella, eBay y Walmart está construida sobre Begranda, así que el inventario, los precios y la facturación de las ventas dejan de estar conectados con el nuevo sistema.</p>
+          <p>Techsaurus lleva su operación en Alegra y vende en Amazon, Walmart, Mercado Libre, Falabella, eBay, Swappa, Newegg y Backmarket, además de su tienda. Algunos de esos canales se pueden conectar con plugins de una plataforma central, pero otros no tienen plugin. Sin una integración, cada cambio de precio o inventario y cada pedido se manejan canal por canal, con riesgo de vender sin stock o con el precio equivocado.</p>
         </div>
         <div>
           <h3>Lo que proponemos</h3>
-          <p>Reemplazar el conector de Begranda por uno de Alegra dentro de la integración existente, sin cambiar los conectores de los marketplaces ni las reglas de negocio. Se entrega en dos etapas funcionales y una etapa final de pruebas integrales, con paso a producción y retiro de Begranda.</p>
+          <p>Alegra queda como la fuente única de precios e inventario. Una integración propia (API) lo conecta con el centro de ventas que Techsaurus elija, que reparte la información a los marketplaces con plugin. Para los marketplaces sin plugin se desarrollan conectores propios, de modo que todos se actualizan cuando Alegra cambia algo. Los pedidos de todos los canales vuelven a Alegra con su cliente, y ShipStation genera la guía. Se entrega en cuatro etapas funcionales y una etapa de pruebas integrales.</p>
         </div>
       </div>
       <h2 class="subtitulo">Sistemas involucrados</h2>
       <dl class="sistemas">
-<div><dt>Alegra</dt><dd>Nuevo software contable: productos, inventario por bodega, listas de precios, clientes y factura electrónica.</dd></div><div><dt>Mercado Libre, Falabella, eBay y Walmart</dt><dd>Marketplaces donde Techsaurus vende; sus conectores actuales se conservan.</dd></div><div><dt>Begranda</dt><dd>Software contable anterior; deja de usarse en la integración al salir a producción.</dd></div>      </dl>
+<div><dt>Alegra</dt><dd>Software contable y fuente de precios, inventario, clientes y pedidos.</dd></div><div><dt>Multivende o Shopify</dt><dd>Centro de ventas que reparte precios e inventario a los marketplaces con plugin y concentra sus pedidos.</dd></div><div><dt>Marketplaces con plugin</dt><dd>Se conectan con el centro de ventas por el plugin de la plataforma, sin código propio.</dd></div><div><dt>Marketplaces con código propio</dt><dd>eBay, Swappa, Newegg, Backmarket o Mercado Libre, según la opción: se conectan por su API con conectores desarrollados en este proyecto.</dd></div><div><dt>ShipStation</dt><dd>Cálculo del peso y del precio del envío, y generación de guías.</dd></div>      </dl>
+      <h2 class="subtitulo">Dos opciones a elegir</h2>
+<p>Techsaurus elige una de las dos antes de iniciar. El valor, el plazo y las etapas son los mismos; cambia la plataforma central y qué marketplaces van por plugin o por código propio.</p>      <div class="dos-col opciones">
+        <div>
+          <h3>Opción A: Multivende</h3>
+          <p>Alegra se conecta con Multivende, que publica en los canales con plugin. Los marketplaces sin plugin se conectan con código propio desde Multivende.</p>
+          <h4>Por plugin de Multivende</h4>
+          <ul class="lista-simple"><li>Amazon</li><li>Walmart</li><li>Mercado Libre</li><li>Falabella</li><li>Shopify</li></ul>
+          <h4>Con código propio</h4>
+          <ul class="lista-simple"><li>eBay</li><li>Swappa</li><li>Newegg</li><li>Backmarket</li></ul>
+        </div>
+        <div>
+          <h3>Opción B: Shopify</h3>
+          <p>Para el caso en que Multivende no ofrezca la API necesaria o no se quiera usar: Shopify toma su lugar como centro de ventas.</p>
+          <h4>Por plugin de Shopify</h4>
+          <ul class="lista-simple"><li>Amazon</li><li>Walmart</li><li>eBay</li><li>Falabella</li></ul>
+          <h4>Con código propio</h4>
+          <ul class="lista-simple"><li>Mercado Libre</li><li>Swappa</li><li>Newegg</li><li>Backmarket</li></ul>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -318,36 +339,53 @@ footer { padding: 1.5rem 0 2.5rem; color: var(--grafito); font-size: 0.875rem; }
     <div class="contenedor">
       <h2>Plan de trabajo</h2>
       <div class="regla-scroll">
-        <div class="regla" role="img" aria-label="Cronograma de 10 días hábiles dividido en 3 etapas">
+        <div class="regla" role="img" aria-label="Cronograma de 32 días hábiles dividido en 5 etapas">
           <div class="regla-fila escala">
             <span></span>
             <div class="regla-pista">
               <span style="grid-column: span 5;"><span class="sem-l">Semana </span><span class="sem-c">S</span>1</span>
               <span style="grid-column: span 5;"><span class="sem-l">Semana </span><span class="sem-c">S</span>2</span>
+              <span style="grid-column: span 5;"><span class="sem-l">Semana </span><span class="sem-c">S</span>3</span>
+              <span style="grid-column: span 5;"><span class="sem-l">Semana </span><span class="sem-c">S</span>4</span>
+              <span style="grid-column: span 5;"><span class="sem-l">Semana </span><span class="sem-c">S</span>5</span>
+              <span style="grid-column: span 5;"><span class="sem-l">Semana </span><span class="sem-c">S</span>6</span>
+              <span style="grid-column: span 2;"><span class="sem-l">Semana </span><span class="sem-c">S</span>7</span>
             </div>
           </div>
           <div class="regla-fila fase">
-            <div class="regla-nombre">E1 Inventario y precios desde Alegra<small>4 días hábiles</small></div>
+            <div class="regla-nombre">E1 Alegra conectado al centro de ventas<small>6 días hábiles</small></div>
             <div class="regla-pista">
-              <div class="barra-fase" style="grid-column: 1 / span 4;">4 días</div>
+              <div class="barra-fase" style="grid-column: 1 / span 6;">6 días</div>
             </div>
           </div>
           <div class="regla-fila fase">
-            <div class="regla-nombre">E2 Órdenes y facturación en Alegra<small>4 días hábiles</small></div>
+            <div class="regla-nombre">E2 Pedidos y clientes en Alegra<small>5 días hábiles</small></div>
             <div class="regla-pista">
-              <div class="barra-fase" style="grid-column: 5 / span 4;">4 días</div>
+              <div class="barra-fase" style="grid-column: 7 / span 5;">5 días</div>
             </div>
           </div>
           <div class="regla-fila fase">
-            <div class="regla-nombre">PI Pruebas integrales<small>2 días hábiles</small></div>
+            <div class="regla-nombre">E3 Marketplaces con código propio<small>11 días hábiles</small></div>
             <div class="regla-pista">
-              <div class="barra-fase" style="grid-column: 9 / span 2;">2 días</div>
+              <div class="barra-fase" style="grid-column: 12 / span 11;">11 días</div>
+            </div>
+          </div>
+          <div class="regla-fila fase">
+            <div class="regla-nombre">E4 Guías con ShipStation<small>5 días hábiles</small></div>
+            <div class="regla-pista">
+              <div class="barra-fase" style="grid-column: 23 / span 5;">5 días</div>
+            </div>
+          </div>
+          <div class="regla-fila fase">
+            <div class="regla-nombre">PI Pruebas integrales<small>5 días hábiles</small></div>
+            <div class="regla-pista">
+              <div class="barra-fase" style="grid-column: 28 / span 5;">5 días</div>
             </div>
           </div>
         </div>
       </div>
       <div class="regla-total">
-        <span><strong>10 días hábiles</strong> de trabajo, unas 2 semanas</span>
+        <span><strong>32 días hábiles</strong> de trabajo: 1 mes y medio (45 días calendario)</span>
         <span>Seguimiento con reuniones semanales de avance.</span>
       </div>
     </div>
@@ -360,41 +398,42 @@ footer { padding: 1.5rem 0 2.5rem; color: var(--grafito); font-size: 0.875rem; }
         <div class="fase-cabeza">
           <div class="fase-id">E1</div>
           <div>
-            <h3>Inventario y precios desde Alegra</h3>
-            <div class="fase-meta">4 días hábiles</div>
+            <h3>Alegra conectado al centro de ventas</h3>
+            <div class="fase-meta">6 días hábiles</div>
           </div>
         </div>
         <div class="fase-cuerpo">
-<p>Los cuatro marketplaces reciben el inventario y los precios desde Alegra, con las mismas reglas que hoy se aplican con Begranda.</p>          <div class="fase-grid">
+<p>Los precios y el inventario de Alegra llegan al centro de ventas elegido, y de ahí a los marketplaces con plugin.</p>          <div class="fase-grid">
             <div class="bloque">
               <h4>Funcionalidades</h4>
               <div class="grupo">
-                <strong>Equivalencias</strong>
-                <ul><li>Revisión de la lógica actual con Begranda</li><li>Equivalencia de productos, bodegas y listas de precios en Alegra</li></ul>
-              </div>
-              <div class="grupo">
                 <strong>Conector con Alegra</strong>
-                <ul><li>Autenticación con la API de Alegra</li><li>Consulta de productos, inventario por bodega y listas de precios</li></ul>
+                <ul><li>Productos, inventario por bodega y listas de precios</li><li>Detección de cambios para enviar solo lo nuevo</li></ul>
               </div>
               <div class="grupo">
-                <strong>Sincronización</strong>
-                <ul><li>Inventario de Alegra hacia Mercado Libre, Falabella, eBay y Walmart</li><li>Precios de Alegra hacia cada marketplace</li></ul>
+                <strong>Conector con el centro de ventas</strong>
+                <ul><li>Autenticación con la API de Multivende o de Shopify</li><li>Actualización de precios e inventario por SKU</li></ul>
+              </div>
+              <div class="grupo">
+                <strong>Base del proyecto</strong>
+                <ul><li>Ejecución programada en el servidor del cliente</li><li>Logs de cada sincronización</li></ul>
               </div>
             </div>
             <div class="bloque">
               <h4>Reglas de negocio</h4>
-              <ul class="reglas"><li>Las reglas de inventario y precios son las mismas que hoy funcionan con Begranda; solo cambia el origen de los datos.</li><li>Los productos se emparejan por SKU entre Alegra y cada marketplace; un SKU sin pareja se reporta y no se actualiza.</li><li>Si Alegra no responde, no se publica inventario en cero: se conserva el último valor y se registra el error.</li></ul>
+              <ul class="reglas"><li>Alegra es la fuente única de precios e inventario.</li><li>Los productos se emparejan por SKU; un SKU sin pareja se reporta y no se actualiza.</li><li>Si Alegra no responde, no se publica inventario en cero: se conserva el último valor y se registra el error.</li></ul>
             </div>
           </div>
           <div class="tabla-scroll">
             <table>
               <thead><tr><th>Entregable</th></tr></thead>
               <tbody>
-                <tr><td>Mapa de equivalencias Begranda – Alegra<span class="desc">Productos, bodegas, listas de precios y clientes en Alegra.</span></td></tr>
-                <tr><td>Conector con Alegra<span class="desc">Autenticación y consulta de productos, inventario y precios.</span></td></tr>
-                <tr><td>Inventario desde Alegra<span class="desc">Inventario de Alegra publicado en los cuatro marketplaces.</span></td></tr>
-                <tr><td>Precios desde Alegra<span class="desc">Precios de Alegra publicados en los cuatro marketplaces.</span></td></tr>
-                <tr><td>Pruebas y calidad<span class="desc">Inventario y precios comparados contra Alegra en cada marketplace.</span></td></tr>
+                <tr><td>Base del proyecto y despliegue<span class="desc">Repositorio, ambientes y ejecución programada.</span></td></tr>
+                <tr><td>Conector con Alegra<span class="desc">Productos, inventario por bodega y precios.</span></td></tr>
+                <tr><td>Conector con el centro de ventas<span class="desc">Multivende o Shopify: productos, precios e inventario.</span></td></tr>
+                <tr><td>Sincronización de precios e inventario<span class="desc">Cambios de Alegra publicados por SKU.</span></td></tr>
+                <tr><td>Logs de sincronización<span class="desc">Registro de cada ejecución y de los SKU sin pareja.</span></td></tr>
+                <tr><td>Pruebas y calidad<span class="desc">Cambios de precio e inventario verificados en el centro.</span></td></tr>
                 <tr><td>Gestión del proyecto<span class="desc">Seguimiento semanal y coordinación de accesos.</span></td></tr>
               </tbody>
             </table>
@@ -405,42 +444,132 @@ footer { padding: 1.5rem 0 2.5rem; color: var(--grafito); font-size: 0.875rem; }
         <div class="fase-cabeza">
           <div class="fase-id">E2</div>
           <div>
-            <h3>Órdenes y facturación en Alegra</h3>
-            <div class="fase-meta">4 días hábiles</div>
+            <h3>Pedidos y clientes en Alegra</h3>
+            <div class="fase-meta">5 días hábiles</div>
           </div>
         </div>
         <div class="fase-cuerpo">
-<p>Cada orden de los cuatro marketplaces queda facturada en Alegra, con su cliente creado, y el marketplace recibe el número de factura y el nuevo estado.</p>          <div class="fase-grid">
+<p>Cada pedido de los canales con plugin llega a Alegra con su cliente, y su estado se actualiza en el centro de ventas.</p>          <div class="fase-grid">
             <div class="bloque">
               <h4>Funcionalidades</h4>
               <div class="grupo">
-                <strong>Cliente en Alegra</strong>
-                <ul><li>Búsqueda por documento para evitar duplicados</li><li>Creación del cliente si no existe</li></ul>
+                <strong>Pedidos</strong>
+                <ul><li>Consulta de pedidos nuevos en el centro de ventas</li><li>Registro del pedido en Alegra con sus productos</li></ul>
               </div>
               <div class="grupo">
-                <strong>Factura</strong>
-                <ul><li>Factura electrónica en Alegra con los productos de la orden</li><li>Descuento del inventario en la bodega que hoy se usa con Begranda</li></ul>
+                <strong>Clientes</strong>
+                <ul><li>Búsqueda por documento o correo para evitar duplicados</li><li>Creación del cliente si no existe</li></ul>
               </div>
               <div class="grupo">
-                <strong>Estado de la orden</strong>
-                <ul><li>Número de factura de Alegra en la orden</li><li>Cambio de estado en el marketplace, igual que hoy</li></ul>
+                <strong>Estados</strong>
+                <ul><li>Número de documento de Alegra en el pedido</li><li>Cambio de estado en el centro de ventas</li></ul>
               </div>
             </div>
             <div class="bloque">
               <h4>Reglas de negocio</h4>
-              <ul class="reglas"><li>Una orden se factura una sola vez, aunque se consulte varias veces.</li><li>Si el comprador ya existe en Alegra con el mismo documento, se usa ese cliente.</li><li>Una orden con datos del comprador incompletos no se factura y queda reportada para revisión.</li><li>El estado en el marketplace solo cambia si la factura se creó con éxito en Alegra.</li></ul>
+              <ul class="reglas"><li>Un pedido se registra en Alegra una sola vez, aunque se consulte varias veces.</li><li>Si el cliente ya existe en Alegra, se usa ese cliente.</li><li>Un pedido con datos incompletos no se registra y queda reportado para revisión.</li></ul>
             </div>
           </div>
           <div class="tabla-scroll">
             <table>
               <thead><tr><th>Entregable</th></tr></thead>
               <tbody>
+                <tr><td>Obtención de pedidos del centro de ventas<span class="desc">Pedidos nuevos con todos sus datos.</span></td></tr>
                 <tr><td>Clientes en Alegra<span class="desc">Búsqueda y creación sin duplicados.</span></td></tr>
-                <tr><td>Factura electrónica en Alegra<span class="desc">Factura de cada orden con descuento de inventario.</span></td></tr>
-                <tr><td>Factura y estado en el marketplace<span class="desc">Orden actualizada con su factura de Alegra.</span></td></tr>
-                <tr><td>Control de órdenes y logs<span class="desc">Sin facturas duplicadas y con registro de cada orden.</span></td></tr>
+                <tr><td>Pedido en Alegra<span class="desc">Documento de venta con productos y descuento de inventario.</span></td></tr>
+                <tr><td>Estado del pedido en el centro de ventas<span class="desc">Pedido actualizado con su documento de Alegra.</span></td></tr>
+                <tr><td>Control de pedidos y logs<span class="desc">Sin duplicados y con reproceso de fallidos.</span></td></tr>
                 <tr><td>Pruebas y calidad<span class="desc">Clientes nuevos, existentes y datos incompletos.</span></td></tr>
                 <tr><td>Gestión del proyecto<span class="desc">Seguimiento semanal y validación de reglas.</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </article>
+      <article class="fase-detalle">
+        <div class="fase-cabeza">
+          <div class="fase-id">E3</div>
+          <div>
+            <h3>Marketplaces con código propio</h3>
+            <div class="fase-meta">11 días hábiles</div>
+          </div>
+        </div>
+        <div class="fase-cuerpo">
+<p>Los cuatro marketplaces sin plugin reciben los mismos precios e inventario que los demás, y sus pedidos llegan a Alegra por el mismo camino.</p>          <div class="fase-grid">
+            <div class="bloque">
+              <h4>Funcionalidades</h4>
+              <div class="grupo">
+                <strong>Conectores por API</strong>
+                <ul><li>Opción A: eBay, Swappa, Newegg y Backmarket</li><li>Opción B: Mercado Libre, Swappa, Newegg y Backmarket</li></ul>
+              </div>
+              <div class="grupo">
+                <strong>En cada marketplace</strong>
+                <ul><li>Actualización de precio e inventario por SKU</li><li>Descarga de pedidos nuevos</li><li>Estado del pedido y número de guía de vuelta al marketplace</li></ul>
+              </div>
+            </div>
+            <div class="bloque">
+              <h4>Reglas de negocio</h4>
+              <ul class="reglas"><li>Cuando Alegra cambia un precio o un inventario, se actualizan los marketplaces con plugin y los de código propio.</li><li>Los pedidos de estos marketplaces siguen las mismas reglas de clientes y pedidos de la etapa E2.</li><li>Si la API de un marketplace falla, se reintenta y se reporta sin detener a los demás.</li></ul>
+            </div>
+          </div>
+          <div class="tabla-scroll">
+            <table>
+              <thead><tr><th>Entregable</th></tr></thead>
+              <tbody>
+                <tr><td>Orquestador de marketplaces propios<span class="desc">Reparte los cambios y reúne los pedidos de los cuatro.</span></td></tr>
+                <tr><td>Conector de eBay o Mercado Libre<span class="desc">Según la opción: precios, inventario, pedidos y guía.</span></td></tr>
+                <tr><td>Conector de Swappa<span class="desc">Precios, inventario, pedidos y guía.</span></td></tr>
+                <tr><td>Conector de Newegg<span class="desc">Precios, inventario, pedidos y guía.</span></td></tr>
+                <tr><td>Conector de Backmarket<span class="desc">Precios, inventario, pedidos y guía.</span></td></tr>
+                <tr><td>Logs por marketplace<span class="desc">Registro de cambios, pedidos y errores de cada canal.</span></td></tr>
+                <tr><td>Pruebas y calidad<span class="desc">Publicación y pedidos de prueba en cada marketplace.</span></td></tr>
+                <tr><td>Gestión del proyecto<span class="desc">Seguimiento semanal y gestión de accesos de vendedor.</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </article>
+      <article class="fase-detalle">
+        <div class="fase-cabeza">
+          <div class="fase-id">E4</div>
+          <div>
+            <h3>Guías con ShipStation</h3>
+            <div class="fase-meta">5 días hábiles</div>
+          </div>
+        </div>
+        <div class="fase-cuerpo">
+<p>Cada pedido que despacha Techsaurus tiene su guía en ShipStation, con el peso y el precio del envío calculados, y el número de seguimiento llega al marketplace.</p>          <div class="fase-grid">
+            <div class="bloque">
+              <h4>Funcionalidades</h4>
+              <div class="grupo">
+                <strong>Peso y precio</strong>
+                <ul><li>Peso del paquete a partir del peso de cada producto</li><li>Cotización del envío en ShipStation</li></ul>
+              </div>
+              <div class="grupo">
+                <strong>Guía</strong>
+                <ul><li>Creación de la guía con los datos del destinatario</li><li>Número de seguimiento devuelto al pedido y al marketplace</li></ul>
+              </div>
+            </div>
+            <div class="bloque">
+              <h4>Reglas de negocio</h4>
+              <ul class="reglas"><li>La guía se genera solo para pedidos registrados con éxito en Alegra.</li><li>El peso del paquete es la suma del peso de los productos más el empaque definido por Techsaurus.</li><li>Si ShipStation rechaza la guía, el pedido queda reportado y se reintenta.</li></ul>
+              <div class="ejemplo"><strong>Ejemplo de peso</strong><pre>Pedido con 2 unidades del SKU-100 (0,4 kg cada una) y 1 del SKU-200 (1,1 kg)
+Empaque: 0,3 kg
+Peso del paquete: 2,2 kg
+ShipStation cotiza el envío con ese peso y genera la guía.</pre></div>
+            </div>
+          </div>
+          <div class="tabla-scroll">
+            <table>
+              <thead><tr><th>Entregable</th></tr></thead>
+              <tbody>
+                <tr><td>Integración con la API de ShipStation<span class="desc">Envíos, cotización y guías.</span></td></tr>
+                <tr><td>Cálculo de peso del paquete<span class="desc">Peso de productos más empaque.</span></td></tr>
+                <tr><td>Cotización del envío<span class="desc">Precio del envío según peso y destino.</span></td></tr>
+                <tr><td>Seguimiento hacia los marketplaces<span class="desc">Número de guía en el pedido de cada canal.</span></td></tr>
+                <tr><td>Logs de guías<span class="desc">Registro de guías, rechazos y reintentos.</span></td></tr>
+                <tr><td>Pruebas y calidad<span class="desc">Guías en modo de prueba de ShipStation.</span></td></tr>
+                <tr><td>Gestión del proyecto<span class="desc">Seguimiento semanal.</span></td></tr>
               </tbody>
             </table>
           </div>
@@ -451,20 +580,20 @@ footer { padding: 1.5rem 0 2.5rem; color: var(--grafito); font-size: 0.875rem; }
           <div class="fase-id">PI</div>
           <div>
             <h3>Pruebas integrales</h3>
-            <div class="fase-meta">2 días hábiles</div>
+            <div class="fase-meta">5 días hábiles</div>
           </div>
         </div>
         <div class="fase-cuerpo">
-<p>El flujo completo con Alegra probado de punta a punta en los cuatro marketplaces y puesto en producción en lugar de Begranda.</p>          <div class="fase-grid">
+<p>El flujo completo, de un cambio en Alegra a la guía de ShipStation, probado en todos los marketplaces y puesto en producción.</p>          <div class="fase-grid">
             <div class="bloque">
               <h4>Funcionalidades</h4>
               <div class="grupo">
                 <strong>Pruebas</strong>
-                <ul><li>Órdenes de prueba en Mercado Libre, Falabella, eBay y Walmart hasta la factura</li><li>Ajustes según los hallazgos</li></ul>
+                <ul><li>Cambios de precio e inventario verificados en todos los marketplaces</li><li>Pedidos de prueba de punta a punta, hasta Alegra y la guía</li><li>Ajustes según los hallazgos</li></ul>
               </div>
               <div class="grupo">
                 <strong>Entrega</strong>
-                <ul><li>Paso a producción con Alegra y retiro de Begranda</li><li>Manual de operación actualizado</li><li>Capacitación de 2 horas</li></ul>
+                <ul><li>Despliegue en la infraestructura del cliente</li><li>Manuales de configuración y de operación</li><li>Capacitación de 2 horas</li></ul>
               </div>
             </div>
             <div class="bloque">
@@ -477,10 +606,10 @@ footer { padding: 1.5rem 0 2.5rem; color: var(--grafito); font-size: 0.875rem; }
               <thead><tr><th>Entregable</th></tr></thead>
               <tbody>
                 <tr><td>Plan y casos de prueba<span class="desc">Casos por marketplace con resultado esperado.</span></td></tr>
-                <tr><td>Pruebas de punta a punta<span class="desc">Órdenes de prueba en los cuatro marketplaces hasta la factura.</span></td></tr>
+                <tr><td>Pruebas de punta a punta<span class="desc">Cambios y pedidos de prueba en todos los canales.</span></td></tr>
                 <tr><td>Ajustes posteriores a las pruebas<span class="desc">Correcciones de bajo impacto.</span></td></tr>
-                <tr><td>Paso a producción<span class="desc">Integración con Alegra en producción y Begranda retirado.</span></td></tr>
-                <tr><td>Manual de operación actualizado<span class="desc">Configuración de Alegra, operación y soporte.</span></td></tr>
+                <tr><td>Despliegue en producción<span class="desc">Instalación en la infraestructura del cliente.</span></td></tr>
+                <tr><td>Manuales de configuración y operación<span class="desc">Configuración, operación y soporte.</span></td></tr>
                 <tr><td>Capacitación<span class="desc">2 horas para el equipo operativo.</span></td></tr>
               </tbody>
             </table>
@@ -494,14 +623,14 @@ footer { padding: 1.5rem 0 2.5rem; color: var(--grafito); font-size: 0.875rem; }
     <div class="contenedor">
       <h2>Requisitos técnicos</h2>
       <div class="dos-col">
-        <div><h3>Lo que necesitamos del cliente</h3><ul class="lista-simple"><li>Usuario y token de la API de Alegra.</li><li>Productos, bodegas, listas de precios y clientes ya cargados en Alegra por Techsaurus.</li><li>Ambiente o datos de prueba en Alegra para facturar sin afectar la operación.</li><li>Acceso al servidor donde corre hoy la integración y a las credenciales vigentes de los marketplaces.</li></ul></div>
-        <div><h3>Infraestructura</h3><ul class="lista-simple"><li>El mismo servidor o servicio en la nube donde corre hoy la integración, a cargo del cliente.</li><li>La base de datos de logs y control de órdenes que ya usa la integración.</li></ul></div>
+        <div><h3>Lo que necesitamos del cliente</h3><ul class="lista-simple"><li>Elección de la opción A (Multivende) o B (Shopify) antes del inicio.</li><li>Usuario y token de la API de Alegra.</li><li>Acceso a la API de Multivende o de Shopify, con un plan que la permita.</li><li>Cuentas de vendedor con acceso a la API en los marketplaces de código propio.</li><li>Plugins de los marketplaces activos y configurados en el centro de ventas.</li><li>Cuenta de ShipStation con las transportadoras configuradas y acceso a su API.</li><li>Peso de cada producto en Alegra y peso del empaque estándar.</li><li>Ambiente o datos de prueba para registrar pedidos sin afectar la operación.</li></ul></div>
+        <div><h3>Infraestructura</h3><ul class="lista-simple"><li>Servidor o servicio en la nube para ejecutar la integración, a cargo del cliente.</li><li>Base de datos para logs y control de pedidos procesados.</li><li>Programador de tareas para la ejecución automática.</li></ul></div>
       </div>
       <h2 class="subtitulo">Cómo se cuida la operación</h2>
       <div class="tres-col">
-        <div><h3>Manejo de errores</h3><ul class="lista-simple"><li>Validación de datos obligatorios del comprador</li><li>Reintentos ante errores transitorios de Alegra</li><li>Órdenes fallidas guardadas para reproceso</li></ul></div>
-        <div><h3>Seguridad</h3><ul class="lista-simple"><li>Credenciales de Alegra cifradas</li><li>Logs de auditoría</li></ul></div>
-        <div><h3>Monitoreo</h3><ul class="lista-simple"><li>Logs por proceso</li><li>Registro de órdenes procesadas y su factura en Alegra</li></ul></div>
+        <div><h3>Manejo de errores</h3><ul class="lista-simple"><li>Reintentos ante errores transitorios de las APIs</li><li>Un canal que falla no detiene a los demás</li><li>Pedidos fallidos guardados para reproceso</li></ul></div>
+        <div><h3>Seguridad</h3><ul class="lista-simple"><li>Credenciales de las APIs cifradas</li><li>Validación de datos de entrada</li><li>Logs de auditoría</li></ul></div>
+        <div><h3>Monitoreo</h3><ul class="lista-simple"><li>Logs por canal y por proceso</li><li>Registro de pedidos procesados, su documento en Alegra y su guía</li></ul></div>
       </div>
     </div>
   </section>
@@ -514,22 +643,24 @@ footer { padding: 1.5rem 0 2.5rem; color: var(--grafito); font-size: 0.875rem; }
           <table>
             <thead><tr><th>Etapa</th><th class="num">Días hábiles</th></tr></thead>
             <tbody>
-              <tr><td>E1 Inventario y precios desde Alegra</td><td class="num">4</td></tr>
-              <tr><td>E2 Órdenes y facturación en Alegra</td><td class="num">4</td></tr>
-              <tr><td>PI Pruebas integrales</td><td class="num">2</td></tr>
-              <tr><td><strong>Total</strong></td><td class="num"><strong>10</strong></td></tr>
+              <tr><td>E1 Alegra conectado al centro de ventas</td><td class="num">6</td></tr>
+              <tr><td>E2 Pedidos y clientes en Alegra</td><td class="num">5</td></tr>
+              <tr><td>E3 Marketplaces con código propio</td><td class="num">11</td></tr>
+              <tr><td>E4 Guías con ShipStation</td><td class="num">5</td></tr>
+              <tr><td>PI Pruebas integrales</td><td class="num">5</td></tr>
+              <tr><td><strong>Total</strong></td><td class="num"><strong>32</strong></td></tr>
             </tbody>
-            <tfoot><tr class="fila-total"><td colspan="1">Valor total</td><td class="num">$3.500.000</td></tr></tfoot>
+            <tfoot><tr class="fila-total"><td colspan="1">Valor total</td><td class="num">$10.800.000</td></tr></tfoot>
           </table>
           <p class="nota">Valores en pesos colombianos. Las funcionalidades adicionales se cotizan por separado.</p>
         </div>
         <div class="pagos">
           <h3>Forma de pago</h3>
-          <div class="pago"><span>Anticipo para iniciar el desarrollo, 50&nbsp;%</span><strong>$1.750.000</strong></div>
-          <div class="pago"><span>Al entregar desarrollo, pruebas y capacitación, 50&nbsp;%</span><strong>$1.750.000</strong></div>
+          <div class="pago"><span>Anticipo para iniciar el desarrollo, 50&nbsp;%</span><strong>$5.400.000</strong></div>
+          <div class="pago"><span>Al entregar desarrollo, pruebas y capacitación, 50&nbsp;%</span><strong>$5.400.000</strong></div>
           <div class="incluye">
             <div><span>Capacitación</span><strong>2 horas</strong></div>
-            <div><span>Garantía</span><strong>15 días calendario</strong></div>
+            <div><span>Garantía</span><strong>30 días calendario</strong></div>
             <div><span>Seguimiento</span><strong>Semanal</strong></div>
           </div>
         </div>
@@ -543,24 +674,25 @@ footer { padding: 1.5rem 0 2.5rem; color: var(--grafito); font-size: 0.875rem; }
         <div>
           <h2>Supuestos</h2>
           <ul class="lista">
-            <li><span>La integración actual conecta Begranda con Mercado Libre, Falabella, eBay y Walmart.</span></li>
-            <li><span>Techsaurus pasó su contabilidad de Begranda a Alegra y la lógica de la integración se conserva.</span></li>
-            <li><span>La migración es solo del código: no incluye pasar datos de Begranda a Alegra.</span></li>
-            <li><span>Hoy la integración sincroniza inventario y precios, factura las órdenes con su cliente y actualiza el estado en el marketplace.</span><span class="etiqueta">Por confirmar</span></li>
-            <li><span>El código actual de la integración está disponible y funcionando, y los conectores de los marketplaces no cambian.</span><span class="etiqueta">Por confirmar</span></li>
-            <li><span>Los productos tienen el mismo SKU en Alegra y en los marketplaces.</span><span class="etiqueta">Por confirmar</span></li>
-            <li><span>Las órdenes de eBay y Walmart se facturan en Alegra con la misma moneda y el mismo tipo de factura que hoy en Begranda.</span><span class="etiqueta">Por confirmar</span></li>
-            <li><span>La facturación electrónica ya está habilitada ante la DIAN en Alegra y se integra una sola cuenta.</span><span class="etiqueta">Por confirmar</span></li>
-            <li><span>Techsaurus entrega los accesos antes del inicio y revisa cada etapa en máximo 1 día hábil, para cumplir los 10 días hábiles.</span><span class="etiqueta">Por confirmar</span></li>
+            <li><span>Alegra envía precios, inventario, pedidos y clientes al centro de ventas por una integración propia.</span></li>
+            <li><span>Opción A: Multivende con plugin para Amazon, Walmart, Mercado Libre, Falabella y Shopify; código propio para eBay, Swappa, Newegg y Backmarket.</span></li>
+            <li><span>Opción B: Shopify con plugin para Amazon, Walmart, eBay y Falabella; código propio para Mercado Libre, Swappa, Newegg y Backmarket.</span></li>
+            <li><span>Las guías se generan en ShipStation, que calcula el peso y el precio del envío.</span></li>
+            <li><span>Cada pedido se registra en Alegra con su cliente; el tipo de documento (factura u otro) y la moneda de las ventas de cada canal se definen con Techsaurus al inicio.</span><span class="etiqueta">Por confirmar</span></li>
+            <li><span>Swappa, Newegg, Backmarket, eBay y Mercado Libre dan acceso a su API a la cuenta de vendedor de Techsaurus.</span><span class="etiqueta">Por confirmar</span></li>
+            <li><span>Los productos tienen el mismo SKU en Alegra, en el centro de ventas y en los marketplaces.</span><span class="etiqueta">Por confirmar</span></li>
+            <li><span>Los pedidos que despacha el propio marketplace (por ejemplo, Amazon FBA o Walmart WFS) no generan guía en ShipStation.</span><span class="etiqueta">Por confirmar</span></li>
+            <li><span>En la opción B, los conectores propios se enlazan con Shopify o directamente con Alegra, según convenga técnicamente; se define en la primera etapa.</span><span class="etiqueta">Por confirmar</span></li>
+            <li><span>Techsaurus entrega los accesos antes del inicio y revisa cada etapa en máximo 1 día hábil, para cumplir el mes y medio.</span><span class="etiqueta">Por confirmar</span></li>
           </ul>
         </div>
         <div>
           <h2>Restricciones</h2>
-          <ul class="lista"><li><span>Límites de consumo (rate limiting) de la API de Alegra.</span></li><li><span>Disponibilidad de los servicios externos.</span></li><li><span>El plazo de 10 días hábiles depende de que los accesos y las revisiones del cliente lleguen a tiempo; cada día de demora corre el cronograma.</span></li></ul>
+          <ul class="lista"><li><span>Límites de consumo (rate limiting) y aprobaciones de acceso de las APIs de Alegra, del centro de ventas, de los marketplaces y de ShipStation.</span></li><li><span>Lo que publican los plugins depende de Multivende o de Shopify y de cada marketplace.</span></li><li><span>El plazo de mes y medio depende de que los accesos y las revisiones del cliente lleguen a tiempo; cada día de demora corre el cronograma.</span></li></ul>
         </div>
         <div>
           <h2>No incluye</h2>
-          <ul class="lista"><li><span>Migración de datos de Begranda a Alegra (productos, clientes, saldos o histórico de órdenes y facturas).</span></li><li><span>Configuración de Alegra y habilitación de facturación electrónica ante la DIAN.</span></li><li><span>Mejoras o cambios grandes a la lógica que ya existe: la integración se migra tal como funciona hoy con Begranda.</span></li><li><span>Funcionalidades nuevas que no existan hoy en la integración.</span></li><li><span>Marketplaces distintos de Mercado Libre, Falabella, eBay y Walmart.</span></li><li><span>Licencias de Alegra y de los marketplaces, y costos del servidor.</span></li></ul>
+          <ul class="lista"><li><span>Implementar las dos opciones: se implementa la que Techsaurus elija.</span></li><li><span>Configuración de los plugins, publicaciones o fichas de producto en Multivende, Shopify o los marketplaces.</span></li><li><span>Marketplaces distintos de los nombrados en la opción elegida.</span></li><li><span>Notas crédito, devoluciones y cancelaciones de pedidos.</span></li><li><span>Habilitación de facturación electrónica ante la DIAN.</span></li><li><span>Licencias y suscripciones de Alegra, Multivende, Shopify, ShipStation y los marketplaces, costos de envío y del servidor.</span></li></ul>
         </div>
       </div>
     </div>
@@ -569,9 +701,9 @@ footer { padding: 1.5rem 0 2.5rem; color: var(--grafito); font-size: 0.875rem; }
   <section id="entrega">
     <div class="contenedor">
       <h2>Criterios de aceptación</h2>
-      <ul class="criterios"><li>Cada marketplace muestra el inventario de Alegra con las mismas reglas que hoy aplican con Begranda.</li><li>Cada marketplace muestra el precio de Alegra que le corresponde.</li><li>Una orden de cada marketplace genera una factura electrónica en Alegra con sus productos.</li><li>Un comprador que ya existe en Alegra no se crea de nuevo.</li><li>Una misma orden nunca genera dos facturas.</li><li>La orden facturada muestra en el marketplace el número de factura de Alegra y su nuevo estado.</li><li>La integración en producción ya no consulta ni escribe en Begranda.</li><li>Todas las operaciones quedan registradas en los logs.</li></ul>
+      <ul class="criterios"><li>Un cambio de precio en Alegra aparece en todos los marketplaces de la opción elegida.</li><li>Un cambio de inventario en Alegra aparece en todos los marketplaces de la opción elegida.</li><li>Un pedido de un marketplace con plugin queda registrado en Alegra con su cliente.</li><li>Un pedido de cada marketplace de código propio queda registrado en Alegra con su cliente.</li><li>Un cliente que ya existe en Alegra no se crea de nuevo.</li><li>Un mismo pedido nunca se registra dos veces.</li><li>Cada pedido despachado por Techsaurus tiene guía en ShipStation con el peso calculado.</li><li>El número de guía aparece en el pedido del marketplace.</li><li>Todas las operaciones quedan registradas en los logs.</li></ul>
       <h2 class="subtitulo">Entregables finales</h2>
-      <ul class="lista-simple"><li>Código fuente actualizado y documentado</li><li>Manual de operación actualizado</li><li>Plan de pruebas ejecutado</li><li>Capacitación de 2 horas</li></ul>
+      <ul class="lista-simple"><li>Código fuente documentado</li><li>Manual de configuración</li><li>Manual de operación y soporte</li><li>Scripts de base de datos</li><li>Plan de pruebas ejecutado</li><li>Capacitación de 2 horas</li></ul>
     </div>
   </section>
 
@@ -588,7 +720,7 @@ footer { padding: 1.5rem 0 2.5rem; color: var(--grafito); font-size: 0.875rem; }
         <div><dt>Cambios de alcance</dt><dd>Cualquier funcionalidad no descrita en esta propuesta se cotiza por separado, previa aprobación escrita del cliente.</dd></div>
         <div><dt>Confidencialidad</dt><dd>El código fuente, la documentación y la información del cliente se manejan y entregan de forma confidencial.</dd></div>
         <div><dt>Datos personales</dt><dd>Tratamiento conforme a la Ley 1581 de 2012 y sus decretos reglamentarios.</dd></div>
-        <div><dt>Vigencia</dt><dd>Esta propuesta es válida hasta el 27 de noviembre de 2026.</dd></div>
+        <div><dt>Vigencia</dt><dd>Esta propuesta es válida hasta el 29 de noviembre de 2026.</dd></div>
       </dl>
     </div>
   </section>
@@ -615,7 +747,7 @@ footer { padding: 1.5rem 0 2.5rem; color: var(--grafito); font-size: 0.875rem; }
   <section class="cierre">
     <div class="contenedor">
       <h2>Siguiente paso</h2>
-      <p>Confirmar los supuestos marcados, entregar los accesos de Alegra, firmar la aceptación y programar la reunión de inicio.</p>
+      <p>Elegir la opción A o B, confirmar los supuestos marcados, entregar los accesos, firmar la aceptación y programar la reunión de inicio.</p>
       <div class="contacto">
 <a href="tel:+573104616938">+57 310 461 6938</a>      </div>
     </div>
@@ -624,7 +756,7 @@ footer { padding: 1.5rem 0 2.5rem; color: var(--grafito); font-size: 0.875rem; }
 
 <footer>
   <div class="contenedor">
-    Documento confidencial preparado para Techsaurus por Martin Felipe Henriquez Fajardo, Medellín. Emitido el 28 de octubre de 2026, válido hasta el 27 de noviembre de 2026.
+    Documento confidencial preparado para Techsaurus por Martin Felipe Henriquez Fajardo, Medellín. Emitido el 30 de octubre de 2026, válido hasta el 29 de noviembre de 2026.
   </div>
 </footer>
 </body>
